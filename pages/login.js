@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import axios from 'axios'
 import useSecurity from '../useSecurity'
 
 export default () => {
@@ -7,14 +6,19 @@ export default () => {
     const [password, setPassword] = useState('')
     const { login, feedback } = useSecurity()
     const handleLogin = e => {
+        e.preventDefault()
         login(username, password)
     } 
     return (
         <>
             <h1>{feedback}</h1>
-            <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            <input type="button" onClick={handleLogin} value="login" />
+            <form onSubmit={handleLogin}>
+                <label htmlFor="username">Username: </label>
+                <input type="text" id="username" value={username} onChange={e => setUsername(e.target.value)}/>
+                <label htmlFor="password">Password: </label>
+                <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
+                <input type="submit" value="login" />
+            </form>
         </>
     )
 }

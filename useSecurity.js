@@ -7,15 +7,12 @@ export default () => {
     const [feedback, setFeedback] = useState('')
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [token, setToken] = useState(null)
-    const [userId, setUserId] = useState(null)
 
     useEffect( () => {
         const localToken = localStorage.getItem('token') || undefined
         // TODO: what do you do if token is expired??
         if (localToken) {
             setToken(localToken)
-            const decoded = JWT.decode(localToken, { complete: true })
-            // setUserId( parseInt( decoded.payload.security.userid ))
             setIsLoggedIn(true)
         }
     }, [])
@@ -29,19 +26,38 @@ export default () => {
             'Content-Type': 'application/json'
         }
         try {
-            const loginResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/login`, requestBody, config)
-            console.log(loginResponse)
+            const loginResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/login_check`, requestBody, config)
             const jwt = loginResponse.data.token
             localStorage.setItem('token', jwt)
             const decoded = JWT.decode(jwt, { complete: true })
-            // setUserId( parseInt( decoded.payload.security.userid ))
+            console.log(decoded)
             setToken(jwt)
             setIsLoggedIn(true)
             Router.push('/')
         } catch (error) {
             console.log(error)
             setFeedback("Wrong username or password provided")
-            localStorage.removeItem('token')
+        }
+    }
+
+    const register = async ( email, firstName, lastName, cosplayName = null, password) => {
+        const requestBody = {
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            cosplayName: cosplayName,
+            password: password
+        }
+        const config = {
+            'Content-Type': 'application/json'
+        }
+        try {
+            const registerResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/users`, requestBody, config)
+            console.log(registerResponse)
+            login(registerResponse.data.email, password)
+        } catch (error) {
+            console.log(error)
+            setFeedback("Couldn't register")
         }
     }
 
@@ -53,5 +69,6 @@ export default () => {
             console.log(error)
         }
     }
-    return { isLoggedIn, token, login, feedback, logout, userId}
+
+    return { isLoggedIn, token, login, feedback, logout, register}
 }
