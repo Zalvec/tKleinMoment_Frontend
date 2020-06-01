@@ -2,6 +2,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import {slugify} from '../../../helper'
 
+import Layout from '../../../components/layout'
+
 export default ({album}) => {
     console.log(album)
 
@@ -13,7 +15,7 @@ export default ({album}) => {
     }
     
     return (
-        <>
+        <Layout>
             <h1>Album</h1>
             <p>{album.name}</p>
             <p>{album.date}</p>
@@ -41,7 +43,7 @@ export default ({album}) => {
                 <p>No images in this album</p>
             }
                        
-        </>
+        </Layout>
     )
 }
 

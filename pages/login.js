@@ -1,24 +1,17 @@
-import { useState } from 'react'
-import useSecurity from '../useSecurity'
+import React from "react";
+
+import Layout from '../components/layout'
+import Login from '../components/log_register/login'
+import Register from '../components/log_register/register'
 
 export default () => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const { login, feedback } = useSecurity()
-    const handleLogin = e => {
-        e.preventDefault()
-        login(username, password)
-    } 
     return (
-        <>
-            <h1>{feedback}</h1>
-            <form onSubmit={handleLogin}>
-                <label htmlFor="username">Username: </label>
-                <input type="text" id="username" value={username} onChange={e => setUsername(e.target.value)}/>
-                <label htmlFor="password">Password: </label>
-                <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
-                <input type="submit" value="login" />
-            </form>
-        </>
+        <Layout>
+            <h2>Login</h2>
+            <Login />
+
+            <h2>Register</h2>
+            <Register />
+        </Layout>
     )
 }

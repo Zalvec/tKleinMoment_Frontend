@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import useSecurity from '../useSecurity'
+import useSecurity from '../../useSecurity'
 
 export default () => {
     const [email, setEmail] = useState('')

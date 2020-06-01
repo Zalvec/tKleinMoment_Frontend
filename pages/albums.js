@@ -2,10 +2,12 @@ import axios from 'axios'
 import Link from 'next/link'
 import {slugify} from '../helper'
 
+import Layout from '../components/layout'
+
 export default ({albums}) => {
     console.log(albums)
     return (
-        <>
+        <Layout>
             <h1>Overview albums</h1>
             <ul>
                 { albums.map( album => 
@@ -17,7 +19,7 @@ export default ({albums}) => {
                     </li> 
                 )}
             </ul>
-        </>
+        </Layout>
     )
 }
 
