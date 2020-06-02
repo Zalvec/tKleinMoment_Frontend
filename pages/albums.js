@@ -1,27 +1,40 @@
 import axios from 'axios'
 import Link from 'next/link'
-import {slugify} from '../helper'
+import Head from 'next/head'
+import { Grid } from '@material-ui/core'
 
+import {slugify} from '../helper'
 import Layout from '../components/layout'
 
 export default ({albums}) => {
     console.log(albums)
+
     return (
-        <Layout>
-            <h1>Overview albums</h1>
-            <ul>
-                { albums.map( album => 
-                    <li key={album.id}> 
-                        {album.name} - - {album.location} 
-                        <Link href={`/album/${album.id}/${slugify(album.name)}`}>
-                            <a>meer info</a>
-                        </Link>
-                    </li> 
-                )}
-            </ul>
-        </Layout>
-    )
-}
+        <>
+            <Head>
+                <title>'t Klein Moment - Albums</title>
+            </Head>
+            <Layout>
+                <h1>Overview albums</h1>
+                <Grid container spacing={4}>
+                    { albums.map( ({active, id, name, cover}) => 
+                        <>
+                            { active &&
+                                <Grid item xs={12} sm={6} md={4} lg={3} key={id}>
+                                    <Link href={`/album/${id}/${slugify(name)}`}>
+                                        <a>
+                                            <p>{name}</p>
+                                            <img style={{ maxHeight:'200px', width:'200px', overflow:'hidden'}} src={`https://wdev.be/wdev_roel/eindwerk/img/covers/${cover}`} alt=""/>
+                                        </a>
+                                    </Link>
+                                </Grid>
+                            }
+                        </>
+                    )}
+                </Grid>
+            </Layout>
+        </>
+)}
 
 // Alle albums ophalen uit de database on build time en deze returnen aan de export default hierboven
 export const getStaticProps = async () => {

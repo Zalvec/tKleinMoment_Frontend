@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import {slugify} from '../../../helper'
+import { Card, CardContent, Typography, CardMedia, LinearProgress } from '@material-ui/core'
+import Head from 'next/head'
 
+import {slugify} from '../../../helper'
 import Layout from '../../../components/layout'
 
 export default ({album}) => {
@@ -11,39 +13,50 @@ export default ({album}) => {
 
     // Toont loading als de pagina nog niet gebuild is en door fallback gegerereerd word
     if (router.isFallback){
-        return <div>Loading...</div>
+        return <LinearProgress />
     }
     
     return (
-        <Layout>
-            <h1>Album</h1>
-            <p>{album.name}</p>
-            <p>{album.date}</p>
-            {/* Toont enkel images als er images in het album staan */}
-            { album.images.length !== 0 
-                &&
-                <ul>
-                    { album.images.map( 
+        <>
+            <Head>
+                <title>'t Klein Moment - {album.name}</title>
+            </Head>
+            <Layout>
+                <Card>
+                    <CardContent>
+                        <Typography variant="h3" component="h2">{album.name}</Typography>
+                        <Typography>Description: {album.description}</Typography>
+                        <Typography>Location: {album.location}</Typography>
+                        <Typography>Event: {album.event}</Typography>
+                        <Typography>Date: {album.date}</Typography>
+                    </CardContent>
+                </Card>
+
+                {/* Toont enkel images als er images in het album staan */}
+                { album.images.length !== 0 &&
+                    album.images.map( 
                         ({image, alt, description, active, id}) => 
                             (   
                                 <>
                                     {/* Toont enkel images die actief staan in de database */}
                                     { active && 
-                                        <li key={id}>
-                                            <img src={`https://wdev.be/wdev_roel/eindwerk/img/albums/${image}`} alt={alt} width='80px'/>
-                                            <p>{image}</p>
-                                            <p>{description}</p>
-                                        </li>
+                                        <Card>
+                                            <CardMedia image={`https://wdev.be/wdev_roel/eindwerk/img/albums/${image}`} alt={alt} style={{ height:"140px", width:"140px" }}/>
+                                            <CardContent>
+                                                <Typography>
+                                                    {description}
+                                                </Typography>
+                                            </CardContent>
+                                        </Card>
                                     }
                                 </>
                             )
-                    )}
-                </ul>
-                ||
-                <p>No images in this album</p>
-            }
-                       
-        </Layout>
+                    )
+                    ||
+                    <p>No images in this album</p>
+                }
+            </Layout>
+        </>
     )
 }
 

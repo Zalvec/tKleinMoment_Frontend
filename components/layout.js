@@ -1,47 +1,35 @@
-import useSecurity from '../useSecurity'
 import Head from 'next/head'
-import Link from 'next/link'
+import { useMediaQuery, Container } from '@material-ui/core'
 
+import NavbarSmall from '../components/navbars/navbar_small'
+import NavbarLarge from '../components/navbars/navbar_large'
+import Footer from '../components/footer'
 
 export default ({ children }) => {
-    const { isLoggedIn } = useSecurity()
+    const MediaWidth = useMediaQuery('(min-width:960px)')
 
     return (
         <div>
             <Head>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <header>
-                <Link href="/"><a>'t Klein Moment</a></Link>
-                <Link href="/albums"><a>Albums</a></Link>
-                <Link href="/biografie"><a>Biografie</a></Link>
-                <Link href="/contact"><a>Contact</a></Link>
-                { !isLoggedIn && 
-                    <Link href="/login"><a>Login</a></Link>
-                    ||
-                    // Sublinks naar Account, Favorieten en Afmelden
-                    <Link href="/profiel"><a>Profiel</a></Link>
+            
+            <header style={{ margin: "5em auto"}}>
+                { MediaWidth &&
+                    <NavbarLarge />
+                    ||    
+                    <NavbarSmall />
                 }
-                <hr/>
             </header>
+            <Container maxWidth="md">
+                <main>
+                        {children}
+                </main>
 
-            <main>{children}</main>
-
-            <footer>
-                <hr/>
-                <div>
-                    <h3>CONTACT</h3>
-                    {/* TODO
-                    Contact gegevens ophalen uit database */}
-                </div>
-                <div>
-                    <h3>INFORMATIE</h3>
-                    {/* TODO
-                    Extra pagina's toevoegen zoals Gebruiksvoorwaarden, GDPR, etc. */}
-                    <Link href="/contact"><a>Contacteer ons</a></Link>
-                    <p>	&copy; 't Klein Moment</p>
-                </div>
-            </footer>
+                <footer>
+                    <Footer />
+                </footer>
+            </Container>
         </div>
     )
   }
