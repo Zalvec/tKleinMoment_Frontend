@@ -28,11 +28,11 @@ export default ({abouts}) => {
                                     <h3>{aboutMe.header}</h3>
                                     <div dangerouslySetInnerHTML={{__html: aboutMe.text}}></div>
                                 </div>
-                                <img src={`https://wdev.be/wdev_roel/eindwerk/img/about/${aboutMe.image}`} alt="" style={{ height:'150px', width:'150px'}}/>
+                                <img key={aboutMe.id} src={`https://wdev.be/wdev_roel/eindwerk/img/about/${aboutMe.image}`} alt="" style={{ height:'150px', width:'150px'}}/>
                             </div>
                             ||
                             <div>
-                                <img src={`https://wdev.be/wdev_roel/eindwerk/img/about/${aboutMe.image}`} alt="" style={{ height:'150px', width:'150px'}}/>
+                                <img key={aboutMe.id} src={`https://wdev.be/wdev_roel/eindwerk/img/about/${aboutMe.image}`} alt="" style={{ height:'150px', width:'150px'}}/>
                                 <div>
                                     <h3>{aboutMe.header}</h3>
                                     <div dangerouslySetInnerHTML={{__html: aboutMe.text}}></div>

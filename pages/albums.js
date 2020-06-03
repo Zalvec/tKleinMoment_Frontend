@@ -26,7 +26,7 @@ export default ({albums}) => {
                                         <a>
                                             <p>{name}</p>
                                             <p>{moment(date).locale('nl').format("DD MMMM YYYY")}</p>
-                                            <img style={{ maxHeight:'200px', width:'200px', overflow:'hidden'}} src={`https://wdev.be/wdev_roel/eindwerk/img/covers/${cover}`} alt=""/>
+                                            <img key={id} style={{ maxHeight:'200px', width:'200px', overflow:'hidden'}} src={`https://wdev.be/wdev_roel/eindwerk/img/covers/${cover}`} alt=""/>
                                         </a>
                                     </Link>
                                 </Grid>
