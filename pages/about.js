@@ -14,7 +14,7 @@ export default ({abouts}) => {
                 { abouts.filter( about => about.header === 'About me' ).map(aboutMe => (
                     <>
                         <h3>{aboutMe.header}</h3>
-                        {aboutMe.text}
+                        <div dangerouslySetInnerHTML={{__html: aboutMe.text}}></div>
                     </>
                 ))}
 
@@ -26,7 +26,7 @@ export default ({abouts}) => {
                             <div>
                                 <div>
                                     <h3>{aboutMe.header}</h3>
-                                    {aboutMe.text}
+                                    <div dangerouslySetInnerHTML={{__html: aboutMe.text}}></div>
                                 </div>
                                 <img src={`https://wdev.be/wdev_roel/eindwerk/img/about/${aboutMe.image}`} alt="" style={{ height:'150px', width:'150px'}}/>
                             </div>
@@ -35,7 +35,7 @@ export default ({abouts}) => {
                                 <img src={`https://wdev.be/wdev_roel/eindwerk/img/about/${aboutMe.image}`} alt="" style={{ height:'150px', width:'150px'}}/>
                                 <div>
                                     <h3>{aboutMe.header}</h3>
-                                    {aboutMe.text}
+                                    <div dangerouslySetInnerHTML={{__html: aboutMe.text}}></div>
                                 </div>
                             </div>
                         }

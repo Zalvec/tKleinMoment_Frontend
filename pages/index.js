@@ -19,11 +19,6 @@ export default function Home() {
         <main>
           <h1>Start of 't Klein Moment</h1>
           {isLoggedIn && <p>INGELOGD</p> || <p>BEZOEKER</p>}
-          {!isLoggedIn &&
-              <Link href='/login'><a>Login</a></Link>
-              ||
-              <Link href='/logout'><a>Logout</a></Link>
-          }
         </main>
         
       </div>

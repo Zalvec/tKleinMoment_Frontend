@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.2",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.26.0",
     "next": "9.3.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
