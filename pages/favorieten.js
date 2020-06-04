@@ -3,8 +3,8 @@ import Layout from '../components/layout'
 export default (props) => {
     return (
         <>
-            <Layout footerData={props.footerData} title={`'t Klein Moment - Profiel`}>
-                <h2>Profiel</h2>
+            <Layout footerData={props.footerData} title={`'t Klein Moment - Favorieten`}>
+                <h2>Favorieten</h2>
             </Layout>
         </>
     )

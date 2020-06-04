@@ -1,33 +1,29 @@
 import Head from 'next/head'
-import { useMediaQuery, Container } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 
-import NavbarSmall from '../components/navbars/navbar_small'
-import NavbarLarge from '../components/navbars/navbar_large'
-import Footer from '../components/footer'
+import Navbar from './Navbar'
+import Footer from './footer'
 
-export default ({ children }) => {
-    const MediaWidth = useMediaQuery('(min-width:960px)')
+export default ({ children, footerData, title }) => {
 
     return (
         <div>
             <Head>
+                <title>{title}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <Container>
+                <header>
+                    <Navbar />
+                </header>
             
-            <header style={{ margin: "5em auto"}}>
-                { MediaWidth &&
-                    <NavbarLarge />
-                    ||    
-                    <NavbarSmall />
-                }
-            </header>
-            <Container maxWidth="md">
                 <main>
                         {children}
                 </main>
 
                 <footer>
-                    <Footer />
+                    <Footer footerData={footerData} />
                 </footer>
             </Container>
         </div>

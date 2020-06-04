@@ -1,19 +1,13 @@
-import Head from 'next/head'
-
 import useSecurity from '../useSecurity'
 import Layout from '../components/layout'
 
 
-export default function Home() {
+export default function Home({footerData}) {
   const { isLoggedIn } = useSecurity()
 
   return (
-    <Layout>
+    <Layout footerData={footerData} title={`'t Klein Moment`}>
       <div className="container">
-
-        <Head>
-          <title>'t Klein Moment</title>
-        </Head>
 
         <main>
           <h1>Start of 't Klein Moment</h1>
@@ -23,4 +17,14 @@ export default function Home() {
       </div>
     </Layout>
   )
+}
+
+export const getStaticProps = async () => {
+  const getFooterData = require('../helpers/footerData')
+
+  return {
+    props: {
+      footerData: await getFooterData()
+    }
+  }
 }

@@ -1,14 +1,22 @@
 import Link from 'next/link'
 
-export default () => {
+export default ({footerData}) => {
+    console.log(footerData)
     return (
         <>
             <hr/>
             <div>
                 <h3>CONTACT</h3>
-                {/* TODO
-                Contact gegevens ophalen uit database */}
-                <p>contact info komt hier</p>
+                {/* Getting all the contactinfo out of the database. To restrict to one, use [0] instead op .map() */}
+                { footerData.map( contact => 
+                    <>
+                        <p>{contact.email}</p>
+                        <p>{contact.name}</p>
+                        <p>{contact.phoneNumber}</p>
+                        <a href={contact.facebookLink} target='_blank'>{contact.facebookLink}</a>
+                        <a href={contact.instagramLink} target='_blank'>{contact.instagramLink}</a>
+                    </>
+                )}
             </div>
             <div>
                 <h3>INFORMATIE</h3>

@@ -1,21 +1,17 @@
 import axios from 'axios'
 import Link from 'next/link'
-import Head from 'next/head'
 import { Grid } from '@material-ui/core'
 import moment from 'moment'
 
-import {slugify} from '../helper'
+import {slugify} from '../helpers/slugify'
 import Layout from '../components/layout'
 
-export default ({albums}) => {
+export default ({albums, footerData}) => {
     console.log(albums)
 
     return (
         <>
-            <Head>
-                <title>'t Klein Moment - Albums</title>
-            </Head>
-            <Layout>
+            <Layout footerData={footerData} title={`'t Klein Moment - Albums`}>
                 <h1>Overview albums</h1>
                 <Grid container spacing={4}>
                     { albums.map( ({active, id, name, cover, date}) => 
@@ -43,9 +39,12 @@ export const getStaticProps = async () => {
     const response = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums`, JSON)
     const albumList = response.data['hydra:member']
 
+    const getFooterData = require('../helpers/footerData')
+
     return {
         props: {
-            albums: albumList
+            albums: albumList,
+            footerData: await getFooterData()
         }
     }
 }

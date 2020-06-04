@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { Card, CardContent, Typography, CardMedia, LinearProgress } from '@material-ui/core'
-import Head from 'next/head'
 
-import {slugify} from '../../../helper'
+import {slugify} from '../../../helpers/slugify'
 import Layout from '../../../components/layout'
 
-export default ({album}) => {
+export default ({album, footerData}) => {
     console.log(album)
 
     const router = useRouter()
@@ -18,10 +17,7 @@ export default ({album}) => {
     
     return (
         <>
-            <Head>
-                <title>'t Klein Moment - {album.name}</title>
-            </Head>
-            <Layout>
+            <Layout footerData={footerData} title={`'t Klein Moment - ${album.name}`}>
                 <Card>
                     <CardContent>
                         <Typography variant="h3" component="h2">{album.name}</Typography>
@@ -81,10 +77,13 @@ export const getStaticProps = async (req) => {
     const id = req.params.id
     const albumDetailResponse = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums/` + id)
     const albumDetail = albumDetailResponse.data
+
+    const getFooterData = require('../../../helpers/footerData')
     
     return {
         props: {
-            album: albumDetail
+            album: albumDetail,
+            footerData: await getFooterData()
         }
     }
 }

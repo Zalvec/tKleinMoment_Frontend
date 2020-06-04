@@ -1,16 +1,11 @@
 import axios from 'axios'
-import Head from 'next/head'
 
 import Layout from '../components/layout'
 
-export default ({abouts}) => {
+export default ({abouts, footerData}) => {
     return (
         <>
-            <Head>
-                <title>'t Klein Moment - About</title>
-            </Head>
-
-            <Layout>
+            <Layout footerData={footerData} title={`'t Klein Moment - About`}>
                 { abouts.filter( about => about.header === 'About me' ).map(aboutMe => (
                     <>
                         <h3>{aboutMe.header}</h3>
@@ -52,9 +47,12 @@ export const getStaticProps = async () => {
     const aboutList = response.data['hydra:member']
     console.log(aboutList)
 
+    const getFooterData = require('../helpers/footerData')
+
     return {
         props: {
-            abouts: aboutList
+            abouts: aboutList,
+            footerData: await getFooterData()
         }
     }
 }
