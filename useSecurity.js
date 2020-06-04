@@ -30,6 +30,7 @@ export default () => {
             const jwt = loginResponse.data.token
             localStorage.setItem('token', jwt)
             const decoded = JWT.decode(jwt, { complete: true })
+            // TODO: more info to payload is added
             console.log(decoded)
             setToken(jwt)
             setIsLoggedIn(true)

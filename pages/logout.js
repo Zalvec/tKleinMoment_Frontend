@@ -1,7 +1,7 @@
-import useSecurity from '../useSecurity'
+import Logout from '../components/log_register/Logout'
 
 export default () => {
-    const { logout } = useSecurity()
-    logout()
-    return null
+    return (
+        <Logout />
+    )
 }
