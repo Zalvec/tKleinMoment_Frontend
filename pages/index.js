@@ -11,6 +11,8 @@ export default function Home({footerData}) {
 
         <main>
           <h1>Start of 't Klein Moment</h1>
+          {/* TODO: Carousel of images */}
+          {/* TODO: Adding FB & instagram logo-link */}
           {isLoggedIn && <p>INGELOGD</p> || <p>BEZOEKER</p>}
         </main>
         

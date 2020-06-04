@@ -5,6 +5,7 @@ export default (props) => {
         <>
             <Layout footerData={props.footerData} title={`'t Klein Moment - Favorieten`}>
                 <h2>Favorieten</h2>
+                {/* TODO: overview of liked images*/}
             </Layout>
         </>
     )

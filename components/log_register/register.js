@@ -16,7 +16,8 @@ export default () => {
     } 
     return (
         <>
-            <h1>{feedback}</h1>
+            <h1>Register</h1>
+            <h2>{feedback}</h2>
             <form onSubmit={handleRegister}>
                 <label htmlFor="email">Email: </label>
                 <input type="text" id="email" value={email} onChange={e => setEmail(e.target.value)} required />

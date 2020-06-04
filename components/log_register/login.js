@@ -12,7 +12,8 @@ export default () => {
     } 
     return (
         <>
-            <h1>{feedback}</h1>
+            <h1>Login</h1>
+            <h2>{feedback}</h2>
             <form onSubmit={handleLogin}>
                 <label htmlFor="username">Username: </label>
                 <input type="text" id="username" value={username} onChange={e => setUsername(e.target.value)}/>

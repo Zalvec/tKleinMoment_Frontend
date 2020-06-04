@@ -8,10 +8,7 @@ export default ({footerData}) => {
     return (
         <>
             <Layout footerData={footerData} title={`'t Klein Moment - Login`}>
-                <h2>Login</h2>
                 <Login />
-
-                <h2>Register</h2>
                 <Register />
             </Layout>
         </>
