@@ -81,4 +81,18 @@ body {
     }
 
     // Slider
+    .slider {
+        position: relative;
+        height: 150px; 
+
+        .slider-item {
+            position: absolute;
+            top: 2;
+            left: 0;
+        }
+
+        .hidden { opacity: 0; }
+
+        .show { opacity: 1; }
+    }
 }
