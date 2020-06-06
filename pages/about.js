@@ -19,7 +19,7 @@ export const getStaticProps = async () => {
     const aboutList = response.data['hydra:member']
     console.log(aboutList)
 
-    const getFooterData = require('../helpers/footerData')
+    const getFooterData = require('../components/footer/FooterData')
 
     return {
         props: {

@@ -4,7 +4,7 @@ import { LinearProgress } from '@material-ui/core'
 
 import {slugify} from '../../../helpers/slugify'
 import Layout from '../../../components/layout'
-import AlbumDetail from '../../../components/AlbumDetail'
+import AlbumDetail from '../../../components/album/AlbumDetail'
 
 export default ({album, footerData}) => {
     const router = useRouter()
@@ -45,7 +45,7 @@ export const getStaticProps = async (req) => {
     const albumDetailResponse = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums/` + id)
     const albumDetail = albumDetailResponse.data
 
-    const getFooterData = require('../../../helpers/footerData')
+    const getFooterData = require('../../../components/footer/FooterData')
     
     return {
         props: {

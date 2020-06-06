@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import Navbar from './Navbar'
-import Footer from './footer'
+import Footer from '../components/footer/Footer'
 
 export default ({ children, footerData, title }) => {
 
@@ -11,7 +11,6 @@ export default ({ children, footerData, title }) => {
                 <title>{title}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
             <header>
                 <Navbar />
             </header>
@@ -23,6 +22,7 @@ export default ({ children, footerData, title }) => {
             <footer>
                 <Footer footerData={footerData} />
             </footer>
+            
         </div>
     )
   }

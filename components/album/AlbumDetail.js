@@ -32,7 +32,7 @@ export default ({album}) => {
                                 {/* Toont enkel images die actief staan in de database */}
                                 { active && 
                                     <Card>
-                                        <CardMedia image={`https://wdev.be/wdev_roel/eindwerk/img/albums/${image}`} alt={alt} style={{ height:"140px", width:"140px" }}/>
+                                        <img src={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=200&height=200&image=/wdev_roel/eindwerk/system/img/albums/${image}`} alt={alt}/>
                                         <CardContent>
                                             <Typography>
                                                 {description}

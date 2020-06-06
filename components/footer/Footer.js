@@ -4,7 +4,6 @@ export default ({footerData}) => {
     console.log(footerData)
     return (
         <>
-            <hr/>
             <div>
                 <h3>CONTACT</h3>
                 {/* Getting all the contactinfo out of the database. To restrict to one, use [0] instead op .map() */}

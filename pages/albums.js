@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import Layout from '../components/layout'
-import Albums from '../components/Albums'
+import Albums from '../components/album/Albums'
 
 export default ({albums, footerData}) => {
 
@@ -18,7 +18,7 @@ export const getStaticProps = async () => {
     const response = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums`, JSON)
     const albumList = response.data['hydra:member']
 
-    const getFooterData = require('../helpers/footerData')
+    const getFooterData = require('../components/footer/FooterData')
 
     return {
         props: {

@@ -11,7 +11,7 @@ export default (props) => {
 }
 
 export const getStaticProps = async () => {
-    const getFooterData = require('../helpers/footerData')
+    const getFooterData = require('../components/footer/FooterData')
   
     return {
       props: {
