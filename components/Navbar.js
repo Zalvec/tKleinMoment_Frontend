@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../fontAwesome/fontAwesome'
 
 import useSecurity from '../useSecurity'
 import useWindowSize from '../useWindowSize'
@@ -26,7 +28,9 @@ export default () => {
             <div className="main-navbar container">
                 <Link class="title" href="/"><a>'t Klein Moment</a></Link>
                 <nav>
-                    <button className="mobile-hamburger" onClick={ToggleMenuHandler}>MENU</button>
+                    {/* <button className="mobile-hamburger" onClick={ToggleMenuHandler}> */}
+                        <FontAwesomeIcon icon="bars" size='2x' className="mobile-hamburger" onClick={ToggleMenuHandler}/>
+                    {/* </button> */}
                     <div className={classname} onClick={ToggleMenuHandler}>
                         <ul>
                             <li>

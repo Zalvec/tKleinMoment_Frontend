@@ -20,7 +20,9 @@ body {
     }
 }
 
-//Navbar
+/**********/
+/* NAVBAR */
+/**********/
 header {
     padding: 1em 1em 0 1em;
     width: 100%;
@@ -40,12 +42,6 @@ header {
         &:hover { background-color: $donkergrijs; }
 
     }
-}
-
-.mobile-hamburger {
-    background: none;
-    border: none;
-    color: $standaard;
 }
 
 .hamburger-menu-open {
@@ -121,7 +117,7 @@ header {
                         text-transform: uppercase;
                         position: relative;
                         font-size: 1.5em;
-                        padding: 12px;
+                        padding: 11px;
                         margin: 0 5px;
                         border-radius: 5px;
                         &:hover { background-color: $donkergrijs;}
@@ -152,7 +148,9 @@ header {
     }
 }
 
-// Login & Register
+/********************/
+/* LOGIN & REGISTER */
+/********************/
 .login-container {
     display: flex;
     flex-direction: row;
@@ -216,7 +214,9 @@ header {
     }
 }
 
-// Slider
+/**********/
+/* SLIDER */
+/**********/
 .slider {
     position: relative;
     height: 150px; 
@@ -232,7 +232,9 @@ header {
     .show { opacity: 1; }
 }
 
-// Footer
+/**********/
+/* FOOTER */
+/**********/
 footer {
     padding: 1em;
     width: 100%;
@@ -242,6 +244,11 @@ footer {
 .content-footer {
     padding: 10px;
     margin: .5em .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     h3 { 
         font-size: 1.2rem;
         padding: 5px 10px;
@@ -250,12 +257,19 @@ footer {
         padding: 5px 35px;
         li {
             padding-bottom: 7px;
+            .svg-inline--fa {
+                margin-right: 10px;
+            }
+            .fa-facebook-f {
+                margin: 10px 20px 0 10px;
+            }
         }        
     }
     .contact-footer {
         margin-bottom: 1em;
     }
     .info-footer {
+        margin-left: 1.3em;
         margin-bottom: .5em;
     }
 }
@@ -268,9 +282,11 @@ footer {
     }
 }
 
-@media screen and (min-width: $extrasmallscreen) {
+@media screen and (min-width: 511px) {
     .content-footer {
         display: flex;
+        flex-direction: row;
+        align-items: flex-start;
         justify-content: space-evenly;
     }
 }

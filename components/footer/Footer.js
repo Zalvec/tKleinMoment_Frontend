@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../fontAwesome/fontAwesome'
 
 export default ({footerData}) => {
     console.log(footerData)
     return (
-        <footer className="">
+        <footer>
             <div className="content-footer container">
                 <div className="contact-footer">
                     <h3>CONTACT</h3>
@@ -12,17 +14,30 @@ export default ({footerData}) => {
                         { footerData.map( contact => 
                             <ul>
                                 <li>
-                                    <p>{contact.name}</p>
+                                    <p>
+                                        <FontAwesomeIcon icon="camera" />
+                                        {contact.name}
+                                    </p>
                                 </li>
                                 <li>
-                                    <a href={contact.facebookLink} target='_blank'>{contact.facebookLink}</a>
-                                    <a href={contact.instagramLink} target='_blank'>{contact.instagramLink}</a>
+                                    <a href={`mailto:${contact.email}`} title="mail me">
+                                        <FontAwesomeIcon icon="paper-plane" />
+                                        {contact.email}
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href={`mailto:${contact.email}`} title="mail me">{contact.email}</a>
+                                    <a href={`tel:${contact.phoneNumber}`}>
+                                        <FontAwesomeIcon icon="phone-alt" />
+                                        {contact.phoneNumber}
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href={`tel:${contact.phoneNumber}`}>{contact.phoneNumber}</a>
+                                    <a href={contact.facebookLink} target='_blank'>
+                                        <FontAwesomeIcon icon={['fab', 'facebook-f']} size='2x'/>    
+                                    </a>
+                                    <a href={contact.instagramLink} target='_blank'>
+                                        <FontAwesomeIcon icon={['fab', 'instagram']} size='2x'/>
+                                    </a>
                                 </li>
                             </ul>
                         )}
