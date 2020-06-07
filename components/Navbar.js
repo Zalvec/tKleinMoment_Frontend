@@ -22,44 +22,46 @@ export default () => {
     const classname = size.width >= 750 ? 'menu' : classnamesmall
 
     return ( 
-        <div className="main-navbar">
-            <Link class="title" href="/"><a>'t Klein Moment</a></Link>
-            <nav>
-                <button className="mobile-hamburger" onClick={ToggleMenuHandler}>MENU</button>
-                <div className={classname} onClick={ToggleMenuHandler}>
-                    <ul>
-                        <li>
-                            <Link href="/about"><a>About</a></Link>
-                        </li>
-                        <li>
-                            <Link href="/albums"><a>Albums</a></Link>
-                        </li>
-                        <li>
-                            <Link href="/contact"><a>Contact</a></Link>
-                        </li>
-                        { !isLoggedIn &&
+        <header>
+            <div className="main-navbar container">
+                <Link class="title" href="/"><a>'t Klein Moment</a></Link>
+                <nav>
+                    <button className="mobile-hamburger" onClick={ToggleMenuHandler}>MENU</button>
+                    <div className={classname} onClick={ToggleMenuHandler}>
+                        <ul>
                             <li>
-                                <Link href="/login"><a>Login</a></Link>
+                                <Link href="/about"><a>About</a></Link>
                             </li>
-                            ||
                             <li>
-                                <Link href="/favorieten"><a>Profiel</a></Link>
-                                <ul>
-                                    <li>
-                                        <Link href="/profiel"><a>Account</a></Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/favorieten"><a>Favorieten</a></Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/logout"><a>Logout</a></Link>
-                                    </li>
-                                </ul>
+                                <Link href="/albums"><a>Albums</a></Link>
                             </li>
-                        }
-                    </ul>
-                </div>
-            </nav>
-        </div>
+                            <li>
+                                <Link href="/contact"><a>Contact</a></Link>
+                            </li>
+                            { !isLoggedIn &&
+                                <li>
+                                    <Link href="/login"><a>Login</a></Link>
+                                </li>
+                                ||
+                                <li>
+                                    <Link href="/favorieten"><a>Profiel</a></Link>
+                                    <ul>
+                                        <li>
+                                            <Link href="/profiel"><a>Account</a></Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/favorieten"><a>Favorieten</a></Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/logout"><a>Logout</a></Link>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
     )
 }

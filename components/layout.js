@@ -14,18 +14,11 @@ export default ({ children, footerData, title }) => {
                 <meta name="description" content=""/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-            <header>
-                <Navbar />
-            </header>
-        
+            <Navbar />
             <main>
                 {children}
             </main>
-
-            <footer>
-                <Footer footerData={footerData} />
-            </footer>
-            
+            <Footer footerData={footerData} />
         </div>
     )
   }
