@@ -14,8 +14,10 @@ export default ({imageList}) => {
     return (
         <div className='slider'>
             {
-                images.map( (img, i) => <img className={`slider-item ${ i === position ? 'show' : 'hidden' }`}
-                    key={img.id} alt={img.alt} src={`https://wdev.be/wdev_roel/eindwerk/image.php?${img.image}&height=150&image=/wdev_roel/eindwerk/system/img/albums/${img.image}`} />)
+                images.map( (img, i) => 
+                    <img className={ i === position ? 'show' : 'hidden' }
+                    key={img.id} alt={img.alt} src={`https://wdev.be/wdev_roel/eindwerk/image.php?${img.image}&height=900&image=/wdev_roel/eindwerk/system/img/albums/${img.image}`} />)
+                    // key={img.id} alt={img.alt} src={`https://wdev.be/wdev_roel/eindwerk/system/img/albums/${img.image}`} />)
             }
         </div>
     )

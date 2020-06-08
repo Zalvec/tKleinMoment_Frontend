@@ -4,6 +4,8 @@
 @import "./base/variables";
 @import "./base/mixins";
 
+html, body { height: 100vh; }
+
 body {
     @include font(400, 100%, $hoofdfont, normal, 1.8, left, 0);
     background: $zwart;
@@ -20,25 +22,37 @@ body {
     }
 }
 
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 /**********/
-/* NAVBAR */
+/* HEADER */
 /**********/
 header {
     padding: 1em 1em 0 1em;
     width: 100%;
     position: relative;
     background-color: $lichtgrijs;
+    flex-shrink: 0;
 }
 
+/**********/
+/* NAVBAR */
+/**********/
 .main-navbar {
     display: flex;
     transition: all 2000ms;
     align-items: baseline;
+
     & > a {
         margin-right: auto;
         font-size: 1.8em;
         padding: 3px 7px;
         border-radius: 5px;
+
         &:hover { background-color: $donkergrijs; }
 
     }
@@ -57,9 +71,11 @@ header {
     align-items: center;
     z-index: 100;
     transition: all 2000ms;
+
     & ul {
         & li {
             margin: .5em;
+
             & a {
                 text-align: center;
                 display: block;
@@ -67,8 +83,11 @@ header {
                 font-size: 1.5rem;
             }
         }
+
         li:last-child {
+
             & > a { display: none;}
+
             li:last-child { 
                 a { display: block;}
             }
@@ -86,9 +105,11 @@ header {
     justify-content: center;
     align-items: center;
     transition: all 2000ms;
+
     & ul {
         & li {
             margin: .5em;
+
             & a {
                 text-align: center;
                 display: block;
@@ -96,8 +117,10 @@ header {
                 font-size: 1.5rem;
             }
         }
+
         li:last-child {
             & > a { display: none;}
+
             li:last-child { 
                 a { display: block;}
             }
@@ -107,10 +130,12 @@ header {
 
 @media screen and ( min-width: $smallscreen ){
     .mobile-hamburger { display: none;}
+
     nav {
         .menu {
             & > ul {
                 display: flex;
+                
                 & > li {
                     position: relative;
                     & > a {
@@ -120,16 +145,21 @@ header {
                         padding: 11px;
                         margin: 0 5px;
                         border-radius: 5px;
+
                         &:hover { background-color: $donkergrijs;}
                     }
+
                     &:hover { ul li { display: block;} }
+
                     ul {
                         z-index: 10;
                         position: absolute;
                         top: 49px;
                         left: 0;
+
                         li {
                             display: none;
+
                             a {
                                 margin: 0 5px;
                                 display: block;
@@ -145,6 +175,28 @@ header {
                 }
             }
         }
+    }
+}
+
+/**********************/
+/* SLIDER ON HOMEPAGE */
+/**********************/
+main {
+    height: auto;
+    margin: 1em auto;
+    flex-grow: 1;
+
+    .slider {
+        height: 75vh;
+        img {
+            object-fit: contain;
+            height: 100%;
+            width: 100%;
+        }
+    
+        .hidden { display: none; }
+    
+        .show { display: block; }
     }
 }
 
@@ -215,30 +267,13 @@ header {
 }
 
 /**********/
-/* SLIDER */
-/**********/
-.slider {
-    position: relative;
-    height: 150px; 
-
-    .slider-item {
-        position: absolute;
-        top: 2;
-        left: 0;
-    }
-
-    .hidden { opacity: 0; }
-
-    .show { opacity: 1; }
-}
-
-/**********/
 /* FOOTER */
 /**********/
 footer {
     padding: 1em;
     width: 100%;
     background-color: $lichtgrijs;
+    flex-shrink: 0;
 }
 
 .content-footer {
@@ -249,17 +284,22 @@ footer {
     justify-content: center;
     align-items: center;
     align-content: center;
+
     h3 { 
         font-size: 1.2rem;
         padding: 5px 10px;
     }
+
     ul {
         padding: 5px 35px;
+
         li {
             padding-bottom: 7px;
+
             .svg-inline--fa {
                 margin-right: 10px;
             }
+
             .fa-facebook-f {
                 margin: 10px 20px 0 10px;
             }
@@ -268,14 +308,17 @@ footer {
     .contact-footer {
         margin-bottom: 1em;
     }
+
     .info-footer {
         margin-left: 1.3em;
         margin-bottom: .5em;
     }
 }
+
 .copyright-footer {
     display: block;
     text-align: center;
+
     p {
         padding-right: 10px;
         font-size: .8rem;

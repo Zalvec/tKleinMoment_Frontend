@@ -6,7 +6,7 @@ import Footer from '../components/footer/Footer'
 export default ({ children, footerData, title }) => {
 
     return (
-        <div>
+        <div className='wrapper'>
             <Head>
                 <meta charSet="UTF-8"/>
                 <title>{title}</title>
