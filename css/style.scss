@@ -28,6 +28,12 @@ body {
     flex-direction: column;
 }
 
+main {
+    height: auto;
+    margin: 1em auto;
+    flex-grow: 1;
+}
+
 /**********/
 /* HEADER */
 /**********/
@@ -49,7 +55,7 @@ header {
 
     & > a {
         margin-right: auto;
-        font-size: 1.8em;
+        font-size: 2.2rem;
         padding: 3px 7px;
         border-radius: 5px;
 
@@ -142,7 +148,7 @@ header {
                         text-transform: uppercase;
                         position: relative;
                         font-size: 1.5em;
-                        padding: 11px;
+                        padding: 12px 6px;
                         margin: 0 5px;
                         border-radius: 5px;
 
@@ -165,8 +171,7 @@ header {
                                 display: block;
                                 white-space: nowrap;
                                 font-size: 1rem;
-                                padding: 5px 21px;
-                                border: .5px solid $donkergrijs;
+                                padding: 5px 16px;
                                 background-color: $lichtgrijs;
                                 &:hover { background-color: $donkergrijs;}
                             }
@@ -181,24 +186,120 @@ header {
 /**********************/
 /* SLIDER ON HOMEPAGE */
 /**********************/
-main {
-    height: auto;
-    margin: 1em auto;
-    flex-grow: 1;
+.slider {
+    height: 75vh;
+    margin: .5em;
+    img {
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+    }
 
-    .slider {
-        height: 75vh;
-        img {
-            object-fit: contain;
-            height: 100%;
-            width: 100%;
+    .hidden { display: none; }
+
+    .show { display: block; }
+}
+
+/*********/
+/* ABOUT */
+/*********/
+.about {
+    margin: -1em 0;
+    .about-me{
+        background-color: $grijs;
+        color: $standaard;
+        border-top: 8px solid $donkergrijs;
+        border-bottom: 8px solid $donkergrijs;
+
+        .about-me-title {
+            display: flex;
+            justify-content: center;
+            padding: .5em 0 1em 0;
+            font-size: 2rem;
         }
-    
-        .hidden { display: none; }
-    
-        .show { display: block; }
+        .about-me-text {
+            line-height: 1.6;
+            font-size: 1rem;
+            text-align: justify;
+        }
+    }
+    .about-content {
+        .about-content-item {
+            background-color: $grijs;
+            color: $standaard;
+            border-bottom: 8px solid $donkergrijs;
+            .about-content-title {
+                display: flex;
+                justify-content: center;
+                padding: .5em 0 1em 0;
+                font-size: 2rem;
+            }
+        .about-content-text {
+                line-height: 1.6;
+                font-size: 1rem;
+                text-align: justify;
+                padding: 0 20px;
+            }
+        }
     }
 }
+
+@media screen and ( min-width:511px ) {
+    .about {
+        margin: 0 0 -1em 0;
+        .about-me{
+            margin: .5em 1em 1.5em;
+            border: none;
+            border-radius: 15px;
+            padding: 0 1em;
+        }
+    }
+}
+
+@media screen and ( min-width: $extrasmallscreen ) {
+    .about-me-text {
+        column-count: 2;
+        column-gap: 60px;
+        column-rule: 1px solid;
+    }
+
+    .about-content-text {
+        column-count: 2;
+        column-gap: 60px;
+        column-rule: 1px solid;
+    }
+}
+
+@media screen and ( min-width: 900px ) {
+    .about-me-text { column-count: 3;}
+
+    .about .about-content .about-content-item {
+        display: flex;
+        border: none;
+                
+        img { width: 55%; }
+        
+        .about-content-text { column-count: 1; }
+    }
+}
+
+@media screen and ( min-width: 1140px ) {
+    .about-me { 
+        margin: .5em auto 1.5em !important;
+    }
+    .about .about-content .about-content-item .about-content-text { column-count: 2; }
+    .about .about-content {
+        & > :first-child { border-radius: 15px 15px 0 0 !important;}
+        & > :last-child { 
+            border-radius: 0 0 15px 15px !important;
+            margin-bottom: 1.5em;
+        }
+    }
+    .about-me-article, .about-content-article {
+        margin: auto;
+    }
+}
+
 
 /********************/
 /* LOGIN & REGISTER */
@@ -325,7 +426,7 @@ footer {
     }
 }
 
-@media screen and (min-width: 511px) {
+@media screen and ( min-width: 511px ) {
     .content-footer {
         display: flex;
         flex-direction: row;

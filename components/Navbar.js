@@ -41,9 +41,14 @@ export default () => {
                                 <Link href="/contact"><a>Contact</a></Link>
                             </li>
                             { !isLoggedIn &&
-                                <li>
-                                    <Link href="/login"><a>Login</a></Link>
-                                </li>
+                                <>
+                                    <li>
+                                        <Link href="/login"><a>Login</a></Link>
+                                    </li>
+                                    <li>
+                                       <a href='#'>Empty</a> 
+                                    </li>
+                                </>
                                 ||
                                 <li>
                                     <Link href="/favorieten"><a>Profiel</a></Link>

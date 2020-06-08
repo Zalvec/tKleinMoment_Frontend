@@ -11,10 +11,7 @@ export default ({footerData, imageList}) => {
     return (
         <>
             <div className="container">
-                <main>
-                    {/* TODO: Carousel of images */}
-                    <Slider imageList={imageList}/>
-                </main>
+                <Slider imageList={imageList}/>
             </div>
         </>
     )
