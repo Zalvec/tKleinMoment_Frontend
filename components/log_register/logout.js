@@ -1,4 +1,4 @@
-import useSecurity from '../../useSecurity'
+import useSecurity from '../../customHooks/useSecurity'
 
 export default () => {
     const { logout } = useSecurity()

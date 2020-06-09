@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Typography, Grid, Container, TextField, Button, CircularProgress, CssBaseline, Paper } from '@material-ui/core'
 
-import useSecurity from '../../useSecurity'
+import useSecurity from '../../customHooks/useSecurity'
 
 export default () => {
     const [username, setUsername] = useState('')
@@ -65,3 +65,68 @@ export default () => {
         </>
     )
 }
+
+// styling of login
+
+// .login-container {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+
+//     .form {
+//         background: $zwart;
+//         color: $wit;
+//         margin: .5em 2em;
+//         border-radius: 10px;
+//         max-width: 700px;
+//         width: 50%;
+
+//         .title {
+//             font-size: 2.5rem;
+//             display: flex;
+//             justify-content: center;
+//             padding: 1em 0;
+//         }
+
+//         .feedback {
+//             font-size: 1.1rem;
+//             color: red;
+//             height: 60px;
+//             padding: 0 .4em;
+//             text-align: center;
+//         }
+
+//         .login-form {
+//             display: flex;
+//             flex-direction: column;
+//             justify-content: center;
+//             align-items: center;
+
+//             input {
+//                 border-radius: 5px;
+//                 margin-bottom: 20px;
+//             }
+
+//             input[type=text],
+//             input[type=password] {
+//                 padding: 5px 10px;
+//                 width: 80%;
+//                 max-width: 400px;
+//             }
+
+//             input[type=submit] {
+//                 padding: 5px 20px;
+//                 background-color: brown;
+//                 color: $wit;
+
+//                 &:hover { background-color: rgb(201, 30, 30);}
+//             }
+//         }
+
+//         .loading {
+//             display: flex;
+//             justify-content: center;
+//             height: 3em;
+//         }
+//     }
+// }

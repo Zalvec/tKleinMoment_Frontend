@@ -4,8 +4,8 @@ import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../fontAwesome/fontAwesome'
 
-import useSecurity from '../useSecurity'
-import useWindowSize from '../useWindowSize'
+import useSecurity from '../customHooks/useSecurity'
+import useWindowSize from '../customHooks/useWindowSize'
 
 export default () => {
     const size = useWindowSize();

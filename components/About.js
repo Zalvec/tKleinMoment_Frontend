@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, CardMedia } from '@material-ui/core'
 
-import useWindowSize from '../useWindowSize'
+import useWindowSize from '../customHooks/useWindowSize'
 
 export default ({abouts}) => {
     const size = useWindowSize();

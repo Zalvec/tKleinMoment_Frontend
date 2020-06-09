@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-import useSecurity from '../useSecurity'
+import useSecurity from '../customHooks/useSecurity'
 
 export default (props) => {
     const [email, setEmail] = useState('')

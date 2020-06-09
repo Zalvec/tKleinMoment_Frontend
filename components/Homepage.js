@@ -1,4 +1,4 @@
-import useSecurity from '../useSecurity'
+import useSecurity from '../customHooks/useSecurity'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../fontAwesome/fontAwesome'
 

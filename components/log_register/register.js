@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Typography, Grid, Container, TextField, Button, CircularProgress, CssBaseline, Paper } from '@material-ui/core'
 
-import useSecurity from '../../useSecurity'
+import useSecurity from '../../customHooks/useSecurity'
 
 export default () => {
     const [email, setEmail] = useState('')
