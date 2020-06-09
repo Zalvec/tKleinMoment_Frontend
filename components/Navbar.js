@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,10 +9,10 @@ import useWindowSize from '../useWindowSize'
 
 export default () => {
     const size = useWindowSize();
-  
+    
     const { isLoggedIn } = useSecurity()
     const [ menuStatus, setMenuStatus ] = useState(false)
-    console.log(menuStatus)
+    const [ classname, setClassname ] = useState('menu')
     
     const ToggleMenuHandler = ()=> {
         setMenuStatus(!menuStatus)
@@ -21,7 +21,10 @@ export default () => {
     const classnamesmall = clsx({ "hamburger-menu-list": true,
                              "hamburger-menu-open": menuStatus,
                              "hamburger-menu-closed": !menuStatus})
-    const classname = size.width >= 750 ? 'menu' : classnamesmall
+
+    useEffect( () => {
+        setClassname(size.width >= 750 ? 'menu' : classnamesmall)
+    })
 
     return ( 
         <header>
@@ -44,9 +47,6 @@ export default () => {
                                 <>
                                     <li>
                                         <Link href="/login"><a>Login</a></Link>
-                                    </li>
-                                    <li>
-                                       <a href='#'>Empty</a> 
                                     </li>
                                 </>
                                 ||

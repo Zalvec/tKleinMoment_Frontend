@@ -13,49 +13,44 @@ export default () => {
     } 
     return (
         <>
-            {/* <Paper className='paper'>
-                <Container component='main' maxWidth='xs'>
-                    <CssBaseline />
-                    <Typography component='h1' variant='h5'>
+            <Paper className='login-paper'>
+                <Typography component='h1' variant='h5'>
+                    Login
+                </Typography>
+                <Typography component='h2' variant='p'>
+                    {feedback}
+                </Typography>
+                <form noValidate onSubmit={handleLogin}>
+                    <TextField 
+                        className='textfield'
+                        variant="filled"
+                        autoComplete='email'
+                        name='email'    
+                        required
+                        fullWidth
+                        label='Email'
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                    <TextField 
+                        className='textfield'
+                        variant="filled"
+                        name='password'
+                        label='Password'
+                        type='password'
+                        required
+                        fullWidth
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                    <Button className="button" variant="contained" type='submit' fullWidth>
                         Login
-                    </Typography>
-                    <Typography component='h1' variant='h5'>
-                        {feedback}
-                    </Typography>
-                    <form noValidate onSubmit={handleLogin}>
-                        <Grid container spacing={0}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    autoComplete='email'
-                                    name='email'    
-                                    required
-                                    fullWidth
-                                    label='Email'
-                                    value={username}
-                                    onChange={e => setUsername(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField 
-                                    name='password'
-                                    label='Password'
-                                    type='password'
-                                    required
-                                    fullWidth
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button type='submit' fullWidth>
-                            Login
-                        </Button>
-                        { loading && <CircularProgress size="2em" />}
-                    </form>
-                </Container>
-            </Paper> */}
+                    </Button>
+                    { loading && <CircularProgress size="2em" />}
+                </form>
+            </Paper>
 
-            <div className='form'>
+            {/* <div className='form'>
                 <h1 className='title'>Login</h1>
                 <h2 className='feedback'>{feedback}</h2>
                 <form className='login-form' onSubmit={handleLogin}>
@@ -66,7 +61,7 @@ export default () => {
                 <div className='loading'>
                     { loading && <CircularProgress size="2em" />}
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
