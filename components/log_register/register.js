@@ -35,6 +35,7 @@ export default () => {
                         label='Email'
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
                     />
                     <TextField 
                         variant="filled"
@@ -46,6 +47,7 @@ export default () => {
                         label='First name'
                         value={firstName}
                         onChange={e => setFirstName(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
                     />
                     <TextField 
                         variant="filled"
@@ -57,6 +59,7 @@ export default () => {
                         label='Last name'
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
                     />
                     <TextField 
                         variant="filled"
@@ -67,6 +70,7 @@ export default () => {
                         label='Cosplay name'
                         value={cosplayName}
                         onChange={e => setCosplayName(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
                     />
                     <TextField 
                         variant="filled"
@@ -78,6 +82,7 @@ export default () => {
                         fullWidth
                         value={password}
                         onChange={e => setPassword(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
                     />
                     <Button className="button" variant="contained" type='submit' fullWidth>
                         Register

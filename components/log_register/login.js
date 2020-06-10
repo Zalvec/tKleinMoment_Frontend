@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Typography, Grid, Container, TextField, Button, CircularProgress, CssBaseline, Paper } from '@material-ui/core'
+import { Typography, TextField, Button, CircularProgress, Paper } from '@material-ui/core'
 
 import useSecurity from '../../customHooks/useSecurity'
 
@@ -31,6 +31,7 @@ export default () => {
                         label='Email'
                         value={username}
                         onChange={e => setUsername(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
                     />
                     <TextField 
                         className='textfield'
@@ -42,6 +43,7 @@ export default () => {
                         fullWidth
                         value={password}
                         onChange={e => setPassword(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
                     />
                     <Button className="button" variant="contained" type='submit' fullWidth>
                         Login
