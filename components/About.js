@@ -9,7 +9,7 @@ export default ({abouts}) => {
         <div className="about">
 
             { abouts.filter( about => about.header === 'About me' ).map(aboutMe => (
-                <Card square='true' className='about-me container'>
+                <Card square='true' className='about-me container' elevation='0'>
                     <CardContent className="about-me-article">
                         <Typography variant="h5" component="h2" className='about-me-title'>
                             {aboutMe.header}
