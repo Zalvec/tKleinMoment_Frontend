@@ -450,7 +450,60 @@ header {
 /*********************/
 /* ALBUM DETAIL PAGE */
 /*********************/
+.album-detail {
+    .album-card {
+        background-color: transparent !important;
+        margin: 1em 0;
+        .album-content {
+            &>:last-child { 
+                padding-bottom: 2em;
+                border-bottom: 1px solid $standaard; 
+            }
+            h1 {
+                text-align: center;
+                padding-bottom: .5em;
+            }
+            div {
+                max-width: 450px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: row;
+                &>:first-child { padding-right: 10px; }
+                
+                p {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+    .my-masonry-grid {
+        display: flex;
+        margin-left: -15px; /* gutter size offset */
+        width: auto;
+    }
 
+    .my-masonry-grid_column {
+        padding-left: 15px; /* gutter size */
+        background-clip: padding-box;
+
+    }
+    
+    a { 
+        display: block; 
+        img { width: 100%; }
+    }
+}
+
+@media screen and ( min-width: 500px){
+    .album-detail {
+        .my-masonry-grid { margin: 0 15px 0 0;}
+        a { padding-bottom: 15px; }
+    }
+}
+
+@media screen and ( min-width: 700px){
+    .album-detail .my-masonry-grid { margin: 0 30px 0 15px; }
+}
 
 
 
