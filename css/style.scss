@@ -102,7 +102,8 @@ header {
                 text-align: center;
                 display: block;
                 padding: 5px;
-                font-size: 1.5rem;
+                font-size: 1.7rem;
+                color: $standaard;
 
                 &:hover { color: $zwart; }
             }
@@ -410,6 +411,11 @@ header {
         justify-content: center;
         a {
             margin: .9em;
+            transition: all .3s ease-in-out;
+            &:hover {
+                filter: grayscale(100%);
+                transform: scale(1.03);
+            }
 
             div {
                 position: relative;
@@ -489,6 +495,11 @@ header {
     }
     
     a { 
+        transition: all .3s ease-in-out;
+        &:hover {
+            filter: grayscale(100%);
+            transform: scale(1.06);
+        }
         display: block; 
         img { width: 100%; }
     }
