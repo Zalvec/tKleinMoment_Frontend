@@ -1,0 +1,85 @@
+/* Mixins for 't Klein Moment */
+@mixin responsive {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+  
+@mixin fix {
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+
+@mixin make-col($cols, $gap) {
+  display: flex;
+  flex-wrap: wrap;
+
+  > *:nth-child(1n + 0) {
+    margin: 0 $gap $gap 0;
+    width: calc((100% - #{($cols - 1) * $gap}) / #{$cols});
+  }
+
+  > *:nth-child(#{$cols}n + 0) {
+    margin-right: 0;
+  }
+}
+
+@mixin make-col-old($cols: 4, $gap: 20px) {
+  @include fix;
+
+  > * {
+    display: block;
+    float: left;
+    margin-bottom: $gap;
+    margin-right: $gap;
+    min-height: 50px;
+    width: calc((100% - #{($cols - 1) * $gap}) / #{$cols});
+  }
+
+  > *:nth-child(#{$cols}n + 0) {
+    margin-right: 0;
+  }
+}
+
+// Font
+
+@mixin font(
+  $fontweight: 300, 
+  $fontsize: 100%, 
+  $fontfamily: $hoofdfont, 
+  $fontstyle: normal, 
+  $lineheight: 1.6, 
+  $textalign: left, 
+  $letterspacing: 0
+  ) 
+{
+  font: {
+      weight: $fontweight;
+      size: $fontsize;
+      family: $fontfamily;
+      style: $fontstyle;
+  }
+  line-height: $lineheight;
+  text-align: $textalign;
+  letter-spacing: $letterspacing;
+}
+
+// Flex
+
+@mixin flex(
+  $richting: row,
+  $hoofdas: flex-start,
+  $kruisas: flex-start,
+  $wikkelen: nowrap
+  ) 
+{
+  display: flex;
+  flex-direction: $richting;
+  justify-content: $hoofdas;
+  align-items: $kruisas;
+  flex-wrap: $wikkelen;
+}
+  

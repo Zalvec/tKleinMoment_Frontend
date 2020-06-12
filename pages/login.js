@@ -1,24 +1,29 @@
-import { useState } from 'react'
-import useSecurity from '../useSecurity'
+import React from "react";
+import { Grid } from "@material-ui/core";
 
-export default () => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const { login, feedback } = useSecurity()
-    const handleLogin = e => {
-        e.preventDefault()
-        login(username, password)
-    } 
+import Layout from '../components/layout'
+import Login from '../components/log_register/login'
+import Register from '../components/log_register/register'
+
+export default ({footerData}) => {
     return (
         <>
-            <h1>{feedback}</h1>
-            <form onSubmit={handleLogin}>
-                <label htmlFor="username">Username: </label>
-                <input type="text" id="username" value={username} onChange={e => setUsername(e.target.value)}/>
-                <label htmlFor="password">Password: </label>
-                <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
-                <input type="submit" value="login" />
-            </form>
+            <Layout footerData={footerData} title={`'t Klein Moment - Login`}>
+              <div className='login-container'>
+                <Login />
+                <Register />
+              </div>
+            </Layout>
         </>
     )
 }
+
+export const getStaticProps = async () => {
+    const getFooterData = require('../components/footer/FooterData')
+  
+    return {
+      props: {
+        footerData: await getFooterData()
+      }
+    }
+  }

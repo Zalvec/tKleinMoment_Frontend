@@ -1,46 +1,24 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import {slugify} from '../../../helper'
+import { LinearProgress } from '@material-ui/core'
 
-export default ({album}) => {
-    console.log(album)
+import {slugify} from '../../../helpers/slugify'
+import Layout from '../../../components/layout'
+import AlbumDetail from '../../../components/album/AlbumDetail'
 
+export default ({album, footerData}) => {
     const router = useRouter()
 
     // Toont loading als de pagina nog niet gebuild is en door fallback gegerereerd word
     if (router.isFallback){
-        return <div>Loading...</div>
+        return <LinearProgress />
     }
     
     return (
         <>
-            <h1>Album</h1>
-            <p>{album.name}</p>
-            <p>{album.date}</p>
-            {/* Toont enkel images als er images in het album staan */}
-            { album.images.length !== 0 
-                &&
-                <ul>
-                    { album.images.map( 
-                        ({image, alt, description, active, id}) => 
-                            (   
-                                <>
-                                    {/* Toont enkel images die actief staan in de database */}
-                                    { active && 
-                                        <li key={id}>
-                                            <img src={`https://wdev.be/wdev_roel/eindwerk/img/albums/${image}`} alt={alt} width='80px'/>
-                                            <p>{image}</p>
-                                            <p>{description}</p>
-                                        </li>
-                                    }
-                                </>
-                            )
-                    )}
-                </ul>
-                ||
-                <p>No images in this album</p>
-            }
-                       
+            <Layout footerData={footerData} title={`'t Klein Moment - ${album.name}`}>
+                <AlbumDetail album={album}/>
+            </Layout>
         </>
     )
 }
@@ -66,10 +44,13 @@ export const getStaticProps = async (req) => {
     const id = req.params.id
     const albumDetailResponse = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums/` + id)
     const albumDetail = albumDetailResponse.data
+
+    const getFooterData = require('../../../components/footer/FooterData')
     
     return {
         props: {
-            album: albumDetail
+            album: albumDetail,
+            footerData: await getFooterData()
         }
     }
 }

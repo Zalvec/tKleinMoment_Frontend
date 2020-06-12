@@ -1,0 +1,643 @@
+@charset "UTF-8";
+@import "./base/reset";
+@import "./base/fonts";
+@import "./base/variables";
+@import "./base/mixins";
+
+html, body { height: 100vh; }
+
+body {
+    @include font(400, 100%, $hoofdfont, normal, 1.8, left, 0);
+    background: $lichtgrijs;
+    color: $zwart;
+
+    a { 
+        color: $lichtgrijs; 
+        &:hover { text-decoration: none; }
+    }
+
+    .container {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    height: auto;
+    margin: 1em auto;
+    flex-grow: 1;
+}
+
+// Textfields: changing Material UI settings
+.MuiInputLabel-filled.MuiInputLabel-shrink { color: $standaard !important; padding: 0 12px; }
+.MuiFilledInput-input { color: $zwart !important; }
+.MuiInputLabel-filled { padding: 0 12px; }
+.MuiFilledInput-root { 
+    background-color: transparent !important;
+    padding: 0 12px; 
+}
+.MuiFilledInput-root:hover { background-color: transparent !important;}
+
+// Loading icon
+.MuiCircularProgress-circleIndeterminate { color: $standaard; }
+.loading { height: 2em;}
+
+/**********/
+/* HEADER */
+/**********/
+header {
+    padding: 1em 1em 0 1em;
+    width: 100%;
+    position: relative;
+    background-color: $standaard;
+    flex-shrink: 0;
+}
+
+/**********/
+/* NAVBAR */
+/**********/
+.main-navbar {
+    display: flex;
+    transition: all 2000ms;
+    align-items: baseline;
+
+    & > a {
+        margin-right: auto;
+        font-size: 2.2rem;
+        padding: 3px 7px;
+
+        &:hover { color: $zwart; }
+
+    }
+}
+.mobile-hamburger { 
+    color: $lichtgrijs; 
+    &:hover{ color: $zwart; }
+}
+.hamburger-menu-open {
+    background-color: $grijs;
+    opacity: .95;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: all 2000ms;
+
+    & ul {
+        & li {
+            margin: .5em;
+
+            & a {
+                text-align: center;
+                display: block;
+                padding: 5px;
+                font-size: 1.7rem;
+                color: $standaard;
+
+                &:hover { color: $zwart; }
+            }
+        }
+    }
+}
+
+.hamburger-menu-closed {
+    width: 0%;
+    height: 100vh;
+    position: absolute;
+    left: -300px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 2000ms;
+
+    & ul {
+        & li {
+            margin: .5em;
+
+            & a {
+                text-align: center;
+                display: block;
+                padding: 5px;
+                font-size: 1.5rem;
+            }
+        }
+
+        li:last-child {
+            & > a { display: none;}
+
+            li:last-child { 
+                a { display: block;}
+            }
+        }
+    }
+}
+
+@media screen and ( min-width: $smallscreen ){
+    .mobile-hamburger { display: none;}
+
+    nav {
+        & > div {
+            & > ul {
+                display: flex;
+                
+                & > li {
+                    position: relative;
+                    & > a {
+                        text-transform: capitalize;
+                        position: relative;
+                        font-size: 1.5em;
+                        padding: 12px 6px;
+                        margin: 0 5px;
+
+                        &:hover { color: $zwart;}
+                    }
+
+                    &:hover { ul li { display: block;} }
+
+                    ul {
+                        z-index: 10;
+                        position: absolute;
+                        top: 49px;
+                        left: 0;
+
+                        li {
+                            display: none;
+
+                            a {
+                                margin: 0 5px;
+                                display: block;
+                                white-space: nowrap;
+                                font-size: 1rem;
+                                padding: 5px 16px;
+                                background-color: $lichtgrijs;
+                                &:hover { background-color: $donkergrijs;}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**********************/
+/* SLIDER ON HOMEPAGE */
+/**********************/
+.slider {
+    height: 75vh;
+    margin: .5em;
+    img {
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+    }
+
+    .hidden { display: none; }
+
+    .show { display: block; }
+}
+
+/*********/
+/* ABOUT */
+/*********/
+.about {
+    margin: -1em 0;
+    .about-me{
+        background-color: transparent;
+        color: $zwart;
+        border-top: 8px solid $donkergrijs;
+        border-bottom: 8px solid $donkergrijs;
+
+        .about-me-title {
+            display: flex;
+            justify-content: center;
+            padding: .5em 0 1em 0;
+            font-size: 2rem;
+        }
+        .about-me-text {
+            line-height: 1.6;
+            font-size: 1rem;
+            text-align: justify;
+        }
+    }
+    .about-content {
+        .about-content-item {
+            background-color: $grijs;
+            color: $zwart;
+            border-bottom: 8px solid $donkergrijs;
+            border-radius: 0;
+            .about-content-title {
+                display: flex;
+                justify-content: center;
+                padding: .5em 0 1em 0;
+                font-size: 2rem;
+            }
+        .about-content-text {
+                line-height: 1.6;
+                font-size: 1rem;
+                text-align: justify;
+                padding: 0 20px;
+            }
+        }
+    }
+}
+
+@media screen and ( min-width:511px ) {
+    .about {
+        margin: 0 0 -1em 0;
+        .about-me{
+            margin: 1.5em 1em 2.5em;
+            border: none;
+            padding: 0 1em;
+        }
+    }
+}
+
+@media screen and ( min-width: $extrasmallscreen ) {
+    .about-me-text {
+        width: 80%;
+        margin: 0 auto !important;
+    }
+
+    .about-content-text {
+        column-count: 2;
+        column-gap: 60px;
+        column-rule: 1px solid;
+    }
+}
+
+@media screen and ( min-width: 900px ) {
+    .about-me-text { width: 60%; }
+
+    .about .about-content .about-content-item {
+        display: flex;
+        border: none;
+                
+        img { width: 55%; }
+        
+        .about-content-text { column-count: 1; }
+    }
+}
+
+@media screen and ( min-width: 1140px ) {
+    .about-me { 
+        margin: 1.5em auto 2.5em !important;
+    }
+    .about .about-content .about-content-item .about-content-text { column-count: 2; }
+    .about .about-content:last-child { margin-bottom: 3em; }
+    .about-me-article, .about-content-article {
+        margin: auto;
+    }
+}
+
+/***********/
+/* CONTACT */
+/***********/
+
+.contact-paper {
+    margin: 2em 1em; 
+    padding: 20px;
+    text-align: center;
+    background-color: $grijs !important;
+    color: $zwart !important;
+    max-width: 800px;
+    
+    h1 {
+        padding-bottom: 15px; 
+    }
+
+    h2 {
+        margin: 15px 12px;
+        padding-bottom: 20px; 
+        text-align: justify;
+    }
+
+    p {
+        color: red;
+        background-color: rgb(252, 164, 164);
+        margin: 0 auto 1em;
+        border-radius: 20px;
+        max-width: 350px;
+        padding: 0 5px;
+    }
+
+    form {
+        margin: 0 auto 1em;
+        display: flex;
+        flex-direction: column;
+        max-width: 350px;
+
+        .textfield, textarea {
+            background-color: $lichtgrijs;
+            margin-bottom: 20px;
+            border-radius: 20px;
+        }
+
+        .MuiInputLabel-filled { padding: 0 12px; }
+
+        textarea {
+            max-width: 350px;
+            padding: 20px;
+        }
+    }
+
+    .button {
+        margin-left: auto;
+        max-width: 200px;
+        background-color: $standaard;
+        color: $lichtgrijs; 
+        &:hover {
+            background-color: $lichtgrijs;
+            color: $standaard;
+        }
+    }
+}
+
+@media screen and ( min-width: 630px ){
+    .contact-paper {
+
+        h2 { 
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        form {
+            max-width: 600px;
+            padding: 0 2em 1em 2em;
+
+            div {
+                display: flex;
+                flex-direction: row;
+
+                & > :first-child { margin-right: 4em; }
+
+                .textfield { margin-bottom: 2em; }
+            }
+
+            textarea { max-width: none; }
+        } 
+
+        .button { max-width: 200px; }
+    }
+}
+
+@media screen and ( min-width: $smallscreen ) {
+    .contact-paper h2 { width: 60%; }
+}
+
+/*********/
+/* ALBUM */
+/*********/
+.albums {
+    padding: 1.5em 0;
+    h1 {
+        margin: 1em auto 2em;
+        text-align: center;
+    }
+    div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        a {
+            margin: .9em;
+            transition: all .3s ease-in-out;
+            &:hover {
+                filter: grayscale(100%);
+                transform: scale(1.03);
+            }
+
+            div {
+                position: relative;
+                margin: 0em auto;
+                padding: 8px 8px 8px 8px;
+                background-color: $wit;
+                box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.35);
+                max-width: 300px;
+                
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+
+                p {
+                    min-height: 4em;
+                    @include flex(row, center, center);
+                    text-align: center; 
+                    color: $zwart;
+                    @include font(400, 1rem, $subfont, normal, 1.8, center, 0);
+                }
+            }
+        }   
+    }
+}
+
+@media screen and ( min-width: $extrasmallscreen ) {
+    .albums div {
+        padding: 0 5px;
+
+        a div p {
+            min-height: 5.5em;
+        }
+    }
+}
+
+/*********************/
+/* ALBUM DETAIL PAGE */
+/*********************/
+.album-detail {
+    .album-card {
+        background-color: transparent !important;
+        margin: 1em 0;
+        .album-content {
+            &>:last-child { 
+                padding-bottom: 2em;
+                border-bottom: 1px solid $standaard; 
+            }
+            h1 {
+                text-align: center;
+                padding-bottom: .5em;
+            }
+            div {
+                max-width: 450px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: row;
+                &>:first-child { padding-right: 10px; }
+                
+                p {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+    .my-masonry-grid {
+        display: flex;
+        margin-left: -15px; /* gutter size offset */
+        width: auto;
+    }
+
+    .my-masonry-grid_column {
+        padding-left: 15px; /* gutter size */
+        background-clip: padding-box;
+
+    }
+    
+    a { 
+        transition: all .3s ease-in-out;
+        &:hover {
+            filter: grayscale(100%);
+            transform: scale(1.06);
+        }
+        display: block; 
+        img { width: 100%; }
+    }
+}
+
+@media screen and ( min-width: 500px){
+    .album-detail {
+        .my-masonry-grid { margin: 0 15px 0 0;}
+        a { padding-bottom: 15px; }
+    }
+}
+
+@media screen and ( min-width: 700px){
+    .album-detail .my-masonry-grid { margin: 0 30px 0 15px; }
+}
+
+
+
+/********************/
+/* LOGIN & REGISTER */
+/********************/
+.login-paper, .register-paper {
+    margin: 1em .5em; 
+    padding: 20px;
+    text-align: center;
+    background-color: $grijs !important;
+    max-width: 350px;
+    height: 100%;
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1 { padding-bottom: 15px; }
+
+    h2 { 
+        color: red;
+        background-color: rgb(255, 137, 137);
+        width: 250px;
+        margin: 0 auto 1em;
+        border-radius: 5px;
+    }
+
+    .textfield {
+        background-color: $lichtgrijs;
+        margin-bottom: 20px;  
+        color: $standaard; 
+        border-bottom: none !important;
+        max-width: 300px;
+    }
+
+    .button {
+        background-color: $standaard;
+        color: $lichtgrijs; 
+        &:hover {
+            background-color: $lichtgrijs;
+            color: $standaard;
+        }
+    }
+}
+
+@media screen and ( min-width: $smallscreen ) {
+    .login-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}
+
+/**********/
+/* FOOTER */
+/**********/
+footer {
+    padding: 1em;
+    width: 100%;
+    background-color: $standaard;
+    color: $lichtgrijs;
+    flex-shrink: 0;
+}
+
+.content-footer {
+    padding: 10px;
+    margin: .5em .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    h3 { 
+        font-size: 1.2rem;
+        padding: 5px 10px;
+    }
+
+    ul {
+        padding: 5px 35px;
+
+        li {
+            padding-bottom: 7px;
+
+            .svg-inline--fa {
+                margin-right: 10px;
+            }
+
+            .fa-facebook-f {
+                margin: 10px 20px 0 10px;
+            }
+
+            a:hover { color: $zwart; }
+        }        
+    }
+    .contact-footer {
+        margin-bottom: 1em;
+    }
+
+    .info-footer {
+        margin-left: 1.3em;
+        margin-bottom: .5em;
+    }
+}
+
+.copyright-footer {
+    display: block;
+    text-align: center;
+
+    p {
+        padding-right: 10px;
+        font-size: .8rem;
+    }
+}
+
+@media screen and ( min-width: 511px ) {
+    .content-footer {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-evenly;
+    }
+}
