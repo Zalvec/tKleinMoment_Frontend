@@ -376,14 +376,14 @@ header {
         form {
             max-width: 600px;
             padding: 0 2em 1em 2em;
-
+            
             div {
                 display: flex;
                 flex-direction: row;
 
-                & > :first-child { margin-right: 4em; }
-
                 .textfield { margin-bottom: 2em; }
+                .textfield:first-child { margin-right: 4em;}
+                
             }
 
             textarea { max-width: none; }
@@ -493,23 +493,36 @@ header {
         padding-left: 15px; /* gutter size */
         background-clip: padding-box;
 
-    }
-    
-    a { 
-        transition: all .3s ease-in-out;
-        &:hover {
-            filter: grayscale(100%);
-            transform: scale(1.06);
+        figure {
+            position: relative;
+            & > a {
+                transition: all .3s ease-in-out;
+                display: block; 
+                &:hover {
+                    filter: grayscale(100%);
+                    transform: scale(1.06);
+                }
+                img {
+                    width: 100%;
+                }
+            }
+            figcaption {
+                a {
+                    position: absolute;
+                    color: $wit;
+                    top: 6px;
+                    right: 8px; 
+                    &:hover { color: $standaard;}
+                }
+            }
         }
-        display: block; 
-        img { width: 100%; }
     }
 }
 
 @media screen and ( min-width: 500px){
     .album-detail {
         .my-masonry-grid { margin: 0 15px 0 0;}
-        a { padding-bottom: 15px; }
+        a { margin-bottom: 15px; }
     }
 }
 

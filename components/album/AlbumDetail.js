@@ -4,6 +4,8 @@ import { Card, CardContent, Typography, CircularProgress } from '@material-ui/co
 import moment from 'moment'
 import Masonry from 'react-masonry-css'
 import { SRLWrapper } from 'simple-react-lightbox'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../fontAwesome/fontAwesome'
 
 export default ({album}) => {
     console.log(album)
@@ -56,6 +58,7 @@ export default ({album}) => {
             {/* <a href={`https://wdev.be/wdev_roel/eindwerk/download.php?img=https://wdev.be/wdev_roel/eindwerk/system/img/albums/${album.images[0].image}`}>
                 <img src={`https://wdev.be/wdev_roel/eindwerk/download.php?img=https://wdev.be/wdev_roel/eindwerk/system/img/albums/${album.images[0].image}`} alt="test"/>
             </a> */}
+            <a href={`https://wdev.be/wdev_roel/eindwerk/download.php?file=${album.images[0].image}`}>Dowload File</a>
             <Card className='album-card' elevation={0}>
                 <CardContent className='album-content'>
                     <Typography variant="h3" component="h1">{album.name}</Typography>
@@ -89,19 +92,27 @@ export default ({album}) => {
                             (   
                                 <>
                                     { active && 
-                                        <a
-                                            key={id}
-                                            rel="noopener noreferrer"
-                                            href={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
-                                            data-attribute="SRL"
-                                        >
-                                            <img 
-                                                src={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
-                                                alt={alt}
-                                                id={id}
-                                                className='item'
-                                            />
-                                        </a>
+                                        <figure>
+                                            <a
+                                                key={id}
+                                                rel="noopener noreferrer"
+                                                href={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
+                                                data-attribute="SRL"
+                                            >
+                                                <img 
+                                                    src={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
+                                                    alt={alt}
+                                                    id={id}
+                                                    className='item'
+                                                />
+                                            </a>
+                                            <figcaption>
+                                                {/* Button to download that image with php file download.php */}
+                                                <a href={`https://wdev.be/wdev_roel/eindwerk/download.php?file=${image}`}>
+                                                    <FontAwesomeIcon icon="download"/>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
                                     }
                                 </>
                             )
@@ -113,3 +124,24 @@ export default ({album}) => {
         </div>
     )
 }
+
+
+{/* <a
+                                                className='a-image'
+                                                key={id}
+                                                rel="noopener noreferrer"
+                                                href={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
+                                                data-attribute="SRL"
+                                            >
+                                                <img 
+                                                    src={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
+                                                    alt={alt}
+                                                    id={id}
+                                                    className='item'
+                                                />
+                                            </a> */}
+
+                                            {/* Button to download that image with php file download.php */}
+                                            // <a className='a-download' href={`https://wdev.be/wdev_roel/eindwerk/download.php?file=${image}`}>
+                                            //     <FontAwesomeIcon icon="download"/>
+                                            // </a>
