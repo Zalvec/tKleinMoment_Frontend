@@ -29,7 +29,7 @@ export default () => {
     return ( 
         <header>
             <div className="main-navbar container">
-                <Link class="title" href="/"><a>'t Klein Moment</a></Link>
+                <Link href="/"><a className='title'>'t Klein Moment</a></Link>
                 <nav>
                     <FontAwesomeIcon icon="bars" size='2x' className="mobile-hamburger" onClick={ToggleMenuHandler}/>
                     <div className={classname} onClick={ToggleMenuHandler}>

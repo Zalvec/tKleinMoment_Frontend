@@ -62,10 +62,10 @@ export default (props) => {
             <Typography component='h1' variant='h5'>
                 Contact formulier
             </Typography>
-            <Typography component='h2' variant='p'>
+            <Typography component='h2' variant='body1'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia veritatis exercitationem voluptates, ab voluptate maiores eligendi facilis et deleniti ipsam sit ratione, ullam sed, fuga magnam. Pariatur, distinctio sequi. Repellendus.
             </Typography>
-            <Typography component='p' variant='p'>
+            <Typography component='p' variant='body1'>
                 {feedback}
             </Typography>
 

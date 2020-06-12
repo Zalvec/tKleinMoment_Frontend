@@ -21,7 +21,7 @@ export default () => {
                 <Typography component='h1' variant='h5'>
                     Register
                 </Typography>
-                <Typography component='h2' variant='p'>
+                <Typography component='h2' variant='body1'>
                     {feedback}
                 </Typography>
                 <form noValidate onSubmit={handleRegister}>

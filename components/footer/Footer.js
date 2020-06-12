@@ -12,7 +12,7 @@ export default ({footerData}) => {
                     {/* Getting all the contactinfo out of the database. To restrict to one, use [0] instead op .map() */}
                     <div className="contact-info">
                         { footerData.map( contact => 
-                            <ul>
+                            <ul key={contact.id}>
                                 <li>
                                     <p>
                                         <FontAwesomeIcon icon="camera" />
