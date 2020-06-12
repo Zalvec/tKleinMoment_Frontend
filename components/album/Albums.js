@@ -21,9 +21,8 @@ export default ({albums}) => {
                                     <Link href={`/album/${id}/${slugify(name)}`}>
                                         <a>
                                             <div>
-                                                <img key={id} alt={`Cover image for ${name}`} src={`https://wdev.be/wdev_roel/eindwerk/image.php?${cover}&width=600&height=600&cropratio=1:1&image=/wdev_roel/eindwerk/system/img/covers/${cover}`} />
+                                                <img key={id} alt={`Cover image for ${name}`} src={`https://wdev.be/wdev_roel/eindwerk/image.php?${cover}&width=300&height=300&cropratio=1:1&image=/wdev_roel/eindwerk/system/img/covers/${cover}`} />
                                                 <Typography component='p' variant='h5'>{name} - {moment(date).locale('nl').format("DD MMMM YYYY")}</Typography>
-                                                {/* <Typography component='p' variant='body1'>{moment(date).locale('nl').format("DD MMMM YYYY")}</Typography> */}
                                             </div>
                                         </a>
                                     </Link>

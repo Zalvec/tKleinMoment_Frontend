@@ -29,7 +29,7 @@ export default ({abouts}) => {
                                 <CardMedia 
                                     component='img'
                                     alt={`illustration for section ${aboutMe.header}`}
-                                    image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=800&height=800&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
+                                    image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
                                 />
                                 <CardContent className="about-content-article">
                                     <Typography variant="h5" component="h2" className="about-content-title">
@@ -55,7 +55,7 @@ export default ({abouts}) => {
                                         <CardMedia 
                                             component='img'
                                             alt={`illustration for section ${aboutMe.header}`}
-                                            image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=800&height=800&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
+                                            image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
                                         />
                                     </Card>
                                     ||
@@ -63,7 +63,7 @@ export default ({abouts}) => {
                                         <CardMedia 
                                             component='img'
                                             alt={`illustration for section ${aboutMe.header}`}
-                                            image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=800&height=800&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
+                                            image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
                                         />
                                         <CardContent className="about-content-article">
                                             <Typography variant="h5" component="h2" className="about-content-title">
