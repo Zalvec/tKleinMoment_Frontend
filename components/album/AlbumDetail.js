@@ -10,12 +10,41 @@ export default ({album}) => {
 
     const router = useRouter()
 
+    const options = {
+        settings: {
+            overlayColor: "rgb(19, 17, 17)",
+            autoplaySpeed: 3000,
+            transitionSpeed: 900,
+        },
+        caption: {
+            captionColor: "#F6F6F6",
+            captionFontFamily: "Roboto Slab, sans-serif",
+            captionFontWeight: "300",
+            captionTextTransform: "Capitalize",
+        },
+        buttons: {
+            backgroundColor: "#a52727",
+            iconColor: "#F6F6F6",
+            // showDownloadButton: false,
+        },
+        thumbnails: {
+            thumbnailsPosition: 'left'
+        },
+        progressBar: {
+            backgroundColor: 'rgb(161, 153, 153)',
+            fillColor: '#a52727'
+        }
+    }
+
     const breakpointColumnsObj = {
         default: 4,
         1100: 3,
         700: 2,
         500: 1
     };
+    // const handleDownload = (e) => {
+    //     console.log(e.target.classList)
+    // }
 
     // Toont loading als de pagina nog niet gebuild is en door fallback gegerereerd word
     if (router.isFallback){
@@ -24,6 +53,9 @@ export default ({album}) => {
     
     return (
         <div className='album-detail container'>
+            {/* <a href={`https://wdev.be/wdev_roel/eindwerk/download.php?img=https://wdev.be/wdev_roel/eindwerk/system/img/albums/${album.images[0].image}`}>
+                <img src={`https://wdev.be/wdev_roel/eindwerk/download.php?img=https://wdev.be/wdev_roel/eindwerk/system/img/albums/${album.images[0].image}`} alt="test"/>
+            </a> */}
             <Card className='album-card' elevation={0}>
                 <CardContent className='album-content'>
                     <Typography variant="h3" component="h1">{album.name}</Typography>
@@ -45,8 +77,7 @@ export default ({album}) => {
                     </div>
                 </CardContent>
             </Card>
-
-            <SRLWrapper>
+            <SRLWrapper options={options}>
                 {/* Masonry of images */}
                 <Masonry
                     breakpointCols={breakpointColumnsObj}
@@ -61,7 +92,7 @@ export default ({album}) => {
                                         <a
                                             key={id}
                                             rel="noopener noreferrer"
-                                            href={`https://wdev.be/wdev_roel/eindwerk/system/img/albums/${image}`}
+                                            href={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
                                             data-attribute="SRL"
                                         >
                                             <img 
