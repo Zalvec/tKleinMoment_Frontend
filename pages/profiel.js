@@ -1,4 +1,5 @@
 import Layout from '../components/layout'
+import { guestUser } from '../helpers/helpers'
 
 export default (props) => {
     return (
@@ -10,12 +11,16 @@ export default (props) => {
     )
 }
 
-export const getStaticProps = async () => {
-    const getFooterData = require('../components/footer/FooterData')
-  
-    return {
-      props: {
-        footerData: await getFooterData()
-      }
+export const getServerSideProps = async (ctx) => {
+  /* Check of een gebruiker is ingelogd, indien niet redirecten naar login */
+  guestUser( ctx, '/login')
+
+  /* Footer data ophalen */
+  const getFooterData = require('../components/footer/FooterData')
+
+  return {
+    props: {
+      footerData: await getFooterData()
     }
   }
+}
