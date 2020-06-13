@@ -124,24 +124,3 @@ export default ({album}) => {
         </div>
     )
 }
-
-
-{/* <a
-                                                className='a-image'
-                                                key={id}
-                                                rel="noopener noreferrer"
-                                                href={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
-                                                data-attribute="SRL"
-                                            >
-                                                <img 
-                                                    src={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
-                                                    alt={alt}
-                                                    id={id}
-                                                    className='item'
-                                                />
-                                            </a> */}
-
-                                            {/* Button to download that image with php file download.php */}
-                                            // <a className='a-download' href={`https://wdev.be/wdev_roel/eindwerk/download.php?file=${image}`}>
-                                            //     <FontAwesomeIcon icon="download"/>
-                                            // </a>

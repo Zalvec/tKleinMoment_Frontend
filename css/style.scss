@@ -498,8 +498,9 @@ header {
             & > a {
                 transition: all .3s ease-in-out;
                 display: block; 
+                filter: grayscale(100%);
                 &:hover {
-                    filter: grayscale(100%);
+                    filter: grayscale(0%);
                     transform: scale(1.06);
                 }
                 img {
@@ -509,10 +510,10 @@ header {
             figcaption {
                 a {
                     position: absolute;
-                    color: $wit;
+                    color: $standaard;
                     top: 6px;
                     right: 8px; 
-                    &:hover { color: $standaard;}
+                    &:hover { color: $wit;}
                 }
             }
         }
