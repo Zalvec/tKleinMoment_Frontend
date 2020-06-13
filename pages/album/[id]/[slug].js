@@ -45,6 +45,7 @@ export const getStaticProps = async (req) => {
     const albumDetailResponse = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums/` + id)
     const albumDetail = albumDetailResponse.data
 
+    /* Footer data ophalen */
     const getFooterData = require('../../../components/footer/FooterData')
     
     return {

@@ -1,3 +1,5 @@
+/* Maak van een woord, zin, etc een bruikbare naam voor een url 
+door speciale tekens weg te halen en spaties te vervangen door een - */
 export function slugify(string) {
     const a =
     "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";

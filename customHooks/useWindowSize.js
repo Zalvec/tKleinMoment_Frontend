@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+//Next heeft geen window zoals in React. Met dit script kan je toch de hoogte en breedte van je scherm bepalen
 export default function useWindowSize() {
   const isClient = typeof window === 'object';
 

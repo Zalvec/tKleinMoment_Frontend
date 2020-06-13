@@ -13,11 +13,13 @@ export default ({albums, footerData}) => {
         </>
 )}
 
-// Alle albums ophalen uit de database on build time en deze returnen aan de export default hierboven
+// Uitvoeren on build time en returnen aan de export default hierboven
 export const getStaticProps = async () => {
+    /* Alle albums ophalen uit de database */
     const response = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums`, JSON)
     const albumList = response.data['hydra:member']
 
+    /* Footer data ophalen */
     const getFooterData = require('../components/footer/FooterData')
 
     return {

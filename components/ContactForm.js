@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import axios from 'axios'
-
-import useSecurity from '../customHooks/useSecurity'
 import { Paper, Typography, CircularProgress, TextField, TextareaAutosize, Button } from '@material-ui/core'
 
 export default (props) => {
+    // Variabelen setten
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -13,19 +12,24 @@ export default (props) => {
     const [feedback, setFeedback] = useState('')
     const [ loading, setLoading ] = useState(false)
 
-    const { isLoggedIn } = useSecurity()
 
-    if(isLoggedIn){
-        {/* TODO: Axios call to user to get email, firstname and lastname */}
-        console.log('loggedin')
-    }
+    {/* TODO: Axios call to user to get email, firstname and lastname */}
     
+    // Contact formulier valideren en verzenden
     const handleContactFrom = e => {
         e.preventDefault()
-        console.log('saving your message')
         console.log(email, firstName, lastName, phoneNumber, message)
+
+        // Als phoneNumber leeg is, omzetten naar null. API verwacht null ipv ''
         if (phoneNumber === '') setPhoneNumber(null)
 
+        // Controlleren of alles is ingevuld
+        if ( firstName === '' || lastName === '' || message === '' || email === '') {
+            setFeedbackRegister('Fill in all required fields')
+            return null
+        }
+
+        // Gegevens bundelen voor axios
         const requestBody = {
             email: email,
             firstName: firstName,
@@ -34,14 +38,18 @@ export default (props) => {
             text: message
         }
 
+        // configuratie voor axios
         const config = {
             'Content-Type': 'application/json',
             'Accept': 'application/ld+json'
         }
+
         setLoading(true)
+
+        // Contact formulier verzenden. Bij succes bericht tonen en alle velden leeg maken
+        // Bij error een error bericht terugsturen
         axios.post(`https://wdev.be/wdev_roel/eindwerk/api/messages`, requestBody, config)
             .then( response => {
-                console.log(response)
                 setFeedback('Mail send')
                 setEmail('')
                 setFirstName('')
@@ -69,6 +77,7 @@ export default (props) => {
                 {feedback}
             </Typography>
 
+            {/* noValidate schakelt de standaard veld error messages uit */}
             <form noValidate onSubmit={handleContactFrom}>
                 <div>
                     <TextField 
