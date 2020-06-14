@@ -9,7 +9,7 @@ export default ({abouts}) => {
     return (
         <div className="about">
             {/* About filteren op header 'About me' en die mappen */}
-            { abouts.filter( about => about.header === 'About me' ).map( aboutMe => {
+            { abouts.filter( about => about.header === 'About me' ).map( aboutMe => 
                 <Card key={ aboutMe.id } className='about-me container' elevation={0}>
                     <CardContent className="about-me-article">
                         <Typography variant="h5" component="h2" className='about-me-title'>
@@ -23,7 +23,7 @@ export default ({abouts}) => {
                         </Typography>
                     </CardContent>
                 </Card>
-            })}
+            )}
             <div className="about-content">
                 {/* About filteren op header 'About me' en al de rest mappen*/}
                 { abouts.filter( about => about.header !== 'About me' ).map( (aboutMe, index) => 
