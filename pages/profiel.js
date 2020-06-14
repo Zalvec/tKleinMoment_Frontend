@@ -1,11 +1,12 @@
 import Layout from '../components/layout'
 import { guestUser } from '../helpers/helpers'
+import Profiel from '../components/profiel/Profiel'
 
-export default (props) => {
+export default ({footerData, userData}) => {
     return (
         <>
-            <Layout footerData={props.footerData} title={`'t Klein Moment - Profiel`}>
-                <h2>Profiel</h2>
+            <Layout footerData={footerData} title={`'t Klein Moment - Profiel`}>
+                <Profiel userData={userData} />
             </Layout>
         </>
     )
@@ -18,9 +19,13 @@ export const getServerSideProps = async (ctx) => {
   /* Footer data ophalen */
   const getFooterData = require('../components/footer/FooterData')
 
+  /* Gebruikers informatie ophalen */
+  const getUserData = require('../components/profiel/ProfielData')
+
   return {
     props: {
-      footerData: await getFooterData()
+      footerData: await getFooterData(),
+      userData: await getUserData(ctx)
     }
   }
 }

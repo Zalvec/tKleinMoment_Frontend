@@ -11,7 +11,7 @@ export default () => {
     const { login, feedback, loading } = useLogin()
 
     // login uitvoeren
-    const handleLogin = async (e) => {
+    const HandleLogin = async (e) => {
         e.preventDefault()
         login(username, password)
     } 
@@ -25,7 +25,7 @@ export default () => {
                 <Typography component='h2' variant='body1'>
                     {feedback}
                 </Typography>
-                <form noValidate onSubmit={handleLogin}>
+                <form noValidate onSubmit={HandleLogin}>
                     <TextField 
                         className='textfield'
                         variant="filled"

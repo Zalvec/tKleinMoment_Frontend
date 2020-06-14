@@ -110,7 +110,6 @@ export default (props) => {
                         className='textfield'
                         autoComplete='lastName'
                         variant="filled"
-                        variant="filled"
                         name='lastName'
                         required
                         fullWidth
@@ -140,7 +139,7 @@ export default (props) => {
                     required
                     rowsMin={4}
                 />
-                <Button className="button" className="button" variant="contained" type='submit'>
+                <Button className="button" variant="contained" type='submit'>
                         Send message
                 </Button>
             </form>

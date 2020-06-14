@@ -35,12 +35,18 @@ export default () => {
             const loginResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/login_check`, credentials, config)
             const jwtToken = loginResponse.data.token
             const decoded = jwt_decode( jwtToken )
+            // cookie aanmaken met jwtToken
             setCookie(null, 'jwtToken', jwtToken, {
                 path: "/",
                 sameSite: "lax",
                 maxAge: 60 * 60
             })
+            // cookie aanmaken met userid
             setCookie(null, 'userid', decoded.id)
+
+            // cookie aanmaken met gebruikers informatie
+            setCookie(null, 'userinfo', JSON.stringify(decoded))
+
             setLoading(false)
             Router.push("/profiel");
         } catch (error) {
