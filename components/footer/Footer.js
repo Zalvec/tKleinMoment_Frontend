@@ -3,13 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../fontAwesome/fontAwesome'
 
 export default ({footerData}) => {
-    console.log(footerData)
     return (
         <footer>
             <div className="content-footer container">
                 <div className="contact-footer">
                     <h3>CONTACT</h3>
-                    {/* Getting all the contactinfo out of the database. To restrict to one, use [0] instead op .map() */}
+                    {/* Alle contact informatie die in footerData weergeven. Om slechts 1 te gebruiken, kan je map vervangen door [0]*/}
                     <div className="contact-info">
                         { footerData.map( contact => 
                             <ul key={contact.id}>
@@ -45,9 +44,9 @@ export default ({footerData}) => {
                     
                 </div>
                 <div className="info-footer">
+                    {/* Alle links naar specifieke pagina's worden hier opgelijst */}
                     <h3>INFORMATIE</h3>
-                    {/* TODO
-                    Extra pagina's toevoegen zoals Gebruiksvoorwaarden, GDPR, etc. */}
+                    {/* TODO - Extra pagina's toevoegen zoals Gebruiksvoorwaarden, GDPR, etc. */}
                     <ul>
                         <li>
                             <Link href="/contact"><a>Contacteer ons</a></Link>

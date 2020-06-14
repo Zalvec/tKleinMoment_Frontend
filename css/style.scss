@@ -73,7 +73,6 @@ header {
         padding: 3px 7px;
 
         &:hover { color: $zwart; }
-
     }
 }
 .mobile-hamburger { 
@@ -98,7 +97,8 @@ header {
         & li {
             margin: .5em;
 
-            & a {
+            & a, 
+            & p {
                 text-align: center;
                 display: block;
                 padding: 5px;
@@ -144,53 +144,32 @@ header {
     }
 }
 
-@media screen and ( min-width: $smallscreen ){
+@media screen and ( min-width: 800px ){
     .mobile-hamburger { display: none;}
-
+  
     nav {
         & > div {
             & > ul {
                 display: flex;
                 
                 & > li {
-                    position: relative;
+                    & > p, 
                     & > a {
                         text-transform: capitalize;
-                        position: relative;
-                        font-size: 1.5em;
-                        padding: 12px 6px;
+                        padding: 0 6px;
                         margin: 0 5px;
-
-                        &:hover { color: $zwart;}
-                    }
-
-                    &:hover { ul li { display: block;} }
-
-                    ul {
-                        z-index: 10;
-                        position: absolute;
-                        top: 49px;
-                        left: 0;
-
-                        li {
-                            display: none;
-
-                            a {
-                                margin: 0 5px;
-                                display: block;
-                                white-space: nowrap;
-                                font-size: 1rem;
-                                padding: 5px 16px;
-                                background-color: $lichtgrijs;
-                                &:hover { background-color: $donkergrijs;}
-                            }
-                        }
+                        cursor: pointer;
+                        font-size: 1.5em;
+                        color: $wit;
+                        &:hover { color: $zwart}
                     }
                 }
             }
         }
     }
 }
+
+
 
 /**********************/
 /* SLIDER ON HOMEPAGE */
@@ -376,14 +355,14 @@ header {
         form {
             max-width: 600px;
             padding: 0 2em 1em 2em;
-
+            
             div {
                 display: flex;
                 flex-direction: row;
 
-                & > :first-child { margin-right: 4em; }
-
                 .textfield { margin-bottom: 2em; }
+                .textfield:first-child { margin-right: 4em;}
+                
             }
 
             textarea { max-width: none; }
@@ -493,23 +472,37 @@ header {
         padding-left: 15px; /* gutter size */
         background-clip: padding-box;
 
-    }
-    
-    a { 
-        transition: all .3s ease-in-out;
-        &:hover {
-            filter: grayscale(100%);
-            transform: scale(1.06);
+        figure {
+            position: relative;
+            & > a {
+                transition: all .3s ease-in-out;
+                display: block; 
+                filter: grayscale(100%);
+                &:hover {
+                    filter: grayscale(0%);
+                    transform: scale(1.06);
+                }
+                img {
+                    width: 100%;
+                }
+            }
+            figcaption {
+                a {
+                    position: absolute;
+                    color: $standaard;
+                    top: 6px;
+                    right: 8px; 
+                    &:hover { color: $wit;}
+                }
+            }
         }
-        display: block; 
-        img { width: 100%; }
     }
 }
 
 @media screen and ( min-width: 500px){
     .album-detail {
         .my-masonry-grid { margin: 0 15px 0 0;}
-        a { padding-bottom: 15px; }
+        a { margin-bottom: 15px; }
     }
 }
 

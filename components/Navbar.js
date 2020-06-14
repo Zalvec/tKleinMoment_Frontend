@@ -3,27 +3,47 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../fontAwesome/fontAwesome'
+import { parseCookies } from 'nookies'
 
-import useSecurity from '../customHooks/useSecurity'
+import { logout } from '../helpers/helpers'
 import useWindowSize from '../customHooks/useWindowSize'
 
+
 export default () => {
+    // Checken of een gebruiker is ingelogd of niet
+    const [ loggedIn, setLoggedIn ] = useState(false)
+    useEffect( () => {
+        const cookies = parseCookies()
+        console.log(cookies)
+        typeof cookies.jwtToken !== 'undefined' ? setLoggedIn(true) : setLoggedIn(false)
+    })
+
+    // Window size
     const size = useWindowSize();
     
-    const { isLoggedIn } = useSecurity()
+    // variabelen aanmaken
     const [ menuStatus, setMenuStatus ] = useState(false)
     const [ classname, setClassname ] = useState('menu')
     
+    // hamburger menu togglen
     const ToggleMenuHandler = ()=> {
         setMenuStatus(!menuStatus)
     }
 
+    // Uitloggen - cookies verwijderen en redirect naar index.js
+    const LogoutHandler = () => {
+        logout()
+    }
+
+    // Classnames maken adhv of het hamburgermenu al dan niet open is
     const classnamesmall = clsx({ "hamburger-menu-list": true,
                              "hamburger-menu-open": menuStatus,
-                             "hamburger-menu-closed": !menuStatus})
+                             "hamburger-menu-closed": !menuStatus
+    })
 
+    // Navigatiebalk aanpassen naargelang de breedte van het scherm                        
     useEffect( () => {
-        setClassname(size.width >= 750 ? 'menu' : classnamesmall)
+        setClassname(size.width >= 800 ? 'menu' : classnamesmall)
     })
 
     return ( 
@@ -43,28 +63,22 @@ export default () => {
                             <li>
                                 <Link href="/contact"><a>Contact</a></Link>
                             </li>
-                            { !isLoggedIn &&
+                            {/* Rendert op basis of een gebruiker is ingelogd of niet */}
+                            { loggedIn &&
                                 <>
                                     <li>
-                                        <Link href="/login"><a>Login</a></Link>
+                                        <Link href="/profiel"><a>Profiel</a></Link>
+                                    </li>
+                                    <li>
+                                        <p onClick={LogoutHandler}>Logout</p>
                                     </li>
                                 </>
                                 ||
                                 <li>
-                                    <Link href="/favorieten"><a>Profiel</a></Link>
-                                    <ul>
-                                        <li>
-                                            <Link href="/profiel"><a>Account</a></Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/favorieten"><a>Favorieten</a></Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/logout"><a>Logout</a></Link>
-                                        </li>
-                                    </ul>
+                                    <Link href="/login"><a>Login</a></Link>
                                 </li>
                             }
+                            
                         </ul>
                     </div>
                 </nav>

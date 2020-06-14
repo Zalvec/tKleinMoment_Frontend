@@ -13,12 +13,14 @@ export default ({abouts, footerData}) => {
     )
 }
 
-// Alle biografie gegevens ophalen uit de database on build time en deze returnen aan de export default hierboven
+// Uitvoeren on build time en returnen aan de export default hierboven
 export const getStaticProps = async () => {
+    /* Alle about data ophalen uit de database */
     const response = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/abouts`, JSON)
     const aboutList = response.data['hydra:member']
     console.log(aboutList)
 
+    /* Footer data ophalen */
     const getFooterData = require('../components/footer/FooterData')
 
     return {

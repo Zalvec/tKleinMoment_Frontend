@@ -11,7 +11,9 @@ export default ({footerData}) => {
     )
 }
 
+// Uitvoeren on build time en returnen aan de export default hierboven
 export const getStaticProps = async () => {
+    /* Footer data ophalen */
     const getFooterData = require('../components/footer/FooterData')
   
     return {
