@@ -42,7 +42,7 @@ export default () => {
                         className='textfield'
                         variant="filled"
                         name='password'
-                        label='Password'
+                        label='Wachtwoord'
                         type='password'
                         required
                         fullWidth

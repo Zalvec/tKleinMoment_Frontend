@@ -40,7 +40,7 @@ export default ({userData}) => {
                         disabled='true'
                         variant="filled"
                         fullWidth
-                        label='Name'
+                        label='Naam'
                         value={userInfo.name}
                         InputProps={{ 
                             disableUnderline: true,
@@ -54,7 +54,7 @@ export default ({userData}) => {
                         variant="filled"
                         disabled='true'
                         fullWidth
-                        label='Start membership'
+                        label='Duur sinds registratie'
                         value={userInfo.membershipDuration}
                         InputProps={{ 
                             disableUnderline: true,
@@ -65,6 +65,7 @@ export default ({userData}) => {
                     />
                 </div>
                 <form noValidate onSubmit={HandleProfileChanges}>
+                    <Typography component='h2' variant='body1'>Wijzig account</Typography>
                     <div>
                         <TextField
                             className='textfield'
@@ -87,7 +88,7 @@ export default ({userData}) => {
                             variant='filled'
                             name='cosplayName'
                             fullWidth
-                            label='Cosplay name'
+                            label='Cosplay naam'
                             value={cosplayName}
                             onChange={e => setCosplayName(e.target.value)}
                             InputProps={{ 
@@ -103,7 +104,7 @@ export default ({userData}) => {
                             className='textfield'
                             variant="filled"
                             name='password'
-                            label='Password'
+                            label='Wachtwoord'
                             type='password'
                             fullWidth
                             value={password}
@@ -119,7 +120,7 @@ export default ({userData}) => {
                             className='textfield'
                             variant="filled"
                             name='repeatPassword'
-                            label='Repeat password'
+                            label='Herhaal wachtwoord'
                             type='password'
                             fullWidth
                             value={repeatPassword}
@@ -133,11 +134,11 @@ export default ({userData}) => {
                         />
                     </div>
                     <Button className="button" variant="contained" type='submit' fullWidth>
-                        Save changes
+                        Wijzigingen opslaan
                     </Button>  
                 </form>
                 <Button className="button" variant="contained" type='submit' fullWidth onClick={HandleDeleteAccount}>
-                    Delete account
+                    Account verwijderen
                 </Button>
             </div>
         </Paper>

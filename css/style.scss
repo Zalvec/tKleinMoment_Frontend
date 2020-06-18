@@ -577,8 +577,11 @@ header {
     background-color: $grijs !important;
     max-width: 800px;
     
-    h1 {
-        padding-bottom: 20px; 
+    h1 { padding-bottom: 30px; }
+
+    h2 {
+        font-size: 1.2rem;
+        padding-bottom: 30px;
     }
 
     .textfield {
@@ -628,33 +631,32 @@ header {
             background-color: rgb(43, 5, 5);
             padding: 4px 0;
 
-            &:hover {
-                background-color: rgb(99, 8, 8);
-            }
+            &:hover { background-color: rgb(99, 8, 8); }
         }
     }
 }
 
 @media screen and ( min-width: 630px ){
-    .profiel-paper .profiel-fields {
+    .profiel-paper {
+        padding: 40px 3em;
+        .profiel-fields {
 
-        .textfields { margin-bottom: 2em; }
-        .textfield:first-child { margin-right: 1em;}
-
-        & > div {
-            flex-direction: row;
+            .textfields { margin-bottom: 2em; }
+            .textfield:first-child { margin-right: 1em;}
+    
+            & > div { flex-direction: row; }
+    
+            form {
+                max-width: 600px;
+                
+                div {
+                    display: flex;
+                    flex-direction: row;
+                }
+    
+                .button { max-width: 200px; }
+            } 
         }
-
-        form {
-            max-width: 600px;
-            
-            div {
-                display: flex;
-                flex-direction: row;
-            }
-
-            .button { max-width: 200px; }
-        } 
     }
 }
 
