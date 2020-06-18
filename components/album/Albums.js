@@ -8,7 +8,7 @@ export default ({albums}) => {
     return (
         <div className='albums container'>
             <Typography component='h1' variant='h5'>
-                Overview albums
+                Overzicht albums
             </Typography>
             <div>
                 {/* Alle albums mappen en tonen in een grid structuur */}

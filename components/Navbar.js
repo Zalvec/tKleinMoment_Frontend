@@ -14,7 +14,6 @@ export default () => {
     const [ loggedIn, setLoggedIn ] = useState(false)
     useEffect( () => {
         const cookies = parseCookies()
-        console.log(cookies)
         typeof cookies.jwtToken !== 'undefined' ? setLoggedIn(true) : setLoggedIn(false)
     })
 

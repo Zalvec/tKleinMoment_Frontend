@@ -68,20 +68,20 @@ export default ({album}) => {
                 <CardContent className='album-content'>
                     <Typography variant="h3" component="h1">{album.name}</Typography>
                     <div>
-                        <Typography variant="body1" component="p">Description:</Typography>
+                        <Typography variant="body1" component="p">Beschrijving:</Typography>
                         <Typography variant="body1" component="p">{album.description}</Typography>
                     </div>    
                     <div>
-                        <Typography variant="body1" component="p">Location:</Typography>
+                        <Typography variant="body1" component="p">Locatie:</Typography>
                         <Typography variant="body1" component="p">{album.location}</Typography>
                     </div>
                     <div>
-                        <Typography variant="body1" component="p">Event:</Typography>   
+                        <Typography variant="body1" component="p">Evenement:</Typography>   
                         <Typography variant="body1" component="p">{album.event}</Typography>
                     </div>
                     <div>
                         {/* moment zet de datum die binnenkomt als 2020-05-10T00:00:00+02:00 om in een leesbare datum 10 mei 2020 */}
-                        <Typography variant="body1" component="p">Date:</Typography>
+                        <Typography variant="body1" component="p">Datum:</Typography>
                         <Typography variant="body1" component="p">{moment(album.date).locale('nl').format("DD MMMM YYYY")}</Typography>
                     </div>
                 </CardContent>

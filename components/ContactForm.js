@@ -99,7 +99,7 @@ export default (props) => {
                         name='firstName'
                         required
                         fullWidth
-                        label='First name'
+                        label='Voornaam'
                         value={firstName}
                         onChange={e => setFirstName(e.target.value)}
                         InputProps={{ disableUnderline: true }}
@@ -110,11 +110,10 @@ export default (props) => {
                         className='textfield'
                         autoComplete='lastName'
                         variant="filled"
-                        variant="filled"
                         name='lastName'
                         required
                         fullWidth
-                        label='Last name'
+                        label='Achternaam'
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
                         InputProps={{ disableUnderline: true }}
@@ -125,7 +124,7 @@ export default (props) => {
                         variant="filled"
                         name='phoneNumber'
                         fullWidth
-                        label='Phone number'
+                        label='Telefoonnummer'
                         value={phoneNumber}
                         onChange={e => setPhoneNumber(e.target.value)}
                         InputProps={{ disableUnderline: true }}
@@ -133,15 +132,15 @@ export default (props) => {
                 </div>
                 
                 <TextareaAutosize 
-                    placeholder="Your message of question here..."
+                    placeholder="Uw bericht of vraag hier..."
                     label='Message'
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     required
                     rowsMin={4}
                 />
-                <Button className="button" className="button" variant="contained" type='submit'>
-                        Send message
+                <Button className="button" variant="contained" type='submit'>
+                        Bericht verzenden
                 </Button>
             </form>
             <div className='loading'>

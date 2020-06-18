@@ -56,7 +56,7 @@ export default () => {
     return (
         <Paper className='register-paper'>
             <Typography component='h1' variant='h5'>
-                Register
+                Registreer
             </Typography>
             <Typography component='h2' variant='body1'>
                 {feedback}{feedbackRegister}
@@ -84,7 +84,7 @@ export default () => {
                     name='firstName'    
                     required
                     fullWidth
-                    label='First name'
+                    label='Voornaam'
                     value={firstName}
                     onChange={e => {
                         setFirstName(e.target.value)
@@ -99,7 +99,7 @@ export default () => {
                     name='lastName'    
                     required
                     fullWidth
-                    label='Last name'
+                    label='Achternaam'
                     value={lastName}
                     onChange={e => {
                         setLastName(e.target.value)
@@ -113,7 +113,7 @@ export default () => {
                     autoComplete='cname'
                     name='cosplayName'    
                     fullWidth
-                    label='Cosplay name'
+                    label='Cosplay naam'
                     value={cosplayName}
                     onChange={e => {
                         setCosplayName(e.target.value)
@@ -125,7 +125,7 @@ export default () => {
                     variant="filled"
                     className='textfield'
                     name='password'
-                    label='Password'
+                    label='Wachtwoord'
                     type='password'
                     required
                     fullWidth
@@ -137,7 +137,7 @@ export default () => {
                     InputProps={{ disableUnderline: true }}
                 />
                 <Button className="button" variant="contained" type='submit' fullWidth>
-                    Register
+                    Registreer
                 </Button>
                 { loading && <CircularProgress size="2em" />}
             </form>

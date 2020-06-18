@@ -19,7 +19,7 @@ export default ({footerData}) => {
 }
 
 export const getServerSideProps = async (ctx) => {
-  /* Check of een gebruiker is ingelogd, indien ja reidrecten naar profiel */
+  /* Check of een gebruiker is ingelogd, indien ja redirecten naar profiel */
   loggedUser( ctx, '/profiel')
 
   /* Footer data ophalen */
