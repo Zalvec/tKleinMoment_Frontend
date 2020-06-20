@@ -68,6 +68,10 @@ header {
 /**********/
 /* NAVBAR */
 /**********/
+.active {
+    border-bottom: 1px solid $wit;
+}
+
 .main-navbar {
     display: flex;
     transition: all 2000ms;
@@ -482,9 +486,9 @@ header {
             & > a {
                 transition: all .3s ease-in-out;
                 display: block; 
-                filter: grayscale(100%);
+                filter: grayscale(0%);
                 &:hover {
-                    filter: grayscale(0%);
+                    filter: grayscale(100%);
                     transform: scale(1.06);
                 }
                 img {
@@ -513,6 +517,15 @@ header {
 
 @media screen and ( min-width: 700px){
     .album-detail .my-masonry-grid { margin: 0 30px 0 15px; }
+}
+
+@media screen and ( min-width: 1000px){
+    .album-detail .my-masonry-grid_column figure{
+        & > a {
+            filter: grayscale(100%);
+            &:hover { filter: grayscale(0%); }
+        }
+    } 
 }
 
 /********************/
