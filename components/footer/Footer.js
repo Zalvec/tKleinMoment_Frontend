@@ -10,34 +10,41 @@ export default ({footerData}) => {
                     <h3>CONTACT</h3>
                     {/* Alle contact informatie die in footerData weergeven. Om slechts 1 te gebruiken, kan je map vervangen door [0]*/}
                     <div className="contact-info">
-                        { footerData.map( contact => 
-                            <ul key={contact.id}>
+                        { footerData.map( ({id, name, email, phoneNumber, facebookLink, instagramLink}) => 
+                            <ul key={id}>
                                 <li>
                                     <p>
                                         <FontAwesomeIcon icon="camera" />
-                                        {contact.name}
+                                        {name}
                                     </p>
                                 </li>
                                 <li>
-                                    <a href={`mailto:${contact.email}`} title="mail me">
+                                    <a href={`mailto:${email}`} title="mail me">
                                         <FontAwesomeIcon icon="paper-plane" />
-                                        {contact.email}
+                                        {email}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href={`tel:${contact.phoneNumber}`}>
+                                    <a href={`tel:${phoneNumber}`}>
                                         <FontAwesomeIcon icon="phone-alt" />
-                                        {contact.phoneNumber}
+                                        {phoneNumber}
                                     </a>
                                 </li>
-                                <li>
-                                    <a href={contact.facebookLink} target='_blank'>
-                                        <FontAwesomeIcon icon={['fab', 'facebook-f']} size='2x'/>    
-                                    </a>
-                                    <a href={contact.instagramLink} target='_blank'>
-                                        <FontAwesomeIcon icon={['fab', 'instagram']} size='2x'/>
-                                    </a>
-                                </li>
+                                { !facebookLink && !instagramLink ? '' : 
+                                    <li>
+                                        { facebookLink && 
+                                            <a href={facebookLink} target='_blank'>
+                                                <FontAwesomeIcon icon={['fab', 'facebook-f']} size='2x'/>    
+                                            </a>
+                                        }
+                                        { instagramLink &&
+                                            <a href={instagramLink} target='_blank'>
+                                                <FontAwesomeIcon icon={['fab', 'instagram']} size='2x'/>
+                                            </a>
+                                        }
+                                    </li>
+                                }
+                                
                             </ul>
                         )}
                     </div>
