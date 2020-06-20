@@ -28,6 +28,7 @@ export const loggedUser = (ctx, url) => {
 export const logout = () => {
     const cookies = parseCookies()
     destroyCookie(null, 'userid')
+    destroyCookie(null, 'userinfo')
     destroyCookie(null, 'jwtToken')
     Router.push("/")
 }

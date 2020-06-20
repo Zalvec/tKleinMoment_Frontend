@@ -19,14 +19,12 @@ export default ({userData}) => {
     // TODO - uitwerken
     const HandleProfileChanges = (e) => {
         e.preventDefault()
-
     }
 
     // Account verwijderen
     // TODO - uitwerken
     const HandleDeleteAccount = (e) => {
         e.preventDefault()
-
     }
 
     return (
@@ -37,7 +35,7 @@ export default ({userData}) => {
                 <div>
                     <TextField
                         className='textfield'
-                        disabled='true'
+                        disabled={true}
                         variant="filled"
                         fullWidth
                         label='Naam'
@@ -52,7 +50,7 @@ export default ({userData}) => {
                     <TextField
                         className='textfield'
                         variant="filled"
-                        disabled='true'
+                        disabled={true}
                         fullWidth
                         label='Duur sinds registratie'
                         value={userInfo.membershipDuration}

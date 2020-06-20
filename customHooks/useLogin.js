@@ -34,6 +34,7 @@ export default () => {
         try {
             const loginResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/login_check`, credentials, config)
             const jwtToken = loginResponse.data.token
+            console.log(loginResponse)
             const decoded = jwt_decode( jwtToken )
             // cookie aanmaken met jwtToken
             setCookie(null, 'jwtToken', jwtToken, {

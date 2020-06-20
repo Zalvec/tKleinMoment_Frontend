@@ -15,11 +15,9 @@ export default ({album, footerData}) => {
     }
     
     return (
-        <>
-            <Layout footerData={footerData} title={`'t Klein Moment - ${album.name}`}>
-                <AlbumDetail album={album}/>
-            </Layout>
-        </>
+        <Layout footerData={footerData} title={`'t Klein Moment - ${album.name}`}>
+            <AlbumDetail album={album}/>
+        </Layout>
     )
 }
 
