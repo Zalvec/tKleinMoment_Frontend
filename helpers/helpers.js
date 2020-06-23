@@ -26,7 +26,7 @@ export const loggedUser = (ctx, url) => {
 // Alle cookies opvragen en de gemaakte cookies bij login verwijderen
 // Daarna redirecten naar home
 export const logout = () => {
-    const cookies = parseCookies()
+    // const cookies = parseCookies()
     destroyCookie(null, 'userid')
     destroyCookie(null, 'userinfo')
     destroyCookie(null, 'jwtToken')

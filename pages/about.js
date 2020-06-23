@@ -16,7 +16,7 @@ export default ({abouts, footerData}) => {
 // Uitvoeren on build time en returnen aan de export default hierboven
 export const getStaticProps = async () => {
     /* Alle about data ophalen uit de database */
-    const response = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/abouts`, JSON)
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}abouts`, JSON)
     const aboutList = response.data['hydra:member']
     console.log(aboutList)
 

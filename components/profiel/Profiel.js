@@ -1,9 +1,16 @@
 import { useState } from 'react'
-import { Paper, Typography, TextField, Button, InputAdornment } from "@material-ui/core"
+import { Paper, Typography, TextField, Button, InputAdornment, CircularProgress } from "@material-ui/core"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../fontAwesome/fontAwesome'
+import { confirmAlert } from 'react-confirm-alert'
+import axios from 'axios'
 
-export default ({userData}) => {
+import useLogin from '../../customHooks/useLogin'
+import LoginForm from '../log_register/LoginForm'
+import {logout} from '../../helpers/helpers'
+
+export default ({userData:{userData, jwt}}) => {
+    console.log(jwt)
     // Gebruikers data opsplitsen
     console.log(JSON.parse(userData))
     const userInfo = JSON.parse(userData)
@@ -14,17 +21,91 @@ export default ({userData}) => {
     const [ password, setPassword ] = useState('')
     const [ repeatPassword, setRepeatPassword ] = useState('') 
     const [ feedback, setFeedback ] = useState('')
+    const [ loading, setLoading ] = useState(false)
 
     // Veranderingen opslaan
     // TODO - uitwerken
     const HandleProfileChanges = (e) => {
         e.preventDefault()
+        if ( password !== repeatPassword ) setFeedback('Password needs to be te same')
+        
+        const requestBody = {
+            email: email,
+            cosplayName: cosplayName === '' ? null : cosplayName,
+            password: password === '' ? null : password
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${jwt}`,
+                'Accept' : 'application/ld+json',
+                'Content-Type': 'application/json'
+            }
+        }
+        console.log(config)
+        setLoading(true)
+
+        axios.put(`https://wdev.be/wdev_roel/eindwerk/api/users/${userInfo.id}`, requestBody, config)
+            .then( response => {
+                console.log(response)
+                setLoading(false)
+                setFeedback('Account gewijzigd')
+                // TODO nieuwe jwt aanmaken zodat data uptodate is
+            })
+            .catch( error => {
+                console.log(error.response)
+                setLoading(false)
+            })
+
     }
 
     // Account verwijderen
-    // TODO - uitwerken
+    // TODO - afwerken
     const HandleDeleteAccount = (e) => {
         e.preventDefault()
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className='custom-ui'>
+                        <Typography component='h1' variant='h5'>Account verwijderen?</Typography>
+                        <Typography component='h2' variant='body1'>Eens je account verwijderd is, is dit onomkeerbaar. Ben je zeker dat je je account wil verwijderen?</Typography>
+                        <Button className="button" variant="contained" type='submit' onClick={onClose}>Nee</Button>
+                        <Button className="button" variant="contained" type='submit' 
+                            onClick={() => {
+                            DeleteAccount()
+                            onClose()
+                            }}
+                        >
+                            Ja
+                        </Button>
+                    </div>
+                )
+            }
+        })
+    }
+
+    const DeleteAccount = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${jwt}`,
+                'Accept' : 'application/ld+json',
+                'Content-Type': 'application/json'
+            }
+        }
+
+        setLoading(true)
+
+        axios.delete(`https://wdev.be/wdev_roel/eindwerk/api/users/${userInfo.id}`, config)
+            .then( response => {
+                console.log(response)
+                setLoading(false)
+                setFeedback('Account is verwijderd, je wordt geredirect naar de homepage')
+                logout()
+            })
+            .catch( error => {
+                console.log(error.response)
+                setLoading(false)
+            })
     }
 
     return (
@@ -135,6 +216,12 @@ export default ({userData}) => {
                         Wijzigingen opslaan
                     </Button>  
                 </form>
+                <span className='loading'>
+                    { loading && <CircularProgress size="2em" />}
+                </span>
+                <Typography component='p' variant='body1'>
+                    {feedback}
+                </Typography>
                 <Button className="button" variant="contained" type='submit' fullWidth onClick={HandleDeleteAccount}>
                     Account verwijderen
                 </Button>

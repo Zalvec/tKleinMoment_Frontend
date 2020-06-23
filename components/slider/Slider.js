@@ -2,14 +2,22 @@ import { useState, useEffect } from 'react'
 
 // Slider op index.js
 export default ({imageList}) => {
+
     // variabelen setten
     const [images, setImages] = useState(imageList)
     const [position, setPosition] = useState(0)
 
-    // Na x aantal seconden veranderd de positie. De positie bepaald welke foto getoond word
+    // Random nummer verschillend van huidig nummer
+    const randomNumber = (except) => {
+        let num = Math.floor(Math.random() * imageList.length)
+        return (num === except) ? randomNumber() : num
+    }
+
+    // Na 3 seconden veranderd de positie. De positie bepaald welke foto getoond word
     useEffect( () => {
         const id = setTimeout( () => {
-            position === imageList.length - 1 ? setPosition(0) : setPosition(position+1) 
+            console.log(Math.floor(Math.random() * imageList.length))
+            setPosition(randomNumber(position))
         }, 3000)
         return () => clearTimeout(id)
     }, [position])

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import SimpleReactLightBox from "simple-react-lightbox"
 
-import Navbar from './Navbar'
+import Navbar from './navigatie/Navbar'
 import Footer from '../components/footer/Footer'
 
 export default ({ children, footerData, title }) => {

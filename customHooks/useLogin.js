@@ -43,10 +43,18 @@ export default () => {
                 maxAge: 60 * 60
             })
             // cookie aanmaken met userid
-            setCookie(null, 'userid', decoded.id)
+            setCookie(null, 'userid', decoded.id, {
+                path: "/",
+                sameSite: "lax",
+                maxAge: 60 * 60
+            })
 
             // cookie aanmaken met gebruikers informatie
-            setCookie(null, 'userinfo', JSON.stringify(decoded))
+            setCookie(null, 'userinfo', JSON.stringify(decoded), {
+                path: "/",
+                sameSite: "lax",
+                maxAge: 60 * 60
+            })
 
             setLoading(false)
             Router.push("/profiel");

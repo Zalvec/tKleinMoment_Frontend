@@ -13,6 +13,7 @@ export default ({album}) => {
 
     // bij het laden van de pagina checken of de gebruiker is ingelogd of niet
     useEffect( () => {
+        console.log(process.env.NEXT_PUBLIC_API_ENDPOINT)
         const cookies = parseCookies()
         typeof cookies.jwtToken !== 'undefined' ? setLoggedIn(true) : setLoggedIn(false)
         setUserID(cookies.userid)
@@ -70,7 +71,7 @@ export default ({album}) => {
         }
 
         // Er moet geen visuele response zijn voor de users. Enkel een post met console.log()'s om bij development te controleren of alles werkt 
-        axios.post(`https://wdev.be/wdev_roel/eindwerk/api/download_logs`, requestBody, config)
+        axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}download_logs`, requestBody, config)
             .then ( response => {
                 console.log(response)
             })

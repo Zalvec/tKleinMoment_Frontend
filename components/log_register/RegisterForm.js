@@ -139,7 +139,7 @@ export default () => {
                 <Button className="button" variant="contained" type='submit' fullWidth>
                     Registreer
                 </Button>
-                { loading && <CircularProgress size="2em" />}
+                { loading && <CircularProgress className="loading" size="2em" />}
             </form>
         </Paper>
     )

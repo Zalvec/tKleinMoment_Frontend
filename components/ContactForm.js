@@ -48,6 +48,7 @@ export default (props) => {
 
         // Contact formulier verzenden. Bij succes bericht tonen en alle velden leeg maken
         // Bij error een error bericht terugsturen
+        
         axios.post(`https://wdev.be/wdev_roel/eindwerk/api/messages`, requestBody, config)
             .then( response => {
                 setFeedback('Mail send')

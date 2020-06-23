@@ -23,7 +23,7 @@ export default ({album, footerData}) => {
 
 // Dynamisch alle album/id/slug pagina's maken on build time
 export const getStaticPaths = async () => {
-    const albumListResponse = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums?properties%5B%5D=id&properties%5B%5D=name`)
+    const albumListResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}albums?properties%5B%5D=id&properties%5B%5D=name`)
     const albumList = albumListResponse.data['hydra:member']
 
     // Voor elke album een {params: {...}} aanmaken met zijn id en slug
@@ -40,7 +40,7 @@ export const getStaticPaths = async () => {
 // On build time alle informatie van een album ophalen en returnen als prop naar de export default hierboven
 export const getStaticProps = async (req) => {
     const id = req.params.id
-    const albumDetailResponse = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/albums/` + id)
+    const albumDetailResponse = await axios.get( `${process.env.NEXT_PUBLIC_API_ENDPOINT}albums/` + id)
     const albumDetail = albumDetailResponse.data
 
     /* Footer data ophalen */

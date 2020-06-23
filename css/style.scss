@@ -570,6 +570,10 @@ header {
             color: $standaard;
         }
     }
+
+    .loading {
+        margin: 1em auto 0;
+    }
 }
 
 @media screen and ( min-width: $smallscreen ) {

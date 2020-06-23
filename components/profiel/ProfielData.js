@@ -7,8 +7,9 @@ const userData = async (ctx) => {
 
     // gebruikers informatie ophalen uit de cookie
     const userData = cookies.userinfo
+    const jwt = cookies.jwtToken
 
-    return userData
+    return {userData, jwt}
 }
 
 module.exports = userData;
