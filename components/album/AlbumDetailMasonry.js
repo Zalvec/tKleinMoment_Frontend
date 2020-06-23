@@ -92,15 +92,14 @@ export default ({album}) => {
                 {album.images.map(  
                     ({image, alt, active, id}) => 
                         (   
-                            <>
+                            <div key={id}>
                                 {/* Als een image actief is, wordt deze weergegeven */}
                                 { active && 
-                                    <figure key={id}>
+                                    <figure>
                                         {/* image.php zorgt ervoor dat de opgehaalde foto's met kleinere resolutie getoond worden op de pagina 
                                             in <a> krijgt de image een grotere 'width', dit is de foto die fullscreen getoond zal worden
                                         */}
                                         <a
-                                            key={id}
                                             rel="noopener noreferrer"
                                             href={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
                                             data-attribute="SRL"
@@ -123,7 +122,7 @@ export default ({album}) => {
                                         }
                                     </figure>
                                 }
-                            </>
+                            </div>
                         )
                     )
                 }
