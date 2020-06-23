@@ -35,13 +35,13 @@ export default ({abouts}) => {
                                 <CardMedia 
                                     component='img'
                                     alt={`illustration for section ${aboutMe.header}`}
-                                    image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
+                                    image={`${process.env.NEXT_PUBLIC_BASE}image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
                                 />
                                 <CardContent className="about-content-article">
                                     <Typography variant="h5" component="h2" className="about-content-title">
                                         {aboutMe.header}
                                     </Typography>
-                                    <Typography variant="body2" component="p" className="about-content-text">
+                                    <Typography variant="body2" component="div" className="about-content-text">
                                         <div dangerouslySetInnerHTML={{__html: aboutMe.text}} />
                                     </Typography>
                                 </CardContent>
@@ -68,7 +68,7 @@ export default ({abouts}) => {
                                         <CardMedia 
                                             component='img'
                                             alt={`illustration for section ${aboutMe.header}`}
-                                            image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
+                                            image={`${process.env.NEXT_PUBLIC_BASE}image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
                                         />
                                     </Card>
                                     ||
@@ -77,7 +77,7 @@ export default ({abouts}) => {
                                         <CardMedia 
                                             component='img'
                                             alt={`illustration for section ${aboutMe.header}`}
-                                            image={`https://wdev.be/wdev_roel/eindwerk/image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
+                                            image={`${process.env.NEXT_PUBLIC_BASE}image.php?${aboutMe.image}&width=880&image=/wdev_roel/eindwerk/system/img/about/${aboutMe.image}`}
                                         />
                                         <CardContent className="about-content-article">
                                             <Typography variant="h5" component="h2" className="about-content-title">

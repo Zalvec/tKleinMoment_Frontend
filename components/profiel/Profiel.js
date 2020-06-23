@@ -45,7 +45,7 @@ export default ({userData:{userData, jwt}}) => {
         console.log(config)
         setLoading(true)
 
-        axios.put(`https://wdev.be/wdev_roel/eindwerk/api/users/${userInfo.id}`, requestBody, config)
+        axios.put(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users/${userInfo.id}`, requestBody, config)
             .then( response => {
                 console.log(response)
                 setLoading(false)
@@ -89,7 +89,7 @@ export default ({userData:{userData, jwt}}) => {
 
         setLoading(true)
 
-        axios.delete(`https://wdev.be/wdev_roel/eindwerk/api/users/${userInfo.id}`, config)
+        axios.delete(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users/${userInfo.id}`, config)
             .then( response => {
                 console.log(response)
                 setLoading(false)

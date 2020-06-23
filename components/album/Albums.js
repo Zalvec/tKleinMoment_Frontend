@@ -22,7 +22,7 @@ export default ({albums}) => {
                                         <a>
                                             <div>
                                                 {/* image.php zorgt ervoor dat de opgehaalde foto's met kleinere resolutie getoond worden op de pagina */}
-                                                <img key={id} alt={`Cover image for ${name}`} src={`https://wdev.be/wdev_roel/eindwerk/image.php?${cover}&width=300&height=300&cropratio=1:1&image=/wdev_roel/eindwerk/system/img/covers/${cover}`} />
+                                                <img key={id} alt={`Cover image for ${name}`} src={`${process.env.NEXT_PUBLIC_BASE}image.php?${cover}&width=300&height=300&cropratio=1:1&image=/wdev_roel/eindwerk/system/img/covers/${cover}`} />
                                                 {/* moment zet de datum die binnenkomt als 2020-05-10T00:00:00+02:00 om in een leesbare datum 10 mei 2020 */}
                                                 <Typography component='p' variant='h5'>{name} - {moment(date).locale('nl').format("DD MMMM YYYY")}</Typography>
                                             </div>

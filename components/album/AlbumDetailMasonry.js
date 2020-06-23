@@ -13,7 +13,6 @@ export default ({album}) => {
 
     // bij het laden van de pagina checken of de gebruiker is ingelogd of niet
     useEffect( () => {
-        console.log(process.env.NEXT_PUBLIC_API_ENDPOINT)
         const cookies = parseCookies()
         typeof cookies.jwtToken !== 'undefined' ? setLoggedIn(true) : setLoggedIn(false)
         setUserID(cookies.userid)
@@ -101,11 +100,11 @@ export default ({album}) => {
                                         */}
                                         <a
                                             rel="noopener noreferrer"
-                                            href={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
+                                            href={`${process.env.NEXT_PUBLIC_BASE}image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
                                             data-attribute="SRL"
                                         >
                                             <img 
-                                                src={`https://wdev.be/wdev_roel/eindwerk/image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
+                                                src={`${process.env.NEXT_PUBLIC_BASE}image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
                                                 alt={alt}
                                                 id={id}
                                                 className='item'
@@ -115,7 +114,7 @@ export default ({album}) => {
                                         { loggedIn &&
                                             <figcaption>
                                                 {/* Knop om deze image te downloaden mbv download.php - bestand uit de backend */}
-                                                <a href={`https://wdev.be/wdev_roel/eindwerk/download.php?file=${image}`} onClick={HandleDownload(id)}>
+                                                <a href={`${process.env.NEXT_PUBLIC_BASE}download.php?file=${image}`} onClick={HandleDownload(id)}>
                                                     <FontAwesomeIcon icon="download"/>
                                                 </a>
                                             </figcaption>

@@ -32,7 +32,7 @@ export default () => {
         
         // login versturen naar api. Indien de user kan inloggen worden de nodige cookies aangemaakt. Anders krijgt de user een error message
         try {
-            const loginResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/login_check`, credentials, config)
+            const loginResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}login_check`, credentials, config)
             const jwtToken = loginResponse.data.token
             console.log(loginResponse)
             const decoded = jwt_decode( jwtToken )

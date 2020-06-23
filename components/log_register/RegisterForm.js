@@ -43,7 +43,7 @@ export default () => {
         // Registratie verzenden. Bij succes gebruiker inloggen en redirecten naar profiel
         // Bij error een error bericht terugsturen
         try {
-            const registerResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/users`, requestBody, config)
+            const registerResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users`, requestBody, config)
             console.log(registerResponse)
             login(registerResponse.data.email, password)
             setLoading(false)
