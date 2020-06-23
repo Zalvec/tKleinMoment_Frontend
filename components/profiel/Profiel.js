@@ -64,24 +64,18 @@ export default ({userData:{userData, jwt}}) => {
     const HandleDeleteAccount = (e) => {
         e.preventDefault()
         confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <div className='custom-ui'>
-                        <Typography component='h1' variant='h5'>Account verwijderen?</Typography>
-                        <Typography component='h2' variant='body1'>Eens je account verwijderd is, is dit onomkeerbaar. Ben je zeker dat je je account wil verwijderen?</Typography>
-                        <Button className="button" variant="contained" type='submit' onClick={onClose}>Nee</Button>
-                        <Button className="button" variant="contained" type='submit' 
-                            onClick={() => {
-                            DeleteAccount()
-                            onClose()
-                            }}
-                        >
-                            Ja
-                        </Button>
-                    </div>
-                )
-            }
-        })
+            title: 'Account verwijderen?',
+            message: 'Eens je account verwijderd is, is dit onomkeerbaar. Ben je zeker dat je je account wil verwijderen?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick: () => DeleteAccount()
+                },
+                {
+                    label: 'Nee'
+                }
+            ]
+        });
     }
 
     const DeleteAccount = () => {

@@ -10,8 +10,8 @@ export default (props) => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [message, setMessage] = useState('')
     const [feedback, setFeedback] = useState('')
+    const [ feedbackRegister, setFeedbackRegister ] = useState('')
     const [ loading, setLoading ] = useState(false)
-
 
     {/* TODO: Axios call to user to get email, firstname and lastname */}
     
@@ -19,9 +19,6 @@ export default (props) => {
     const handleContactFrom = e => {
         e.preventDefault()
         console.log(email, firstName, lastName, phoneNumber, message)
-
-        // Als phoneNumber leeg is, omzetten naar null. API verwacht null ipv ''
-        if (phoneNumber === '') setPhoneNumber(null)
 
         // Controlleren of alles is ingevuld
         if ( firstName === '' || lastName === '' || message === '' || email === '') {
@@ -34,7 +31,14 @@ export default (props) => {
             email: email,
             firstName: firstName,
             lastName: lastName,
-            phoneNumber: phoneNumber,
+            phoneNumber: phoneNumber === '' ? null : phoneNumber,
+            text: message
+        }
+        const requestBodyWithPhone = {
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            
             text: message
         }
 
@@ -48,8 +52,7 @@ export default (props) => {
 
         // Contact formulier verzenden. Bij succes bericht tonen en alle velden leeg maken
         // Bij error een error bericht terugsturen
-        
-        axios.post(`https://wdev.be/wdev_roel/eindwerk/api/messages`, requestBody, config)
+        axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}messages`, requestBody, config)
             .then( response => {
                 setFeedback('Mail send')
                 setEmail('')
@@ -61,7 +64,7 @@ export default (props) => {
             })
             .catch( error  => {
                 setLoading(false)
-                console.log(error)
+                console.log(error.response)
                 setFeedback('Something went wrong, try again later')
             })
     }
@@ -76,6 +79,7 @@ export default (props) => {
             </Typography>
             <Typography component='p' variant='body1'>
                 {feedback}
+                {feedbackRegister}
             </Typography>
 
             {/* noValidate schakelt de standaard veld error messages uit */}
