@@ -36,6 +36,7 @@ export default () => {
             const jwtToken = loginResponse.data.token
             console.log(loginResponse)
             const decoded = jwt_decode( jwtToken )
+            console.log(decoded)
             // cookie aanmaken met jwtToken
             setCookie(null, 'jwtToken', jwtToken, {
                 path: "/",
@@ -48,6 +49,12 @@ export default () => {
                 sameSite: "lax",
                 maxAge: 60 * 60
             })
+            // cookie aanmaken met refreshtoken
+            setCookie(null, 'refreshtoken', loginResponse.data.refresh_token, {
+                path: "/",
+                sameSite: "lax",
+                maxAge: 60 * 60 * 60
+            })
 
             // cookie aanmaken met gebruikers informatie
             setCookie(null, 'userinfo', JSON.stringify(decoded), {
@@ -59,7 +66,7 @@ export default () => {
             setLoading(false)
             Router.push("/profiel");
         } catch (error) {
-            console.log(error)
+            console.log(error.response)
             setFeedback( `Sorry, couldn't login. Please check if email and password are correct` )
             setLoading(false)
         }

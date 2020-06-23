@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Paper, Typography, CircularProgress, TextField, TextareaAutosize, Button } from '@material-ui/core'
+import { parseCookies } from 'nookies'
 
-export default (props) => {
+export default () => {
+    
     // Variabelen setten
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -13,7 +15,17 @@ export default (props) => {
     const [ feedbackRegister, setFeedbackRegister ] = useState('')
     const [ loading, setLoading ] = useState(false)
 
-    {/* TODO: Axios call to user to get email, firstname and lastname */}
+    // Als een gebruiker is ingelogd, worden zijn gegevens opgevraagd uit de cookie en onMount in de juiste velden ingevuld
+    const cookies = parseCookies()
+    const userInfo = Object.keys(cookies).length ? JSON.parse(cookies.userinfo) : null
+    useEffect( () => {
+        if (userInfo !== null ){
+            console.log(userInfo)
+            setEmail(userInfo.username)
+            setFirstName(userInfo.firstName)
+            setLastName(userInfo.lastName)
+        }
+    }, [])
     
     // Contact formulier valideren en verzenden
     const handleContactFrom = e => {
