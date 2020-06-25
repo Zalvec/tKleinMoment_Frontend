@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { LinearProgress } from '@material-ui/core'
 
 import {slugify} from '../../../helpers/slugify'
-import Layout from '../../../components/Layout'
+import Layout from '../../../components/layout'
 import AlbumDetail from '../../../components/album/AlbumDetail'
 
 export default ({album, footerData}) => {
