@@ -1,4 +1,4 @@
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import { guestUser } from '../helpers/helpers'
 import Profiel from '../components/profiel/Profiel'
 

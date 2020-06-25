@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import Albums from '../components/album/Albums'
 
 export default ({albums, footerData}) => {

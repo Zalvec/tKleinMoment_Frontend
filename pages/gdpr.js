@@ -1,4 +1,4 @@
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import GDPR from '../components/GDPR'
 
 export default ({footerData}) => {

@@ -1,4 +1,4 @@
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import Homepage from '../components/Homepage'
 
 import axios from 'axios'
