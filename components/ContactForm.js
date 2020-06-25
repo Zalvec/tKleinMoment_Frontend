@@ -39,12 +39,12 @@ export default () => {
             setFeedback('Gelieve alle verplichte velden in te vullen')
             return null
         }
-        if ( !EmailValidator.validate(email) ) {  // een email ingevuld
+        if ( !EmailValidator.validate(email) ) {  // een geldig email ingevuld
             setFeedback('Email is ongeldig')
             return null
         }
-        if ( !regexName.test(firstName) || !regexName.test(lastName)){  // firstname moet tussen 2 en 50 chatacters lang zijn
-            setFeedback('Enkel volgende special characters zijn toegelaten voor voornaam en achternaam: , . \' -')
+        if ( !regexName.test(firstName) || !regexName.test(lastName)){  // Geen speciale tekens in firstname en lastname buiten , . ' en -
+            setFeedback('Enkel volgende special characters zijn toegelaten voor voornaam en achternaam: , . \' en -')
             return null
         }
         if ( firstName.length < 2 || firstName.length > 50){  // firstname moet tussen 2 en 50 chatacters lang zijn

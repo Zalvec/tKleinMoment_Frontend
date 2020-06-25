@@ -33,15 +33,15 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
             setFeedback('Enkel volgende special characters zijn toegelaten voor je cosplay naam: , . \' -')
             return null
         }
-        if ( cosplayName.length < 2 || cosplayName.length > 50){
+        if ( cosplayName.length < 2 || cosplayName.length > 50){ // cosplay naam moet tussen 2 en 50 chatacters lang zijn
             setFeedback('Cosplay naam moet tussen 2 en 50 characters lang zijn')
             return null
         }
-        if ( password !== repeatPassword ){
+        if ( password !== repeatPassword ){ // beide wachtwoorden moeten gelijk zijn
             setFeedback('Wachtwoorden zijn niet gelijk')
             return null
         }
-        if ( !strongRegex.test(password) ){ 
+        if ( !strongRegex.test(password) ){ // wachtwoord moet sterk genoeg zijn. 8 lang, 1 getal, kleine en grote letter
             setFeedback('Wachtwoord moet minstens 8 characters lang zijn met minstens 1 kleine letter, 1 grote letter en een getal')
             return null
         }

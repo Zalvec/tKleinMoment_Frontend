@@ -36,27 +36,27 @@ export default () => {
         }
 
         // Controleer ieder veld
-        if ( !EmailValidator.validate(email) ) {
+        if ( !EmailValidator.validate(email) ) { // een geldig email ingevuld
             setFeedbackRegister('Email is ongeldig')
             return null
         }
-        if ( !regexName.test(firstName) || !regexName.test(lastName)){  // firstname moet tussen 2 en 50 chatacters lang zijn
+        if ( !regexName.test(firstName) || !regexName.test(lastName)){  // Geen speciale tekens in firstname en lastname buiten , . ' en -
             setFeedback('Enkel volgende special characters zijn toegelaten voor voornaam en achternaam: , . \' -')
             return null
         }
-        if ( firstName.length < 2 || firstName.length > 50){
+        if ( firstName.length < 2 || firstName.length > 50){ // firstname moet tussen 2 en 50 chatacters lang zijn
             setFeedbackRegister('Voornaam moet tussen 2 en 50 characters lang zijn')
             return null
         }
-        if ( lastName.length < 2 || lastName.length > 50){
+        if ( lastName.length < 2 || lastName.length > 50){ // lastname moet tussen 2 en 50 chatacters lang zijn
             setFeedbackRegister('Achtenaam moet tussen 2 en 50 characters lang zijn')
             return null
         }
-        if ( password !== repeatPassword ){
+        if ( password !== repeatPassword ){  // beide wachtwoorden moeten gelijk zijn
             setFeedbackRegister('Wachtwoorden zijn niet gelijk')
             return null
         }
-        if ( !strongRegex.test(password) ){ 
+        if ( !strongRegex.test(password) ){ // wachtwoord moet sterk genoeg zijn. 8 lang, 1 getal, kleine en grote letter
             setFeedbackRegister('Wachtwoord moet minstens 8 characters lang zijn met minstens 1 kleine letter, 1 grote letter en een getal')
             return null
         }

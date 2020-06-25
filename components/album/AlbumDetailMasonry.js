@@ -87,41 +87,36 @@ export default ({album}) => {
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
             >
-                {/* Alle images in een album mappen */}
-                {album.images.map(  
-                    ({image, alt, active, id}) => 
+                {/* Alle active images in een album mappen */}
+                {album.images.filter( image => image.active).map(  
+                    ({image, alt, id}) => 
                         (   
-                            <div key={id}>
-                                {/* Als een image actief is, wordt deze weergegeven */}
-                                { active && 
-                                    <figure>
-                                        {/* image.php zorgt ervoor dat de opgehaalde foto's met kleinere resolutie getoond worden op de pagina 
-                                            in <a> krijgt de image een grotere 'width', dit is de foto die fullscreen getoond zal worden
-                                        */}
-                                        <a
-                                            rel="noopener noreferrer"
-                                            href={`${process.env.NEXT_PUBLIC_BASE}image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
-                                            data-attribute="SRL"
-                                        >
-                                            <img 
-                                                src={`${process.env.NEXT_PUBLIC_BASE}image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
-                                                alt={alt}
-                                                id={id}
-                                                className='item'
-                                            />
+                            <figure key={id}>
+                                {/* image.php zorgt ervoor dat de opgehaalde foto's met kleinere resolutie getoond worden op de pagina 
+                                    in <a> krijgt de image een grotere 'width', dit is de foto die fullscreen getoond zal worden
+                                */}
+                                <a
+                                    rel="noopener noreferrer"
+                                    href={`${process.env.NEXT_PUBLIC_BASE}image.php?${image}&width=1080&image=/wdev_roel/eindwerk/system/img/albums/${image}`}
+                                    data-attribute="SRL"
+                                >
+                                    <img 
+                                        src={`${process.env.NEXT_PUBLIC_BASE}image.php?${image}&width=490&image=/wdev_roel/eindwerk/system/img/albums/${image}`} 
+                                        alt={alt}
+                                        id={id}
+                                        className='item'
+                                    />
+                                </a>
+                                {/* Als een gebruiker is ingelogd, krijgt het de optie om foto's te downloaden */}
+                                { loggedIn &&
+                                    <figcaption>
+                                        {/* Knop om deze image te downloaden mbv download.php - bestand uit de backend */}
+                                        <a href={`${process.env.NEXT_PUBLIC_BASE}download.php?file=${image}`} onClick={HandleDownload(id)}>
+                                            <FontAwesomeIcon icon="download"/>
                                         </a>
-                                        {/* Als een gebruiker is ingelogd, krijgt het de optie om foto's te downloaden */}
-                                        { loggedIn &&
-                                            <figcaption>
-                                                {/* Knop om deze image te downloaden mbv download.php - bestand uit de backend */}
-                                                <a href={`${process.env.NEXT_PUBLIC_BASE}download.php?file=${image}`} onClick={HandleDownload(id)}>
-                                                    <FontAwesomeIcon icon="download"/>
-                                                </a>
-                                            </figcaption>
-                                        }
-                                    </figure>
+                                    </figcaption>
                                 }
-                            </div>
+                            </figure>
                         )
                     )
                 }

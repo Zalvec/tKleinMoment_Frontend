@@ -23,12 +23,12 @@ export default () => {
             'Content-Type': 'application/json'
         }
     
-        // verifiëren of alles is ingevuld
-        if (username === "" || password === "") {
+        // validatie velden
+        if (username === "" || password === "") {  // beide velden ingevuld
             setFeedback('Gelieve alle verplichte velden in te vullen')
             return null
         }
-        if ( !EmailValidator.validate(username) ) {
+        if ( !EmailValidator.validate(username) ) {  // een geldig email ingegeven
             setFeedback('Email is ongeldig')
             return null
         }
