@@ -4,19 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../fontAwesome/fontAwesome'
 import { confirmAlert } from 'react-confirm-alert'
 import axios from 'axios'
+import jwt_decode from 'jwt-decode'
+import { setCookie } from 'nookies'
 
-import useLogin from '../../customHooks/useLogin'
-import LoginForm from '../log_register/LoginForm'
 import {logout} from '../../helpers/helpers'
 
-export default ({userData:{userData, jwt}}) => {
-    console.log(jwt)
+export default ({userData:{userData, refreshtoken, jwt}}) => {
     // Gebruikers data opsplitsen
-    console.log(JSON.parse(userData))
     const userInfo = JSON.parse(userData)
+    console.log(userInfo)
 
     //variabelen setten
-    const [ email, setEmail] = useState(userInfo.username)
+    const [ email, setEmail] = useState(userInfo.email)
     const [ cosplayName, setCosplayName ] = useState(userInfo.cosplay === null ? '' : userInfo.cosplay)
     const [ password, setPassword ] = useState('')
     const [ repeatPassword, setRepeatPassword ] = useState('') 
@@ -47,10 +46,40 @@ export default ({userData:{userData, jwt}}) => {
 
         axios.put(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users/${userInfo.id}`, requestBody, config)
             .then( response => {
-                console.log(response)
                 setLoading(false)
                 setFeedback('Account gewijzigd')
+                setPassword('')
+                setRepeatPassword('')
                 // TODO nieuwe jwt aanmaken zodat data uptodate is
+                // Bij het refreshen van de jwt als je de username (email) aanpast krijg je een foutmelding dat de getId() van de user niet gevonden kan worden
+                axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}token/refresh`, { refresh_token:`${refreshtoken}`})
+                    .then(res => {
+                        console.log( res )
+                        // Na refresh van jwt de data in de oude cookies overschrijven
+                        const jwtToken = res.data.token
+                        const decoded = jwt_decode( jwtToken )
+                        // cookie updaten met jwtToken
+                        setCookie(null, 'jwtToken', jwtToken, {
+                            path: "/",
+                            sameSite: "lax",
+                            maxAge: 60 * 60
+                        })
+                        // cookie updaten met refreshtoken
+                        setCookie(null, 'refreshtoken', res.data.refresh_token, {
+                            path: "/",
+                            sameSite: "lax",
+                            maxAge: 60 * 60 * 60
+                        })
+                        // cookie updaten met gebruikers informatie
+                        setCookie(null, 'userinfo', JSON.stringify(decoded), {
+                            path: "/",
+                            sameSite: "lax",
+                            maxAge: 60 * 60
+                        })
+                    })
+                    .catch ( err => {
+                        console.log( err.response )
+                    })
             })
             .catch( error => {
                 console.log(error.response)
@@ -59,8 +88,7 @@ export default ({userData:{userData, jwt}}) => {
 
     }
 
-    // Account verwijderen
-    // TODO - afwerken
+    // Popup met bevestiging om account te verwijderen of niet
     const HandleDeleteAccount = (e) => {
         e.preventDefault()
         confirmAlert({
@@ -78,6 +106,7 @@ export default ({userData:{userData, jwt}}) => {
         });
     }
 
+    // Account verwijderen
     const DeleteAccount = () => {
         const config = {
             headers: {
@@ -114,7 +143,7 @@ export default ({userData:{userData, jwt}}) => {
                         variant="filled"
                         fullWidth
                         label='Naam'
-                        value={userInfo.name}
+                        value={userInfo.firstName + ' ' + userInfo.lastName}
                         InputProps={{ 
                             disableUnderline: true,
                             endAdornment: <InputAdornment position="end">

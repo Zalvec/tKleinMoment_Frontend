@@ -13,7 +13,7 @@ export default () => {
     const login = async (username, password) => {
         // login gegevens
         const credentials = { 
-            username: username, 
+            email: username, 
             password: password
         }
 
@@ -43,12 +43,7 @@ export default () => {
                 sameSite: "lax",
                 maxAge: 60 * 60
             })
-            // cookie aanmaken met userid
-            setCookie(null, 'userid', decoded.id, {
-                path: "/",
-                sameSite: "lax",
-                maxAge: 60 * 60
-            })
+
             // cookie aanmaken met refreshtoken
             setCookie(null, 'refreshtoken', loginResponse.data.refresh_token, {
                 path: "/",
