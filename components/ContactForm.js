@@ -15,7 +15,7 @@ export default () => {
     const [feedback, setFeedback] = useState('')
     const [ loading, setLoading ] = useState(false)
 
-    const regexNumber = new RegExp('^[0-9]{9,15}$');
+    const regexNumber = new RegExp('^(0)[0-9]{9,15}$');
     const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
 
     // Als een gebruiker is ingelogd, worden zijn gegevens opgevraagd uit de cookie en onMount in de juiste velden ingevuld
@@ -56,7 +56,7 @@ export default () => {
             return null
         }
         if ( !regexNumber.test(phoneNumber)) {   // telefoonnummer mag enkel cijfers bevatten
-            setFeedback('Telefoonnummer mag enkel cijfers bevatten en moet tussen 9 en 15 cijfers lang zijn')
+            setFeedback('Telefoonnummer mag enkel cijfers bevatten en moet tussen 9 en 15 cijfers lang zijn en moet beginnen met een 0')
             return null
         }
         if ( message.length < 20 ){  // het bericht moet minstens 20 characters lang zijn
