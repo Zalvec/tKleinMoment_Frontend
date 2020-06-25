@@ -59,7 +59,7 @@ export default ({footerData}) => {
                             <Link href="/contact"><a>Contacteer ons</a></Link>
                         </li>
                         <li>
-                            <Link href="/gebruiksvoorwaarden"><a>Gebruiksvoorwaarden</a></Link>
+                            <Link href="/algemene-voorwaarden"><a>Algemene voorwaarden</a></Link>
                         </li>
                         <li>
                             <Link href="/gdpr"><a>GDPR</a></Link>

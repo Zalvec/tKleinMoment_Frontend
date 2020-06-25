@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Paper, Typography, CircularProgress, TextField, TextareaAutosize, Button } from '@material-ui/core'
 import { parseCookies } from 'nookies'
+import EmailValidator from 'email-validator'
 
 export default () => {
     
@@ -12,8 +13,10 @@ export default () => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [message, setMessage] = useState('')
     const [feedback, setFeedback] = useState('')
-    const [ feedbackRegister, setFeedbackRegister ] = useState('')
     const [ loading, setLoading ] = useState(false)
+
+    const regexNumber = new RegExp('^[0-9]{9,15}$');
+    const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
 
     // Als een gebruiker is ingelogd, worden zijn gegevens opgevraagd uit de cookie en onMount in de juiste velden ingevuld
     const cookies = parseCookies()
@@ -30,13 +33,37 @@ export default () => {
     // Contact formulier valideren en verzenden
     const handleContactFrom = e => {
         e.preventDefault()
-        console.log(email, firstName, lastName, phoneNumber, message)
 
-        // Controlleren of alles is ingevuld
-        if ( firstName === '' || lastName === '' || message === '' || email === '') {
-            setFeedbackRegister('Fill in all required fields')
+        // Validatie
+        if ( firstName === '' || lastName === '' || message === '' || email === '') {  // Alle verplichte velden ingevuld
+            setFeedback('Gelieve alle verplichte velden in te vullen')
             return null
         }
+        if ( !EmailValidator.validate(email) ) {  // een email ingevuld
+            setFeedback('Email is ongeldig')
+            return null
+        }
+        if ( !regexName.test(firstName) || !regexName.test(lastName)){  // firstname moet tussen 2 en 50 chatacters lang zijn
+            setFeedback('Enkel volgende special characters zijn toegelaten voor voornaam en achternaam: , . \' -')
+            return null
+        }
+        if ( firstName.length < 2 || firstName.length > 50){  // firstname moet tussen 2 en 50 chatacters lang zijn
+            setFeedback('Voornaam moet tussen 2 en 50 characters lang zijn')
+            return null
+        }
+        if ( lastName.length < 2 || lastName.length > 50){   // lastname moet tussen 2 en 50 chatacters lang zijn
+            setFeedback('Achtenaam moet tussen 2 en 50 characters lang zijn')
+            return null
+        }
+        if ( !regexNumber.test(phoneNumber)) {   // telefoonnummer mag enkel cijfers bevatten
+            setFeedback('Telefoonnummer mag enkel cijfers bevatten en moet tussen 9 en 15 cijfers lang zijn')
+            return null
+        }
+        if ( message.length < 20 ){  // het bericht moet minstens 20 characters lang zijn
+            setFeedback('Bericht moet minstens 20 characters lang zijn')
+            return null
+        }
+        
 
         // Gegevens bundelen voor axios
         const requestBody = {
@@ -44,13 +71,6 @@ export default () => {
             firstName: firstName,
             lastName: lastName,
             phoneNumber: phoneNumber === '' ? null : phoneNumber,
-            text: message
-        }
-        const requestBodyWithPhone = {
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            
             text: message
         }
 
@@ -66,7 +86,7 @@ export default () => {
         // Bij error een error bericht terugsturen
         axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}messages`, requestBody, config)
             .then( response => {
-                setFeedback('Mail send')
+                setFeedback('Mail verzonden')
                 setEmail('')
                 setFirstName('')
                 setLastName('')
@@ -77,7 +97,7 @@ export default () => {
             .catch( error  => {
                 setLoading(false)
                 console.log(error.response)
-                setFeedback('Something went wrong, try again later')
+                setFeedback('Iets ging mis, probeer het later opnieuw')
             })
     }
 
@@ -91,7 +111,6 @@ export default () => {
             </Typography>
             <Typography component='p' variant='body1'>
                 {feedback}
-                {feedbackRegister}
             </Typography>
 
             {/* noValidate schakelt de standaard veld error messages uit */}
@@ -106,7 +125,10 @@ export default () => {
                         fullWidth
                         label='Email'
                         value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={e => {
+                            setEmail(e.target.value)
+                            setFeedback('')
+                        }}
                         InputProps={{ disableUnderline: true }}
                     />
                     <TextField 
@@ -118,7 +140,10 @@ export default () => {
                         fullWidth
                         label='Voornaam'
                         value={firstName}
-                        onChange={e => setFirstName(e.target.value)}
+                        onChange={e => {
+                            setFirstName(e.target.value)
+                            setFeedback('')
+                        }}
                         InputProps={{ disableUnderline: true }}
                     />
                 </div>
@@ -132,7 +157,10 @@ export default () => {
                         fullWidth
                         label='Achternaam'
                         value={lastName}
-                        onChange={e => setLastName(e.target.value)}
+                        onChange={e => {
+                            setLastName(e.target.value)
+                            setFeedback('')
+                        }}
                         InputProps={{ disableUnderline: true }}
                     />
                     <TextField 
@@ -143,7 +171,10 @@ export default () => {
                         fullWidth
                         label='Telefoonnummer'
                         value={phoneNumber}
-                        onChange={e => setPhoneNumber(e.target.value)}
+                        onChange={e => {
+                            setPhoneNumber(e.target.value)
+                            setFeedback('')
+                        }}
                         InputProps={{ disableUnderline: true }}
                     />
                 </div>
@@ -152,7 +183,10 @@ export default () => {
                     placeholder="Uw bericht of vraag hier..."
                     label='Message'
                     value={message}
-                    onChange={e => setMessage(e.target.value)}
+                    onChange={e => {
+                        setMessage(e.target.value)
+                        setFeedback('')
+                    }}
                     required
                     rowsMin={4}
                 />

@@ -12,7 +12,6 @@ import {logout} from '../../helpers/helpers'
 export default ({userData:{userData, refreshtoken, jwt}}) => {
     // Gebruikers data opsplitsen
     const userInfo = JSON.parse(userData)
-    console.log(userInfo)
 
     //variabelen setten
     const [ email, setEmail] = useState(userInfo.email)
@@ -22,11 +21,30 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
     const [ feedback, setFeedback ] = useState('')
     const [ loading, setLoading ] = useState(false)
 
+    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+    const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
+
     // Veranderingen opslaan
-    // TODO - uitwerken
     const HandleProfileChanges = (e) => {
         e.preventDefault()
-        if ( password !== repeatPassword ) setFeedback('Password needs to be te same')
+        
+        // Controleer ieder veld
+        if ( !regexName.test(cosplayName)){  
+            setFeedback('Enkel volgende special characters zijn toegelaten voor je cosplay naam: , . \' -')
+            return null
+        }
+        if ( cosplayName.length < 2 || cosplayName.length > 50){
+            setFeedback('Cosplay naam moet tussen 2 en 50 characters lang zijn')
+            return null
+        }
+        if ( password !== repeatPassword ){
+            setFeedback('Wachtwoorden zijn niet gelijk')
+            return null
+        }
+        if ( !strongRegex.test(password) ){ 
+            setFeedback('Wachtwoord moet minstens 8 characters lang zijn met minstens 1 kleine letter, 1 grote letter en een getal')
+            return null
+        }
         
         const requestBody = {
             email: email,
@@ -51,7 +69,6 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                 setPassword('')
                 setRepeatPassword('')
                 // TODO nieuwe jwt aanmaken zodat data uptodate is
-                // Bij het refreshen van de jwt als je de username (email) aanpast krijg je een foutmelding dat de getId() van de user niet gevonden kan worden
                 axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}token/refresh`, { refresh_token:`${refreshtoken}`})
                     .then(res => {
                         console.log( res )
@@ -138,7 +155,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
             <div className='profiel-fields'>
                 <div>
                     <TextField
-                        className='textfield'
+                        className='textfield first-field'
                         disabled={true}
                         variant="filled"
                         fullWidth
@@ -152,7 +169,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                         }}
                     />
                     <TextField
-                        className='textfield'
+                        className='textfield memberSince'
                         variant="filled"
                         disabled={true}
                         fullWidth
@@ -166,24 +183,26 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                         }}
                     />
                 </div>
+                <div>
+                    <TextField
+                        className='textfield'
+                        autoComplete='email'
+                        variant="filled"
+                        fullWidth
+                        disabled={true}
+                        label='Email'
+                        value={email}
+                        InputProps={{ 
+                            disableUnderline: true,
+                            endAdornment: <InputAdornment position="end">
+                                <FontAwesomeIcon icon="envelope" />
+                                </InputAdornment>
+                            }}
+                    />
+                </div>
                 <form noValidate onSubmit={HandleProfileChanges}>
                     <Typography component='h2' variant='body1'>Wijzig account</Typography>
                     <div>
-                        <TextField
-                            className='textfield'
-                            autoComplete='email'
-                            variant="filled"
-                            fullWidth
-                            label='Email'
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            InputProps={{ 
-                                disableUnderline: true,
-                                endAdornment: <InputAdornment position="end">
-                                    <FontAwesomeIcon icon="envelope" />
-                                    </InputAdornment>
-                             }}
-                        />
                         <TextField
                             className='textfield'
                             autoComplete='cosplayName'
@@ -203,7 +222,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                     </div>
                     <div>
                         <TextField
-                            className='textfield'
+                            className='textfield first-field'
                             variant="filled"
                             name='password'
                             label='Wachtwoord'

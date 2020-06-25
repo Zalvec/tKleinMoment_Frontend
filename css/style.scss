@@ -571,9 +571,19 @@ header {
         }
     }
 
-    .loading {
-        margin: 1em auto 0;
+    .loading { margin: 1em auto 0; }
+
+    .MuiFormControlLabel-root{
+        margin-bottom: 1.5em;
+        .MuiSvgIcon-root { color: $standaard; }
+
+        span a {
+            color: $zwart;
+            text-decoration: underline;
+            &:hover { color: $lichtgrijs; }
+        }
     }
+    
 }
 
 @media screen and ( min-width: $smallscreen ) {
@@ -598,7 +608,10 @@ header {
 
     h2 {
         font-size: 1.2rem;
-        padding-bottom: 30px;
+        padding: 2em 0 30px;
+        border-top: 1px solid $standaard;
+        margin-top: 1em;
+
     }
 
     .textfield {
@@ -613,11 +626,9 @@ header {
 
         & > div {
             max-width: 600px;
-            margin: 0 auto 1em;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            padding-bottom: 15px;
-            border-bottom: 1px solid $standaard;
         }
 
         form {
@@ -659,7 +670,8 @@ header {
         .profiel-fields {
 
             .textfields { margin-bottom: 2em; }
-            .textfield:first-child { margin-right: 1em;}
+            .first-field { margin-right: 1em;}
+            .memberSince { width: 300px;}
     
             & > div { flex-direction: row; }
     
@@ -760,6 +772,24 @@ body.react-confirm-alert-body-element {
   to {
     opacity: 1;
   }
+}
+
+/*******************************/
+/* GDPR / Algemene voorwaarden */
+/*******************************/
+.info {
+    margin: 2em 1.5em;
+
+    h1 {
+        margin-bottom: 1.5em;
+        justify-content: center;
+        display: flex;
+    }
+
+    h2 { margin: 1em 0 .5em; }
+
+    p { text-align: justify; }
+
 }
 
 /**********/

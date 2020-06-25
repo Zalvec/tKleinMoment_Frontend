@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Typography, TextField, Button, CircularProgress, Paper } from '@material-ui/core'
+import { Typography, TextField, Button, CircularProgress, Paper, Checkbox, FormControlLabel } from '@material-ui/core'
 import axios from 'axios'
 import useLogin from '../../customHooks/useLogin'
+import EmailValidator from 'email-validator'
 
 export default () => {
     // variabelen setten
@@ -10,14 +11,62 @@ export default () => {
     const [lastName, setLastName] = useState('')
     const [cosplayName, setCosplayName] = useState('')
     const [password, setPassword] = useState('')
+    const [repeatPassword, setRepeatPassword] = useState('')
     const [ feedbackRegister, setFeedbackRegister ] = useState('')
     const [ loading, setLoading ] = useState(false)
     const { login, feedback } = useLogin()
+    const [ checked, setChecked ] = useState(false)
+
+    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+    const checkboxText = ( <span>Ik ga akkoord met <a href='/gdpr' target='_black'>GDPR</a> en de <a href='/algemene-voorwaarden' target='_black'>algemene voorwaarden</a>.</span> )
+    
+    const HandleChangeCheck = () => {
+        setChecked(!checked)
+        setFeedbackRegister('')
+    }
 
     // Registratie valideren en verzenden
     const handleRegister = async (e) => {
         e.preventDefault()
         
+        // Controlleren of alles is ingevuld
+        if ( firstName === '' || lastName === '' || email === '' || password === '' || repeatPassword === '') {
+            setFeedbackRegister('Gelieve alle verplichte velden in te vullen')
+            return null
+        }
+
+        // Controleer ieder veld
+        if ( !EmailValidator.validate(email) ) {
+            setFeedbackRegister('Email is ongeldig')
+            return null
+        }
+        if ( !regexName.test(firstName) || !regexName.test(lastName)){  // firstname moet tussen 2 en 50 chatacters lang zijn
+            setFeedback('Enkel volgende special characters zijn toegelaten voor voornaam en achternaam: , . \' -')
+            return null
+        }
+        if ( firstName.length < 2 || firstName.length > 50){
+            setFeedbackRegister('Voornaam moet tussen 2 en 50 characters lang zijn')
+            return null
+        }
+        if ( lastName.length < 2 || lastName.length > 50){
+            setFeedbackRegister('Achtenaam moet tussen 2 en 50 characters lang zijn')
+            return null
+        }
+        if ( password !== repeatPassword ){
+            setFeedbackRegister('Wachtwoorden zijn niet gelijk')
+            return null
+        }
+        if ( !strongRegex.test(password) ){ 
+            setFeedbackRegister('Wachtwoord moet minstens 8 characters lang zijn met minstens 1 kleine letter, 1 grote letter en een getal')
+            return null
+        }
+
+        // Is checkbox checked
+        if ( checked === false ) {
+            setFeedbackRegister('Gelieve de checkbox aanvinken voor akkoord om te kunnen registreren')
+            return null
+        }
+
         // Gegevens bundelen voor axios
         const requestBody = {
             email: email,
@@ -32,12 +81,6 @@ export default () => {
             'Content-Type': 'application/json'
         }
 
-        // Controlleren of alles is ingevuld
-        if ( firstName === '' || lastName === '' || email === '' || password === '') {
-            setFeedbackRegister('Fill in all required fields')
-            return null
-        }
-
         setLoading(true)
 
         // Registratie verzenden. Bij succes gebruiker inloggen en redirecten naar profiel
@@ -50,7 +93,7 @@ export default () => {
         } catch (error) {
             console.log(error.response)
             setLoading(false)
-            setFeedbackRegister( `Sorry, couldn't register. Please check if all fields are correct` )
+            setFeedbackRegister( `Sorry, niet in staat in te registreren. Controleer of alle verplichte velden correct zijn ingevuld` )
         }
     } 
     return (
@@ -135,6 +178,30 @@ export default () => {
                         setFeedbackRegister('')
                     }}
                     InputProps={{ disableUnderline: true }}
+                />
+                <TextField 
+                    variant="filled"
+                    className='textfield'
+                    name='repeatPassword'
+                    label='Herhaal wachtwoord'
+                    type='password'
+                    required
+                    fullWidth
+                    value={repeatPassword}
+                    onChange={e => {
+                        setRepeatPassword(e.target.value)
+                        setFeedbackRegister('')
+                    }}
+                    InputProps={{ disableUnderline: true }}
+                />
+                <FormControlLabel
+                    control={
+                    <Checkbox
+                        checked={checked}
+                        onChange={HandleChangeCheck}
+                    />
+                    }
+                    label={checkboxText}
                 />
                 <Button className="button" variant="contained" type='submit' fullWidth>
                     Registreer

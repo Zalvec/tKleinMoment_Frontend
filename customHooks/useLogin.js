@@ -3,6 +3,7 @@ import axios from 'axios'
 import { setCookie } from 'nookies'
 import Router from 'next/router'
 import { useState } from 'react'
+import EmailValidator from 'email-validator'
 
 export default () => {
     // variabelen aanmaken
@@ -24,7 +25,11 @@ export default () => {
     
         // verifiëren of alles is ingevuld
         if (username === "" || password === "") {
-            setFeedback('Fill in all required fields')
+            setFeedback('Gelieve alle verplichte velden in te vullen')
+            return null
+        }
+        if ( !EmailValidator.validate(username) ) {
+            setFeedback('Email is ongeldig')
             return null
         }
     
@@ -57,12 +62,12 @@ export default () => {
                 sameSite: "lax",
                 maxAge: 60 * 60
             })
-
-            setLoading(false)
+            
             Router.push("/profiel");
+            setLoading(false)
         } catch (error) {
             console.log(error.response)
-            setFeedback( `Sorry, couldn't login. Please check if email and password are correct` )
+            setFeedback( `Sorry, niet in staat in te loggen. Controleer of email en wachtwoord correct zijn` )
             setLoading(false)
         }
     }
