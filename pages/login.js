@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import Login from '../components/log_register/LoginForm'
 import Register from '../components/log_register/RegisterForm'
 import { loggedUser } from '../helpers/helpers'

@@ -1,4 +1,4 @@
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import ContactForm from '../components/ContactForm'
 
 export default ({footerData}) => {
