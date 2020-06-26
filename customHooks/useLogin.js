@@ -67,7 +67,11 @@ export default () => {
             setLoading(false)
         } catch (error) {
             console.log(error.response)
-            setFeedback( `Sorry, niet in staat in te loggen. Controleer of email en wachtwoord correct zijn` )
+            if ( error.response.status === 401 ) {
+                setFeedback(`Geen geldig account gevonden voor ${username}`)
+            } else {
+                setFeedback( `Sorry, niet in staat in te loggen. Controleer of email en wachtwoord correct zijn` )
+            }
             setLoading(false)
         }
     }

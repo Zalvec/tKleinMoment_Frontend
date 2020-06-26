@@ -17,6 +17,7 @@ export default () => {
     const { login, feedback } = useLogin()
     const [ checked, setChecked ] = useState(false)
 
+    const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
     const checkboxText = ( <span>Ik ga akkoord met <a href='/gdpr' target='_black'>GDPR</a> en de <a href='/algemene-voorwaarden' target='_black'>algemene voorwaarden</a>.</span> )
     
@@ -92,8 +93,12 @@ export default () => {
             setLoading(false)
         } catch (error) {
             console.log(error.response)
+            if ( error.response.status === 400 ){
+                setFeedbackRegister(`${email} is reeds in gebruik`)
+            } else {
+                setFeedbackRegister( `Sorry, niet in staat in te registreren. Controleer of alle verplichte velden correct zijn ingevuld` )
+            }
             setLoading(false)
-            setFeedbackRegister( `Sorry, niet in staat in te registreren. Controleer of alle verplichte velden correct zijn ingevuld` )
         }
     } 
     return (
