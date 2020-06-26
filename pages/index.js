@@ -17,8 +17,8 @@ export const getStaticProps = async () => {
   /* Footer data ophalen */
   const getFooterData = require('../components/footer/FooterData')
 
-  /* Alle images die in een album zitten opvragen */
-  const response = await axios.get(`https://wdev.be/wdev_roel/eindwerk/api/images`) 
+  /* Alle active images die in een album zitten opvragen */
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}images?active=true`) 
   const imageList = response.data['hydra:member']
 
   return {

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { setCookie } from 'nookies'
 import Router from 'next/router'
 import { useState } from 'react'
+import EmailValidator from 'email-validator'
 
 export default () => {
     // variabelen aanmaken
@@ -13,7 +14,7 @@ export default () => {
     const login = async (username, password) => {
         // login gegevens
         const credentials = { 
-            username: username, 
+            email: username, 
             password: password
         }
 
@@ -22,9 +23,13 @@ export default () => {
             'Content-Type': 'application/json'
         }
     
-        // verifiëren of alles is ingevuld
-        if (username === "" || password === "") {
-            setFeedback('Fill in all required fields')
+        // validatie velden
+        if (username === "" || password === "") {  // beide velden ingevuld
+            setFeedback('Gelieve alle verplichte velden in te vullen')
+            return null
+        }
+        if ( !EmailValidator.validate(username) ) {  // een geldig email ingegeven
+            setFeedback('Email is ongeldig')
             return null
         }
     
@@ -32,26 +37,41 @@ export default () => {
         
         // login versturen naar api. Indien de user kan inloggen worden de nodige cookies aangemaakt. Anders krijgt de user een error message
         try {
-            const loginResponse = await axios.post(`https://wdev.be/wdev_roel/eindwerk/api/login_check`, credentials, config)
+            const loginResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}login_check`, credentials, config)
             const jwtToken = loginResponse.data.token
+            console.log(loginResponse)
             const decoded = jwt_decode( jwtToken )
+            console.log(decoded)
             // cookie aanmaken met jwtToken
             setCookie(null, 'jwtToken', jwtToken, {
                 path: "/",
                 sameSite: "lax",
                 maxAge: 60 * 60
             })
-            // cookie aanmaken met userid
-            setCookie(null, 'userid', decoded.id)
+
+            // cookie aanmaken met refreshtoken
+            setCookie(null, 'refreshtoken', loginResponse.data.refresh_token, {
+                path: "/",
+                sameSite: "lax",
+                maxAge: 60 * 60 * 60
+            })
 
             // cookie aanmaken met gebruikers informatie
-            setCookie(null, 'userinfo', JSON.stringify(decoded))
-
-            setLoading(false)
+            setCookie(null, 'userinfo', JSON.stringify(decoded), {
+                path: "/",
+                sameSite: "lax",
+                maxAge: 60 * 60
+            })
+            
             Router.push("/profiel");
+            setLoading(false)
         } catch (error) {
-            console.log(error)
-            setFeedback( `Sorry, couldn't login. Please check if email and password are correct` )
+            console.log(error.response)
+            if ( error.response.status === 401 ) {
+                setFeedback(`Geen geldig account gevonden voor ${username}`)
+            } else {
+                setFeedback( `Sorry, niet in staat in te loggen. Controleer of email en wachtwoord correct zijn` )
+            }
             setLoading(false)
         }
     }

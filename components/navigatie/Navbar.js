@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import Link from './ActiveLink'
 import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../fontAwesome/fontAwesome'
+import '../../fontAwesome/fontAwesome'
 import { parseCookies } from 'nookies'
 
-import { logout } from '../helpers/helpers'
-import useWindowSize from '../customHooks/useWindowSize'
+import { logout } from '../../helpers/helpers'
+import useWindowSize from '../../customHooks/useWindowSize'
 
 
 export default () => {
@@ -54,19 +54,19 @@ export default () => {
                     <div className={classname} onClick={ToggleMenuHandler}>
                         <ul>
                             <li>
-                                <Link href="/about"><a>About</a></Link>
+                                <Link activeClassName="active" href="/about"><a>About</a></Link>
                             </li>
                             <li>
-                                <Link href="/albums"><a>Albums</a></Link>
+                                <Link activeClassName="active" href="/albums"><a>Albums</a></Link>
                             </li>
                             <li>
-                                <Link href="/contact"><a>Contact</a></Link>
+                                <Link activeClassName="active" href="/contact"><a>Contact</a></Link>
                             </li>
                             {/* Rendert op basis of een gebruiker is ingelogd of niet */}
                             { loggedIn &&
                                 <>
                                     <li>
-                                        <Link href="/profiel"><a>Profiel</a></Link>
+                                        <Link activeClassName="active" href="/profiel"><a>Profiel</a></Link>
                                     </li>
                                     <li>
                                         <p onClick={LogoutHandler}>Logout</p>
@@ -74,7 +74,7 @@ export default () => {
                                 </>
                                 ||
                                 <li>
-                                    <Link href="/login"><a>Login</a></Link>
+                                    <Link activeClassName="active" href="/login"><a>Login</a></Link>
                                 </li>
                             }
                             
