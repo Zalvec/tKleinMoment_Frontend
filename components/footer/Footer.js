@@ -53,7 +53,6 @@ export default ({footerData}) => {
                 <div className="info-footer">
                     {/* Alle links naar specifieke pagina's worden hier opgelijst */}
                     <h3>INFORMATIE</h3>
-                    {/* TODO - Extra pagina's toevoegen zoals Gebruiksvoorwaarden, GDPR, etc. */}
                     <ul>
                         <li>
                             <Link href="/contact"><a>Contacteer ons</a></Link>

@@ -71,12 +71,13 @@ export default ({album}) => {
 
         // Er moet geen visuele response zijn voor de users. Enkel een post met console.log()'s om bij development te controleren of alles werkt 
         axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}download_logs`, requestBody, config)
-            .then ( response => {
-                console.log(response)
-            })
-            .catch ( error => {
-                console.log(error)
-            })
+            // Onbelangrijk voor een user om te weten of deze gegevens al dan niet zijn opgeslagen in de database
+            // .then ( response => {
+            //     console.log(response)
+            // })
+            // .catch ( error => {
+            //     console.log(error)
+            // })
     }
     
     return (

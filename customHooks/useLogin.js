@@ -39,9 +39,7 @@ export default () => {
         try {
             const loginResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}login_check`, credentials, config)
             const jwtToken = loginResponse.data.token
-            console.log(loginResponse)
             const decoded = jwt_decode( jwtToken )
-            console.log(decoded)
             // cookie aanmaken met jwtToken
             setCookie(null, 'jwtToken', jwtToken, {
                 path: "/",
@@ -53,7 +51,7 @@ export default () => {
             setCookie(null, 'refreshtoken', loginResponse.data.refresh_token, {
                 path: "/",
                 sameSite: "lax",
-                maxAge: 60 * 60 * 60
+                maxAge: 60 * 60
             })
 
             // cookie aanmaken met gebruikers informatie
@@ -66,7 +64,6 @@ export default () => {
             Router.push("/profiel");
             setLoading(false)
         } catch (error) {
-            console.log(error.response)
             if ( error.response.status === 401 ) {
                 setFeedback(`Geen geldig account gevonden voor ${username}`)
             } else {
