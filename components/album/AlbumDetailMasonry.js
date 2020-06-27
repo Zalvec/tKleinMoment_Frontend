@@ -15,7 +15,8 @@ export default ({album}) => {
     useEffect( () => {
         const cookies = parseCookies()
         typeof cookies.jwtToken !== 'undefined' ? setLoggedIn(true) : setLoggedIn(false)
-        setUserID(cookies.userid)
+        console.log(JSON.parse(cookies.userinfo).id)
+        setUserID(JSON.parse(cookies.userinfo).id)
     }, [])
 
     // settings en styling voor de image popup
@@ -72,12 +73,12 @@ export default ({album}) => {
         // Er moet geen visuele response zijn voor de users. Enkel een post met console.log()'s om bij development te controleren of alles werkt 
         axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}download_logs`, requestBody, config)
             // Onbelangrijk voor een user om te weten of deze gegevens al dan niet zijn opgeslagen in de database
-            // .then ( response => {
-            //     console.log(response)
-            // })
-            // .catch ( error => {
-            //     console.log(error)
-            // })
+            .then ( response => {
+                console.log(response)
+            })
+            .catch ( error => {
+                console.log(error.response)
+            })
     }
     
     return (
