@@ -25,6 +25,7 @@ export default ({album}) => {
             overlayColor: "rgb(19, 17, 17)",
             autoplaySpeed: 3000,
             transitionSpeed: 900,
+            hideControlsAfter: false
         },
         caption: {
             captionColor: "#F6F6F6",
