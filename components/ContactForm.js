@@ -23,7 +23,6 @@ export default () => {
     const userInfo = Object.keys(cookies).length ? JSON.parse(cookies.userinfo) : null
     useEffect( () => {
         if (userInfo !== null ){
-            console.log(userInfo)
             setEmail(userInfo.username)
             setFirstName(userInfo.firstName)
             setLastName(userInfo.lastName)
@@ -55,7 +54,7 @@ export default () => {
             setFeedback('Achtenaam moet tussen 2 en 50 characters lang zijn')
             return null
         }
-        if ( !regexNumber.test(phoneNumber)) {   // telefoonnummer mag enkel cijfers bevatten
+        if ( phoneNumber.length && !regexNumber.test(phoneNumber)) {   // telefoonnummer mag enkel cijfers bevatten, als het is ingevuld
             setFeedback('Telefoonnummer mag enkel cijfers bevatten en moet tussen 9 en 15 cijfers lang zijn en moet beginnen met een 0')
             return null
         }
@@ -81,22 +80,20 @@ export default () => {
         }
 
         setLoading(true)
+        console.log(requestBody)
 
         // Contact formulier verzenden. Bij succes bericht tonen en alle velden leeg maken
         // Bij error een error bericht terugsturen
         axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}messages`, requestBody, config)
             .then( response => {
                 setFeedback('Mail verzonden')
-                setEmail('')
-                setFirstName('')
-                setLastName('')
                 setPhoneNumber('')
                 setMessage('')
                 setLoading(false)
             })
             .catch( error  => {
-                setLoading(false)
                 console.log(error.response)
+                setLoading(false)
                 setFeedback('Iets ging mis, probeer het later opnieuw')
             })
     }
