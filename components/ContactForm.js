@@ -58,8 +58,8 @@ export default () => {
             setFeedback('Telefoonnummer mag enkel cijfers bevatten en moet tussen 9 en 15 cijfers lang zijn en moet beginnen met een 0')
             return null
         }
-        if ( message.length < 20 ){  // het bericht moet minstens 20 characters lang zijn
-            setFeedback('Bericht moet minstens 20 characters lang zijn')
+        if ( message.length < 10 ){  // het bericht moet minstens 10 characters lang zijn
+            setFeedback('Bericht moet minstens 10 characters lang zijn')
             return null
         }
         
