@@ -29,14 +29,17 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
         e.preventDefault()
         
         // Controleer ieder veld
-        if ( !regexName.test(cosplayName)){  
-            setFeedback('Enkel volgende special characters zijn toegelaten voor je cosplay naam: , . \' -')
-            return null
+        if ( cosplayName ) {
+            if ( !regexName.test(cosplayName)){  
+                setFeedback('Enkel volgende special characters zijn toegelaten voor je cosplay naam: , . \' -')
+                return null
+            }
+            if ( cosplayName.length < 2 || cosplayName.length > 50){ // cosplay naam moet tussen 2 en 50 chatacters lang zijn
+                setFeedback('Cosplay naam moet tussen 2 en 50 characters lang zijn')
+                return null
+            }
         }
-        if ( cosplayName.length < 2 || cosplayName.length > 50){ // cosplay naam moet tussen 2 en 50 chatacters lang zijn
-            setFeedback('Cosplay naam moet tussen 2 en 50 characters lang zijn')
-            return null
-        }
+        
         if ( password !== repeatPassword ){ // beide wachtwoorden moeten gelijk zijn
             setFeedback('Wachtwoorden zijn niet gelijk')
             return null
@@ -59,7 +62,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                 'Content-Type': 'application/json'
             }
         }
-        console.log(config)
+
         setLoading(true)
 
         axios.put(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users/${userInfo.id}`, requestBody, config)
@@ -68,10 +71,9 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                 setFeedback('Account gewijzigd')
                 setPassword('')
                 setRepeatPassword('')
-                // TODO nieuwe jwt aanmaken zodat data uptodate is
+                // jwt refreshen aanmaken zodat data uptodate is
                 axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}token/refresh`, { refresh_token:`${refreshtoken}`})
                     .then(res => {
-                        console.log( res )
                         // Na refresh van jwt de data in de oude cookies overschrijven
                         const jwtToken = res.data.token
                         const decoded = jwt_decode( jwtToken )
@@ -95,7 +97,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                         })
                     })
                     .catch ( err => {
-                        console.log( err.response )
+                        console.log( err.data )
                     })
             })
             .catch( error => {
@@ -137,7 +139,6 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
 
         axios.delete(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users/${userInfo.id}`, config)
             .then( response => {
-                console.log(response)
                 setLoading(false)
                 setFeedback('Account is verwijderd, je wordt geredirect naar de homepage')
                 logout()

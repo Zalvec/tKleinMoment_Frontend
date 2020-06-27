@@ -18,7 +18,6 @@ export const getStaticProps = async () => {
     /* Alle about data ophalen uit de database */
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}abouts`, JSON)
     const aboutList = response.data['hydra:member']
-    console.log(aboutList)
 
     /* Footer data ophalen */
     const getFooterData = require('../components/footer/FooterData')

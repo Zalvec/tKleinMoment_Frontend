@@ -88,11 +88,9 @@ export default () => {
         // Bij error een error bericht terugsturen
         try {
             const registerResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users`, requestBody, config)
-            console.log(registerResponse)
             login(registerResponse.data.email, password)
             setLoading(false)
         } catch (error) {
-            console.log(error.response)
             if ( error.response.status === 400 ){
                 setFeedbackRegister(`${email} is reeds in gebruik`)
             } else {
