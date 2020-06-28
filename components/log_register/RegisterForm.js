@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Typography, TextField, Button, CircularProgress, Paper, Checkbox, FormControlLabel } from '@material-ui/core'
 import axios from 'axios'
 import useLogin from '../../customHooks/useLogin'
 import EmailValidator from 'email-validator'
+
+import Message from '../messages/Message'
 
 export default () => {
     // variabelen setten
@@ -14,8 +16,8 @@ export default () => {
     const [repeatPassword, setRepeatPassword] = useState('')
     const [ feedbackRegister, setFeedbackRegister ] = useState('')
     const [ loading, setLoading ] = useState(false)
-    const { login, feedback } = useLogin()
     const [ checked, setChecked ] = useState(false)
+    const { login, feedback } = useLogin()
 
     const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
@@ -26,10 +28,14 @@ export default () => {
         setFeedbackRegister('')
     }
 
+    useEffect( () => {
+        setFeedbackRegister(feedback)
+    }, [feedback])
+
     // Registratie valideren en verzenden
     const handleRegister = async (e) => {
         e.preventDefault()
-        
+                
         // Controlleren of alles is ingevuld
         if ( firstName === '' || lastName === '' || email === '' || password === '' || repeatPassword === '') {
             setFeedbackRegister('Gelieve alle verplichte velden in te vullen')
@@ -103,9 +109,6 @@ export default () => {
         <Paper className='register-paper'>
             <Typography component='h1' variant='h5'>
                 Registreer
-            </Typography>
-            <Typography component='h2' variant='body1'>
-                {feedback}{feedbackRegister}
             </Typography>
             <form noValidate onSubmit={handleRegister}>
                 <TextField 
@@ -211,6 +214,7 @@ export default () => {
                 </Button>
                 { loading && <CircularProgress className="loading" size="2em" />}
             </form>
+            { feedbackRegister !== '' && <Message message={feedbackRegister} type={'error'} />}
         </Paper>
     )
 }

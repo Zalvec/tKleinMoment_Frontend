@@ -60,12 +60,12 @@ export default () => {
                 sameSite: "lax",
                 maxAge: 60 * 60
             })
-            
+
             Router.push("/profiel");
             setLoading(false)
         } catch (error) {
             if ( error.response.status === 401 ) {
-                setFeedback(`Geen geldig account gevonden voor ${username}`)
+                setFeedback(`Email en wachtwoord combinatie niet gevonden.`)
             } else {
                 setFeedback( `Sorry, niet in staat in te loggen. Controleer of email en wachtwoord correct zijn` )
             }
@@ -74,5 +74,5 @@ export default () => {
     }
 
     // functie login en variablen returnen
-    return { login, feedback, loading}
+    return { login, feedback, setFeedback, loading}
 } 

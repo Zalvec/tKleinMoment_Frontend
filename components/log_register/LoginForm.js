@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Typography, TextField, Button, CircularProgress, Paper } from '@material-ui/core'
+
 import useLogin from '../../customHooks/useLogin'
+import Message from '../messages/Message'
 
 export default () => {
     // variabelen setten
@@ -8,7 +10,7 @@ export default () => {
     const [password, setPassword] = useState('')
 
     // variabelen ophalen uit login hook
-    const { login, feedback, loading } = useLogin()
+    const { login, feedback, setFeedback, loading } = useLogin()
 
     // login uitvoeren
     const HandleLogin = async (e) => {
@@ -21,9 +23,6 @@ export default () => {
             <Paper className='login-paper'>
                 <Typography component='h1' variant='h5'>
                     Login
-                </Typography>
-                <Typography component='h2' variant='body1'>
-                    {feedback}
                 </Typography>
                 <form noValidate onSubmit={HandleLogin}>
                     <TextField 
@@ -56,6 +55,7 @@ export default () => {
                     { loading && <CircularProgress className="loading" size="2em" />}
                 </form>
             </Paper>
+            { feedback !== '' && <Message message={feedback} setMessage={setFeedback} type={'error'} />}
         </>
     )
 }
