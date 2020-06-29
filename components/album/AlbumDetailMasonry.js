@@ -16,7 +16,7 @@ export default ({album}) => {
     useEffect( () => {
         const cookies = parseCookies()
         typeof cookies.jwtToken !== 'undefined' ? setLoggedIn(true) : setLoggedIn(false)
-        setUserID(JSON.parse(cookies.userinfo).id)
+        if (loggedIn) setUserID(JSON.parse(cookies.userinfo).id)
     }, [])
 
     // settings en styling voor de image popup
