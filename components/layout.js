@@ -14,7 +14,7 @@ export default ({ children, footerData, title }) => {
                     <title>{title}</title>
                     <link rel="icon" href="/favicon-lens.jpg" />
                     <link rel="icon" href="/logo.png" />
-                    <link rel="manifest" href="/manifest.json"></link>
+                    <link rel="manifest" href="/manifest.json"/>
                     <meta name="title" content="'t Klein Moment"></meta>
                     <meta name="description" content="'t Klein Moment is een portfolio site van fotograaf Bert, die gebruikers de mogelijkheid geeft om foto's te downloaden in volle kwaliteit"/>
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>

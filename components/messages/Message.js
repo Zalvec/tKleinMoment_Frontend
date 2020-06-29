@@ -21,7 +21,7 @@ export default ({setMessage = null, message, type}) => {
     }
 
     return (
-        <Snackbar open={open} autoHideDuration={8000} onClose={handleClose} style={{ marginBottom: "2em" }}>
+        <Snackbar open={open} autoHideDuration={7000} onClose={handleClose} style={{ marginBottom: "2em" }}>
             <Alert onClose={handleClose} severity={type}>
                 {message}
             </Alert>

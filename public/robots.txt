@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://t-klein-moment.vercel.app/sitemap.xml

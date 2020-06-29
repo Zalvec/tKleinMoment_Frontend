@@ -24,8 +24,7 @@ body {
 
 .wrapper {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    @include flex-easy( column );
 }
 
 main {
@@ -54,6 +53,7 @@ main {
 
     button:first-letter { text-transform: capitalize !important;}
 }
+
 /**********/
 /* HEADER */
 /**********/
@@ -68,9 +68,7 @@ header {
 /**********/
 /* NAVBAR */
 /**********/
-.active {
-    border-bottom: 1px solid $wit;
-}
+.active { border-bottom: 1px solid $wit; }
 
 .main-navbar {
     display: flex;
@@ -97,9 +95,7 @@ header {
     left: 0;
     width: 100%;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex( row, center, center, nowrap );
     z-index: 100;
     transition: all 2000ms;
 
@@ -127,9 +123,7 @@ header {
     position: absolute;
     left: -300px;
     top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex( row, center, center, nowrap );
     transition: all 2000ms;
 
     & ul {
@@ -206,10 +200,10 @@ header {
         color: $zwart;
         border-top: 8px solid $donkergrijs;
         border-bottom: 8px solid $donkergrijs;
+        border-radius: 0px;
 
         .about-me-title {
-            display: flex;
-            justify-content: center;
+            @include flex-easy( row, center );
             padding: .5em 0 1em 0;
             font-size: 2rem;
         }
@@ -217,6 +211,7 @@ header {
             line-height: 1.6;
             font-size: 1rem;
             text-align: justify;
+            padding: 0 20px;
         }
     }
     .about-content {
@@ -226,8 +221,7 @@ header {
             border-bottom: 8px solid $donkergrijs;
             border-radius: 0;
             .about-content-title {
-                display: flex;
-                justify-content: center;
+                @include flex-easy( row, center );
                 padding: .5em 0 1em 0;
                 font-size: 2rem;
             }
@@ -278,15 +272,11 @@ header {
     }
 }
 
-@media screen and ( min-width: 1140px ) {
-    .about-me { 
-        margin: 1.5em auto 2.5em !important;
-    }
-    .about .about-content .about-content-item .about-content-text { column-count: 2; }
+@media screen and ( min-width: $largescreen ) {
+    .about-me { margin: 1.5em auto 2.5em !important; }
+    .about .about-content .about-content-item .about-content-text { column-count: 1; }
     .about .about-content:last-child { margin-bottom: 3em; }
-    .about-me-article, .about-content-article {
-        margin: auto;
-    }
+    .about-me-article, .about-content-article { margin: auto; }
 }
 
 /***********/
@@ -301,9 +291,7 @@ header {
     color: $zwart !important;
     max-width: 800px;
     
-    h1 {
-        padding-bottom: 15px; 
-    }
+    h1 { padding-bottom: 15px; }
 
     h2 {
         margin: 15px 12px;
@@ -311,19 +299,9 @@ header {
         text-align: justify;
     }
 
-    p {
-        color: red;
-        background-color: rgb(252, 164, 164);
-        margin: 0 auto 1em;
-        border-radius: 20px;
-        max-width: 400px;
-        padding: 0 5px;
-    }
-
     form {
         margin: 0 auto 1em;
-        display: flex;
-        flex-direction: column;
+        @include flex-easy( column );
         max-width: 400px;
 
         .textfield, textarea {
@@ -358,7 +336,7 @@ header {
 
         h2 { 
             width: 80%;
-            margin: 0 auto;
+            margin: 0 auto 1em;
         }
 
         form {
@@ -366,8 +344,7 @@ header {
             padding: 0 2em 1em 2em;
             
             div {
-                display: flex;
-                flex-direction: row;
+                @include flex-easy( row );
 
                 .textfield { margin-bottom: 2em; }
                 .textfield:first-child { margin-right: 4em;}
@@ -395,9 +372,7 @@ header {
         text-align: center;
     }
     div {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        @include flex( row, center, flex-start, wrap );
         a {
             margin: .9em;
             transition: all .3s ease-in-out;
@@ -411,14 +386,10 @@ header {
                 margin: 0em auto;
                 padding: 8px 8px 8px 8px;
                 background-color: $wit;
-                box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.35);
+                box-shadow: 6px 6px 7px 2px $box-schaduw;
                 max-width: 300px;
                 
-                img {
-                    display: block;
-                    width: 100%;
-                    height: auto;
-                }
+                img { @include responsive; }
 
                 p {
                     min-height: 4em;
@@ -436,9 +407,7 @@ header {
     .albums div {
         padding: 0 5px;
 
-        a div p {
-            min-height: 5.5em;
-        }
+        a div p { min-height: 5.5em; }
     }
 }
 
@@ -461,13 +430,10 @@ header {
             div {
                 max-width: 450px;
                 margin: 0 auto;
-                display: flex;
-                flex-direction: row;
+                @include flex-easy();
                 &>:first-child { padding-right: 10px; }
                 
-                p {
-                    font-size: 1.1rem;
-                }
+                p { font-size: 1.1rem; }
             }
         }
     }
@@ -491,9 +457,7 @@ header {
                     filter: grayscale(100%);
                     transform: scale(1.06);
                 }
-                img {
-                    width: 100%;
-                }
+                img { width: 100%; }
             }
             figcaption {
                 a {
@@ -519,7 +483,7 @@ header {
     .album-detail .my-masonry-grid { margin: 0 30px 0 15px; }
 }
 
-@media screen and ( min-width: 1000px){
+@media screen and ( min-width: $mediumscreen){
     .album-detail .my-masonry-grid_column figure{
         & > a {
             filter: grayscale(100%);
@@ -539,20 +503,9 @@ header {
     max-width: 350px;
     height: 100%;
 
-    form {
-        display: flex;
-        flex-direction: column;
-    }
+    form { @include flex-easy( column ); }
 
     h1 { padding-bottom: 15px; }
-
-    h2 { 
-        color: red;
-        background-color: rgb(255, 137, 137);
-        width: 250px;
-        margin: 0 auto 1em;
-        border-radius: 5px;
-    }
 
     .textfield {
         background-color: $lichtgrijs;
@@ -587,11 +540,7 @@ header {
 }
 
 @media screen and ( min-width: $smallscreen ) {
-    .login-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-    }
+    .login-container { @include flex-easy( row, space-evenly ); }
 }
 
 /**********/
@@ -627,8 +576,7 @@ header {
         & > div {
             max-width: 600px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
+            @include flex-easy( column );
         }
 
         form {
@@ -656,10 +604,10 @@ header {
             max-width: 120px;
             font-size: .6rem;
             color: $wit;
-            background-color: rgb(43, 5, 5);
+            background-color: $delete-color;
             padding: 4px 0;
 
-            &:hover { background-color: rgb(99, 8, 8); }
+            &:hover { background-color: $delete-color2; }
         }
     }
 }
@@ -678,10 +626,7 @@ header {
             form {
                 max-width: 600px;
                 
-                div {
-                    display: flex;
-                    flex-direction: row;
-                }
+                div { @include flex-easy( row ); }
     
                 .button { max-width: 200px; }
             } 
@@ -692,86 +637,77 @@ header {
 /*****************/
 /* CONFIRM ALERT */
 /*****************/
-body.react-confirm-alert-body-element {
-  overflow: hidden;
-}
+body.react-confirm-alert-body-element { overflow: hidden; }
 
 .react-confirm-alert-blur {
-  filter: url(#gaussian-blur);
-  filter: blur(2px);
+    filter: url(#gaussian-blur);
+    filter: blur(2px);
 }
 
 .react-confirm-alert-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99;
-  display: flex;
-  justify-content: center;
-  -ms-align-items: center;
-  align-items: center;
-  opacity: 0;
-  animation: react-confirm-alert-fadeIn 0.5s 0.2s forwards;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    @include flex( row, center, center );
+    -ms-align-items: center;
+    opacity: 0;
+    animation: react-confirm-alert-fadeIn 0.5s 0.2s forwards;
 }
 
 .react-confirm-alert-body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0 auto;
-  width: 80%;
-  max-width: 400px;
-  padding: 30px;
-  text-align: center;
-  background: $standaard;
-  border-radius: 10px;
-  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.8);
-  color: $wit;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 400px;
+    padding: 30px;
+    text-align: center;
+    background: $standaard;
+    border-radius: 10px;
+    box-shadow: 0 20px 75px $box-schaduw-donker;
+    color: $wit;
 }
 
 .react-confirm-alert-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .react-confirm-alert-body > h1 {
-  text-align: center;
-  margin-bottom: 1em;
-  font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 1.5rem;
 }
 
 .react-confirm-alert-button-group {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 1.5em;
+    @include flex-easy( row, space-around );
+    margin-top: 1.5em;
 }
 
 .react-confirm-alert-button-group > button {
-  outline: none;
-  background: $donkergrijs;
-  border: none;
-  display: inline-block;
-  padding: 10px 20px;
-  color: $wit;
-  margin-right: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
+    outline: none;
+    background: $donkergrijs;
+    border: none;
+    display: inline-block;
+    padding: 10px 20px;
+    color: $wit;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
 
-  &:hover { 
+    &:hover { 
       background-color: $grijs; 
       color: $zwart;
     }
 }
 
 @keyframes react-confirm-alert-fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /*******************************/
@@ -782,8 +718,7 @@ body.react-confirm-alert-body-element {
 
     h1 {
         margin-bottom: 1.5em;
-        justify-content: center;
-        display: flex;
+        @include flex-easy( row, center );
     }
 
     h2 { margin: 1em 0 .5em; }
@@ -806,10 +741,7 @@ footer {
 .content-footer {
     padding: 10px;
     margin: .5em .5em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flex( column, center, center );
     align-content: center;
 
     h3 { 
@@ -823,20 +755,14 @@ footer {
         li {
             padding-bottom: 7px;
 
-            .svg-inline--fa {
-                margin-right: 10px;
-            }
+            .svg-inline--fa { margin-right: 10px; }
 
-            .fa-facebook-f {
-                margin: 10px 20px 0 10px;
-            }
+            .fa-facebook-f { margin: 10px 20px 0 10px; }
 
             a:hover { color: $zwart; }
         }        
     }
-    .contact-footer {
-        margin-bottom: 1em;
-    }
+    .contact-footer { margin-bottom: 1em; }
 
     .info-footer {
         margin-left: 1.3em;
@@ -854,11 +780,6 @@ footer {
     }
 }
 
-@media screen and ( min-width: 511px ) {
-    .content-footer {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-evenly;
-    }
+@media screen and ( min-width: $extrasmallscreen ) {
+    .content-footer { @include flex( row, space-evenly, flex-start ); }
 }
