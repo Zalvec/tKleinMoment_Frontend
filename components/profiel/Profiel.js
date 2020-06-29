@@ -10,6 +10,8 @@ import { setCookie } from 'nookies'
 import {logout} from '../../helpers/helpers'
 import Message from '../messages/Message'
 
+// Profiel pagina waar een gebruik zijn gegevens kan bekijken
+// Cosplaynaam en wachtwoord kunnen ze wijzigen
 export default ({userData:{userData, refreshtoken, jwt}}) => {
     // Gebruikers data opsplitsen
     const userInfo = JSON.parse(userData)
@@ -23,6 +25,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
     const [ confirmation, setConfirmation ] = useState('')
     const [ loading, setLoading ] = useState(false)
 
+    // Regular erpressions definiëren
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
     const regexName = new RegExp('^[a-zA-Z0-9 ,.\'-]+$');
 
@@ -32,7 +35,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
         
         // Controleer ieder veld
         if ( cosplayName ) {
-            if ( !regexName.test(cosplayName)){  
+            if ( !regexName.test(cosplayName)){   // controlleer of de cosplay naam een speciale karakters bevat
                 setFeedback('Enkel volgende special characters zijn toegelaten voor je cosplay naam: , . \' -')
                 return null
             }
@@ -55,8 +58,8 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
         
         const requestBody = {
             email: email,
-            cosplayName: cosplayName === '' ? null : cosplayName,
-            password: password === '' ? null : password
+            cosplayName: cosplayName === '' ? null : cosplayName, // Als cosplayName leeg is, omzetten naar null. API verwacht null ipv ''
+            password: password === '' ? null : password // Als password leeg is, omzetten naar null. API verwacht null ipv ''
         }
 
         const config = {

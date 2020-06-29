@@ -6,6 +6,7 @@ import '../../fontAwesome/fontAwesome'
 import { parseCookies } from 'nookies'
 import axios from 'axios'
 
+// Weergave van alle foto's in een album op de detail pagina van dat album
 export default ({album}) => {
     // variabelen setten
     const [ loggedIn, setLoggedIn ] = useState(false)
@@ -73,7 +74,6 @@ export default ({album}) => {
 
         // Er moet geen visuele response zijn voor de users. Enkel een post met console.log()'s om bij development te controleren of alles werkt 
         axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}download_logs`, requestBody, config)
-            // Onbelangrijk voor een user om te weten of deze gegevens al dan niet zijn opgeslagen in de database
             // .then ( response => {
             //     console.log(response)
             // })

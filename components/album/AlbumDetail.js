@@ -4,6 +4,7 @@ import { Card, CardContent, Typography, CircularProgress } from '@material-ui/co
 import moment from 'moment'
 import AlbumDetailMasonry from './AlbumDetailMasonry'
 
+// Overzicht van alle details en foto's van één specifiek album
 export default ({album}) => {
 
     const router = useRouter()

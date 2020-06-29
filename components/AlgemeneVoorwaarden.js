@@ -1,5 +1,6 @@
 import { Typography } from "@material-ui/core"
 
+// Inhoud van de Algemene Voorwaarden pagina
 export default () => {
     return (
         <article className='container'>

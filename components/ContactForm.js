@@ -6,6 +6,7 @@ import EmailValidator from 'email-validator'
 
 import Message from './messages/Message'
 
+// Het contact formulier met logica
 export default () => {
     
     // Variabelen setten
@@ -18,6 +19,7 @@ export default () => {
     const [ confirmation, setConfirmation ] = useState('')
     const [ loading, setLoading ] = useState(false)
 
+    // Regular expressions definiëren
     const regexNumber = new RegExp('^(0)[0-9]{9,15}$');
     const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
 

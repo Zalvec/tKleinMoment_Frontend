@@ -4,6 +4,7 @@ import SimpleReactLightBox from "simple-react-lightbox"
 import Navbar from './navigatie/Navbar'
 import Footer from '../components/footer/Footer'
 
+// Layout voor een pagina
 export default ({ children, footerData, title }) => {
     return (
         <div className='wrapper'>

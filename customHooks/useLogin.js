@@ -5,6 +5,7 @@ import Router from 'next/router'
 import { useState } from 'react'
 import EmailValidator from 'email-validator'
 
+// Functie voor het inloggen van een gebruiker
 export default () => {
     // variabelen aanmaken
     const [feedback, setFeedback] = useState('')
@@ -19,9 +20,7 @@ export default () => {
         }
 
         // configuratie voor axios
-        const config = {
-            'Content-Type': 'application/json'
-        }
+        const config = { 'Content-Type': 'application/json' }
     
         // validatie velden
         if (username === "" || password === "") {  // beide velden ingevuld

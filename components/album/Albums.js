@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import {slugify} from '../../helpers/slugify'
 
+// Overzicht van alle albums die actief zijn
 export default ({albums}) => {
     return (
         <div className='albums container'>

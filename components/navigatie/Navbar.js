@@ -8,7 +8,7 @@ import { parseCookies } from 'nookies'
 import { logout } from '../../helpers/helpers'
 import useWindowSize from '../../customHooks/useWindowSize'
 
-
+// Navigatie balk
 export default () => {
     // Checken of een gebruiker is ingelogd of niet
     const [ loggedIn, setLoggedIn ] = useState(false)

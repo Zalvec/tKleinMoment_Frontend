@@ -1,6 +1,6 @@
 import { parseCookies } from 'nookies'
 
-
+// Data opvragen van een gebruiker adhv de aangemaakte cookies
 const userData = async (ctx) => {
     // cookies opvragen
     const cookies = parseCookies(ctx)

@@ -4,6 +4,7 @@ import { Typography, TextField, Button, CircularProgress, Paper } from '@materia
 import useLogin from '../../customHooks/useLogin'
 import Message from '../messages/Message'
 
+// Formulier om een gebruiker in te loggen, mist hij reeds een account heeft
 export default () => {
     // variabelen setten
     const [username, setUsername] = useState('')

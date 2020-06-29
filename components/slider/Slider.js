@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-// Slider op index.js
+// Slider op index.js (startpagina)
 export default ({imageList}) => {
     // variabelen setten
     const [images, setImages] = useState(imageList)

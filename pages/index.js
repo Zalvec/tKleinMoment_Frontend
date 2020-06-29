@@ -3,8 +3,8 @@ import Homepage from '../components/Homepage'
 
 import axios from 'axios'
 
+// Startpagina
 export default function Home({footerData, imageList}) {
-
   return (
     <Layout footerData={footerData} title={`'t Klein Moment`}>
       <Homepage footerData={footerData} imageList={imageList}/>
