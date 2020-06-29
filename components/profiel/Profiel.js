@@ -8,7 +8,10 @@ import jwt_decode from 'jwt-decode'
 import { setCookie } from 'nookies'
 
 import {logout} from '../../helpers/helpers'
+import Message from '../messages/Message'
 
+// Profiel pagina waar een gebruik zijn gegevens kan bekijken
+// Cosplaynaam en wachtwoord kunnen ze wijzigen
 export default ({userData:{userData, refreshtoken, jwt}}) => {
     // Gebruikers data opsplitsen
     const userInfo = JSON.parse(userData)
@@ -19,10 +22,12 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
     const [ password, setPassword ] = useState('')
     const [ repeatPassword, setRepeatPassword ] = useState('') 
     const [ feedback, setFeedback ] = useState('')
+    const [ confirmation, setConfirmation ] = useState('')
     const [ loading, setLoading ] = useState(false)
 
+    // Regular erpressions definiëren
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
-    const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
+    const regexName = new RegExp('^[a-zA-Z0-9 ,.\'-]+$');
 
     // Veranderingen opslaan
     const HandleProfileChanges = (e) => {
@@ -30,7 +35,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
         
         // Controleer ieder veld
         if ( cosplayName ) {
-            if ( !regexName.test(cosplayName)){  
+            if ( !regexName.test(cosplayName)){   // controlleer of de cosplay naam een speciale karakters bevat
                 setFeedback('Enkel volgende special characters zijn toegelaten voor je cosplay naam: , . \' -')
                 return null
             }
@@ -40,19 +45,21 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
             }
         }
         
-        if ( password !== repeatPassword ){ // beide wachtwoorden moeten gelijk zijn
-            setFeedback('Wachtwoorden zijn niet gelijk')
-            return null
-        }
-        if ( !strongRegex.test(password) ){ // wachtwoord moet sterk genoeg zijn. 8 lang, 1 getal, kleine en grote letter
-            setFeedback('Wachtwoord moet minstens 8 characters lang zijn met minstens 1 kleine letter, 1 grote letter en een getal')
-            return null
+        if ( password !== '' || repeatPassword !== '' ) {
+            if (password !== repeatPassword ){ // beide wachtwoorden moeten gelijk zijn
+                setFeedback('Wachtwoorden zijn niet gelijk')
+                return null
+            } 
+            if ( !strongRegex.test(password) ){ // wachtwoord moet sterk genoeg zijn. 8 lang, 1 getal, kleine en grote letter
+                setFeedback('Wachtwoord moet minstens 8 characters lang zijn met minstens 1 kleine letter, 1 grote letter en een getal')
+                return null
+            }
         }
         
         const requestBody = {
             email: email,
-            cosplayName: cosplayName === '' ? null : cosplayName,
-            password: password === '' ? null : password
+            cosplayName: cosplayName === '' ? null : cosplayName, // Als cosplayName leeg is, omzetten naar null. API verwacht null ipv ''
+            password: password === '' ? null : password // Als password leeg is, omzetten naar null. API verwacht null ipv ''
         }
 
         const config = {
@@ -68,7 +75,7 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
         axios.put(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users/${userInfo.id}`, requestBody, config)
             .then( response => {
                 setLoading(false)
-                setFeedback('Account gewijzigd')
+                setConfirmation('Account gewijzigd')
                 setPassword('')
                 setRepeatPassword('')
                 // jwt refreshen aanmaken zodat data uptodate is
@@ -97,12 +104,16 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
                         })
                     })
                     .catch ( err => {
-                        console.log( err.data )
+                        setLoading(false)
                     })
             })
             .catch( error => {
-                console.log(error.response)
                 setLoading(false)
+                if ( error.response.status === 400 && error.response.data['hydra:description'] === 'cosplayName: Er bestaat reeds een gebruiker met deze cosplay naam.') {
+                    setFeedback('Er bestaat reeds een gebruiker met deze cosplay naam')
+                } 
+                else setFeedback('Sorry er ging iets mis, probeer later opnieuw')
+                console.log(error.response)
             })
 
     }
@@ -140,135 +151,147 @@ export default ({userData:{userData, refreshtoken, jwt}}) => {
         axios.delete(`${process.env.NEXT_PUBLIC_API_ENDPOINT}users/${userInfo.id}`, config)
             .then( response => {
                 setLoading(false)
-                setFeedback('Account is verwijderd, je wordt geredirect naar de homepage')
+                setConfirmation('Account is verwijderd, je wordt geredirect naar de homepage')
                 logout()
             })
             .catch( error => {
-                console.log(error.response)
                 setLoading(false)
+                setFeedback('Je account kon niet verwijderd worden. Probeer later opnieuw of neem contact op met de fotograaf.')
             })
     }
 
     return (
-        <Paper className='profiel-paper' elevation={0}>
-            <Typography component='h1' variant='h5'>Profiel</Typography>
-
-            <div className='profiel-fields'>
-                <div>
-                    <TextField
-                        className='textfield first-field'
-                        disabled={true}
-                        variant="filled"
-                        fullWidth
-                        label='Naam'
-                        value={userInfo.firstName + ' ' + userInfo.lastName}
-                        InputProps={{ 
-                            disableUnderline: true,
-                            endAdornment: <InputAdornment position="end">
-                                <FontAwesomeIcon icon="user" />
-                                </InputAdornment>
-                        }}
-                    />
-                    <TextField
-                        className='textfield memberSince'
-                        variant="filled"
-                        disabled={true}
-                        fullWidth
-                        label='Duur sinds registratie'
-                        value={userInfo.membershipDuration}
-                        InputProps={{ 
-                            disableUnderline: true,
-                            endAdornment: <InputAdornment position="end">
-                                <FontAwesomeIcon icon="calendar-alt" />
-                                </InputAdornment>
-                        }}
-                    />
-                </div>
-                <div>
-                    <TextField
-                        className='textfield'
-                        autoComplete='email'
-                        variant="filled"
-                        fullWidth
-                        disabled={true}
-                        label='Email'
-                        value={email}
-                        InputProps={{ 
-                            disableUnderline: true,
-                            endAdornment: <InputAdornment position="end">
-                                <FontAwesomeIcon icon="envelope" />
-                                </InputAdornment>
-                            }}
-                    />
-                </div>
-                <form noValidate onSubmit={HandleProfileChanges}>
-                    <Typography component='h2' variant='body1'>Wijzig account</Typography>
+        <>
+            <Paper className='profiel-paper' elevation={0}>
+                <Typography component='h1' variant='h5'>Profiel</Typography>
+                <div className='profiel-fields'>
                     <div>
                         <TextField
-                            className='textfield'
-                            autoComplete='cosplayName'
-                            variant='filled'
-                            name='cosplayName'
+                            className='textfield first-field'
+                            disabled={true}
+                            variant="filled"
                             fullWidth
-                            label='Cosplay naam'
-                            value={cosplayName}
-                            onChange={e => setCosplayName(e.target.value)}
+                            label='Naam'
+                            value={userInfo.firstName + ' ' + userInfo.lastName}
                             InputProps={{ 
                                 disableUnderline: true,
                                 endAdornment: <InputAdornment position="end">
                                     <FontAwesomeIcon icon="user" />
-                                    </InputAdornment> 
+                                    </InputAdornment>
+                            }}
+                        />
+                        <TextField
+                            className='textfield memberSince'
+                            variant="filled"
+                            disabled={true}
+                            fullWidth
+                            label='Duur sinds registratie'
+                            value={userInfo.membershipDuration}
+                            InputProps={{ 
+                                disableUnderline: true,
+                                endAdornment: <InputAdornment position="end">
+                                    <FontAwesomeIcon icon="calendar-alt" />
+                                    </InputAdornment>
                             }}
                         />
                     </div>
                     <div>
                         <TextField
-                            className='textfield first-field'
-                            variant="filled"
-                            name='password'
-                            label='Wachtwoord'
-                            type='password'
-                            fullWidth
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            InputProps={{ 
-                                disableUnderline: true,
-                                endAdornment: <InputAdornment position="end">
-                                    <FontAwesomeIcon icon="lock" />
-                                    </InputAdornment> 
-                            }}
-                        />
-                        <TextField
                             className='textfield'
+                            autoComplete='email'
                             variant="filled"
-                            name='repeatPassword'
-                            label='Herhaal wachtwoord'
-                            type='password'
                             fullWidth
-                            value={repeatPassword}
-                            onChange={e => setRepeatPassword(e.target.value)}
+                            disabled={true}
+                            label='Email'
+                            value={email}
                             InputProps={{ 
                                 disableUnderline: true,
                                 endAdornment: <InputAdornment position="end">
-                                    <FontAwesomeIcon icon="lock" />
+                                    <FontAwesomeIcon icon="envelope" />
                                     </InputAdornment>
-                            }}
+                                }}
                         />
                     </div>
-                    <Button className="button" variant="contained" type='submit' fullWidth>
-                        Wijzigingen opslaan
-                    </Button>  
-                </form>
-                <span className='loading'>
-                    { loading && <CircularProgress size="2em" />}
-                </span>
-                <Typography component='p' variant='body1'>
-                    {feedback}
-                </Typography>
-                <Button className="button" variant="contained" type='submit' fullWidth onClick={HandleDeleteAccount}>
-                    Account verwijderen
-                </Button>
-            </div>
-        </Paper>
+                    <form noValidate onSubmit={HandleProfileChanges}>
+                        <Typography component='h2' variant='body1'>Wijzig account</Typography>
+                        <div>
+                            <TextField
+                                className='textfield'
+                                autoComplete='cosplayName'
+                                variant='filled'
+                                name='cosplayName'
+                                fullWidth
+                                label='Cosplay naam'
+                                value={cosplayName}
+                                onChange={e => {
+                                    setCosplayName(e.target.value)
+                                    setFeedback('')
+                                    setConfirmation('')
+                                }}
+                                InputProps={{ 
+                                    disableUnderline: true,
+                                    endAdornment: <InputAdornment position="end">
+                                        <FontAwesomeIcon icon="user" />
+                                        </InputAdornment> 
+                                }}
+                            />
+                        </div>
+                        <div>
+                            <TextField
+                                className='textfield first-field'
+                                variant="filled"
+                                name='password'
+                                label='Wachtwoord'
+                                type='password'
+                                fullWidth
+                                value={password}
+                                onChange={e => {
+                                    setPassword(e.target.value)
+                                    setFeedback('')
+                                    setConfirmation('')
+                                }}
+                                InputProps={{ 
+                                    disableUnderline: true,
+                                    endAdornment: <InputAdornment position="end">
+                                        <FontAwesomeIcon icon="lock" />
+                                        </InputAdornment> 
+                                }}
+                            />
+                            <TextField
+                                className='textfield'
+                                variant="filled"
+                                name='repeatPassword'
+                                label='Herhaal wachtwoord'
+                                type='password'
+                                fullWidth
+                                value={repeatPassword}
+                                onChange={e => {
+                                    setRepeatPassword(e.target.value)
+                                    setFeedback('')
+                                    setConfirmation('')
+                                }}
+                                InputProps={{ 
+                                    disableUnderline: true,
+                                    endAdornment: <InputAdornment position="end">
+                                        <FontAwesomeIcon icon="lock" />
+                                        </InputAdornment>
+                                }}
+                            />
+                        </div>
+                        <Button className="button" variant="contained" type='submit' fullWidth>
+                            Wijzigingen opslaan
+                        </Button>  
+                    </form>
+                    <span className='loading'>
+                        { loading && <CircularProgress size="2em" />}
+                    </span>
+                    <Button className="button" variant="contained" type='submit' fullWidth onClick={HandleDeleteAccount}>
+                        Account verwijderen
+                    </Button>
+                </div>
+            </Paper>
+            { feedback !== '' && <Message setMessage={setFeedback} message={feedback} type={'error'} />}
+            { confirmation !== '' && <Message setMessage={setConfirmation} message={confirmation} type={'success'} />}
+        </>
     )
 }

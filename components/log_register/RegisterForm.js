@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Typography, TextField, Button, CircularProgress, Paper, Checkbox, FormControlLabel } from '@material-ui/core'
 import axios from 'axios'
 import useLogin from '../../customHooks/useLogin'
 import EmailValidator from 'email-validator'
 
+import Message from '../messages/Message'
+
+// Formulier om een gebruiker zich te registreren
 export default () => {
     // variabelen setten
     const [email, setEmail] = useState('')
@@ -14,10 +17,11 @@ export default () => {
     const [repeatPassword, setRepeatPassword] = useState('')
     const [ feedbackRegister, setFeedbackRegister ] = useState('')
     const [ loading, setLoading ] = useState(false)
-    const { login, feedback } = useLogin()
     const [ checked, setChecked ] = useState(false)
+    const { login, feedback } = useLogin()
 
     const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
+    const regexCosplayName = new RegExp('^[a-zA-Z0-9 ,.\'-]+$');
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
     const checkboxText = ( <span>Ik ga akkoord met <a href='/gdpr' target='_black'>GDPR</a> en de <a href='/algemene-voorwaarden' target='_black'>algemene voorwaarden</a>.</span> )
     
@@ -26,10 +30,14 @@ export default () => {
         setFeedbackRegister('')
     }
 
+    useEffect( () => {
+        setFeedbackRegister(feedback)
+    }, [feedback])
+
     // Registratie valideren en verzenden
     const handleRegister = async (e) => {
         e.preventDefault()
-        
+                
         // Controlleren of alles is ingevuld
         if ( firstName === '' || lastName === '' || email === '' || password === '' || repeatPassword === '') {
             setFeedbackRegister('Gelieve alle verplichte velden in te vullen')
@@ -42,7 +50,7 @@ export default () => {
             return null
         }
         if ( !regexName.test(firstName) || !regexName.test(lastName)){  // Geen speciale tekens in firstname en lastname buiten , . ' en -
-            setFeedback('Enkel volgende special characters zijn toegelaten voor voornaam en achternaam: , . \' -')
+            setFeedbackRegister('Enkel letters en volgende special characters zijn toegelaten voor voornaam en achternaam: , . \' -')
             return null
         }
         if ( firstName.length < 2 || firstName.length > 50){ // firstname moet tussen 2 en 50 chatacters lang zijn
@@ -51,6 +59,10 @@ export default () => {
         }
         if ( lastName.length < 2 || lastName.length > 50){ // lastname moet tussen 2 en 50 chatacters lang zijn
             setFeedbackRegister('Achtenaam moet tussen 2 en 50 characters lang zijn')
+            return null
+        }
+        if ( cosplayName && !regexCosplayName.test(cosplayName) ) { // indien er een cosplay naam is opgegeven deze controlleren dat deze geen speciale karakters bevat buiten , . ' en -
+            setFeedbackRegister('Enkel volgende special characters zijn toegelaten voor je cosplay naam: , . \' -')
             return null
         }
         if ( password !== repeatPassword ){  // beide wachtwoorden moeten gelijk zijn
@@ -78,9 +90,7 @@ export default () => {
         }
 
         // configuratie voor axios
-        const config = {
-            'Content-Type': 'application/json'
-        }
+        const config = {  'Content-Type': 'application/json' }
 
         setLoading(true)
 
@@ -91,8 +101,14 @@ export default () => {
             login(registerResponse.data.email, password)
             setLoading(false)
         } catch (error) {
+            console.log(error.response)
             if ( error.response.status === 400 ){
-                setFeedbackRegister(`${email} is reeds in gebruik`)
+                if ( error.response.data['hydra:description'] === 'cosplayName: Er bestaat reeds een gebruiker met deze cosplay naam.') {
+                    setFeedback('Er bestaat reeds een gebruiker met deze cosplay naam')
+                }
+                if ( error.response.data['hydra:description'] === 'email: Er bestaat reeds een gebruiker met dit emailadres.') {
+                    setFeedback(`${email} is reeds in gebruik`)
+                }
             } else {
                 setFeedbackRegister( `Sorry, niet in staat in te registreren. Controleer of alle verplichte velden correct zijn ingevuld` )
             }
@@ -103,9 +119,6 @@ export default () => {
         <Paper className='register-paper'>
             <Typography component='h1' variant='h5'>
                 Registreer
-            </Typography>
-            <Typography component='h2' variant='body1'>
-                {feedback}{feedbackRegister}
             </Typography>
             <form noValidate onSubmit={handleRegister}>
                 <TextField 
@@ -211,6 +224,7 @@ export default () => {
                 </Button>
                 { loading && <CircularProgress className="loading" size="2em" />}
             </form>
+            { feedbackRegister !== '' && <Message message={feedbackRegister} setMessage={setFeedbackRegister} type={'error'} />}
         </Paper>
     )
 }

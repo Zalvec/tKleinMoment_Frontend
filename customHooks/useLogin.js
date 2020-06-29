@@ -5,6 +5,7 @@ import Router from 'next/router'
 import { useState } from 'react'
 import EmailValidator from 'email-validator'
 
+// Functie voor het inloggen van een gebruiker
 export default () => {
     // variabelen aanmaken
     const [feedback, setFeedback] = useState('')
@@ -19,9 +20,7 @@ export default () => {
         }
 
         // configuratie voor axios
-        const config = {
-            'Content-Type': 'application/json'
-        }
+        const config = { 'Content-Type': 'application/json' }
     
         // validatie velden
         if (username === "" || password === "") {  // beide velden ingevuld
@@ -60,12 +59,12 @@ export default () => {
                 sameSite: "lax",
                 maxAge: 60 * 60
             })
-            
+
             Router.push("/profiel");
             setLoading(false)
         } catch (error) {
             if ( error.response.status === 401 ) {
-                setFeedback(`Geen geldig account gevonden voor ${username}`)
+                setFeedback(`Email en wachtwoord combinatie niet gevonden.`)
             } else {
                 setFeedback( `Sorry, niet in staat in te loggen. Controleer of email en wachtwoord correct zijn` )
             }
@@ -74,5 +73,5 @@ export default () => {
     }
 
     // functie login en variablen returnen
-    return { login, feedback, loading}
+    return { login, feedback, setFeedback, loading}
 } 

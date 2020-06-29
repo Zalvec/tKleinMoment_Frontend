@@ -1,6 +1,7 @@
 import Layout from '../components/layout'
 import AlgemeneVoorwaarden from '../components/AlgemeneVoorwaarden'
 
+// Pagina met de algemene voorwaarden
 export default ({footerData}) => {
     return (
         <>

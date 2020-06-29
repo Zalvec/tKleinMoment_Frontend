@@ -44,6 +44,7 @@
   }
 }
 
+
 // Font
 
 @mixin font(
@@ -67,7 +68,18 @@
   letter-spacing: $letterspacing;
 }
 
+
 // Flex
+
+@mixin flex-easy(
+  $richting: row,
+  $hoofdas: flex-start
+)
+{
+  display: flex;
+  flex-direction: $richting;
+  justify-content: $hoofdas;
+}
 
 @mixin flex(
   $richting: row,

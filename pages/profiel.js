@@ -2,6 +2,7 @@ import Layout from '../components/layout'
 import { guestUser } from '../helpers/helpers'
 import Profiel from '../components/profiel/Profiel'
 
+// Pagina met de account gegevens van een ingelogde gebruiker
 export default ({footerData, userData}) => {
     return (
         <>

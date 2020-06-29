@@ -6,6 +6,7 @@ import {slugify} from '../../../helpers/slugify'
 import Layout from '../../../components/layout'
 import AlbumDetail from '../../../components/album/AlbumDetail'
 
+// Pagina met de details en foto's van één specifiek album
 export default ({album, footerData}) => {
     const router = useRouter()
 

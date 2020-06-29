@@ -4,6 +4,9 @@ import { Paper, Typography, CircularProgress, TextField, TextareaAutosize, Butto
 import { parseCookies } from 'nookies'
 import EmailValidator from 'email-validator'
 
+import Message from './messages/Message'
+
+// Het contact formulier met logica
 export default () => {
     
     // Variabelen setten
@@ -13,14 +16,17 @@ export default () => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [message, setMessage] = useState('')
     const [feedback, setFeedback] = useState('')
+    const [ confirmation, setConfirmation ] = useState('')
     const [ loading, setLoading ] = useState(false)
 
+    // Regular expressions definiëren
     const regexNumber = new RegExp('^(0)[0-9]{9,15}$');
     const regexName = new RegExp('^[a-zA-Z ,.\'-]+$');
 
     // Als een gebruiker is ingelogd, worden zijn gegevens opgevraagd uit de cookie en onMount in de juiste velden ingevuld
     const cookies = parseCookies()
     const userInfo = Object.keys(cookies).length ? JSON.parse(cookies.userinfo) : null
+
     useEffect( () => {
         if (userInfo !== null ){
             setEmail(userInfo.username)
@@ -62,7 +68,6 @@ export default () => {
             setFeedback('Bericht moet minstens 10 characters lang zijn')
             return null
         }
-        
 
         // Gegevens bundelen voor axios
         const requestBody = {
@@ -80,120 +85,124 @@ export default () => {
         }
 
         setLoading(true)
-        console.log(requestBody)
 
         // Contact formulier verzenden. Bij succes bericht tonen en alle velden leeg maken
         // Bij error een error bericht terugsturen
         axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}messages`, requestBody, config)
             .then( response => {
-                setFeedback('Mail verzonden')
+                setConfirmation('Mail verzonden')
                 setPhoneNumber('')
                 setMessage('')
                 setLoading(false)
             })
             .catch( error  => {
-                console.log(error.response)
                 setLoading(false)
                 setFeedback('Iets ging mis, probeer het later opnieuw')
             })
     }
 
     return (
-        <Paper className="contact-paper">
-            <Typography component='h1' variant='h5'>
-                Contact formulier
-            </Typography>
-            <Typography component='h2' variant='body1'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia veritatis exercitationem voluptates, ab voluptate maiores eligendi facilis et deleniti ipsam sit ratione, ullam sed, fuga magnam. Pariatur, distinctio sequi. Repellendus.
-            </Typography>
-            <Typography component='p' variant='body1'>
-                {feedback}
-            </Typography>
-
-            {/* noValidate schakelt de standaard veld error messages uit */}
-            <form noValidate onSubmit={handleContactFrom}>
-                <div>
-                    <TextField 
-                        className='textfield'
-                        autoComplete='email'
-                        variant="filled"
-                        name='email'
-                        required
-                        fullWidth
-                        label='Email'
-                        value={email}
+        <>
+            <Paper className="contact-paper">
+                <Typography component='h1' variant='h5'>
+                    Contact formulier
+                </Typography>
+                <Typography component='h2' variant='body1'>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia veritatis exercitationem voluptates, ab voluptate maiores eligendi facilis et deleniti ipsam sit ratione, ullam sed, fuga magnam. Pariatur, distinctio sequi. Repellendus.
+                </Typography>
+               
+                {/* noValidate schakelt de standaard veld error messages uit */}
+                <form noValidate onSubmit={handleContactFrom}>
+                    <div>
+                        <TextField 
+                            className='textfield'
+                            autoComplete='email'
+                            variant="filled"
+                            name='email'
+                            required
+                            fullWidth
+                            label='Email'
+                            value={email}
+                            onChange={e => {
+                                setEmail(e.target.value)
+                                setFeedback('')
+                                setConfirmation('')
+                            }}
+                            InputProps={{ disableUnderline: true }}
+                        />
+                        <TextField 
+                            className='textfield'
+                            autoComplete='firstName'
+                            variant="filled"
+                            name='firstName'
+                            required
+                            fullWidth
+                            label='Voornaam'
+                            value={firstName}
+                            onChange={e => {
+                                setFirstName(e.target.value)
+                                setFeedback('')
+                                setConfirmation('')
+                            }}
+                            InputProps={{ disableUnderline: true }}
+                        />
+                    </div>
+                    <div>
+                        <TextField 
+                            className='textfield'
+                            autoComplete='lastName'
+                            variant="filled"
+                            name='lastName'
+                            required
+                            fullWidth
+                            label='Achternaam'
+                            value={lastName}
+                            onChange={e => {
+                                setLastName(e.target.value)
+                                setFeedback('')
+                                setConfirmation('')
+                            }}
+                            InputProps={{ disableUnderline: true }}
+                        />
+                        <TextField 
+                            className='textfield'
+                            autoComplete='phoneNumber'
+                            variant="filled"
+                            name='phoneNumber'
+                            fullWidth
+                            label='Telefoonnummer'
+                            value={phoneNumber}
+                            onChange={e => {
+                                setPhoneNumber(e.target.value)
+                                setFeedback('')
+                                setConfirmation('')
+                            }}
+                            InputProps={{ disableUnderline: true }}
+                        />
+                    </div>
+                    
+                    <TextareaAutosize 
+                        placeholder="Uw bericht of vraag hier..."
+                        label='Message'
+                        value={message}
                         onChange={e => {
-                            setEmail(e.target.value)
+                            setMessage(e.target.value)
                             setFeedback('')
+                            setConfirmation('')
                         }}
-                        InputProps={{ disableUnderline: true }}
-                    />
-                    <TextField 
-                        className='textfield'
-                        autoComplete='firstName'
-                        variant="filled"
-                        name='firstName'
                         required
-                        fullWidth
-                        label='Voornaam'
-                        value={firstName}
-                        onChange={e => {
-                            setFirstName(e.target.value)
-                            setFeedback('')
-                        }}
-                        InputProps={{ disableUnderline: true }}
+                        rowsMin={4}
                     />
+                    <Button className="button" variant="contained" type='submit'>
+                            Bericht verzenden
+                    </Button>
+                </form>
+                <div className='loading'>
+                    { loading && <CircularProgress size="2em" />}
                 </div>
-                <div>
-                    <TextField 
-                        className='textfield'
-                        autoComplete='lastName'
-                        variant="filled"
-                        name='lastName'
-                        required
-                        fullWidth
-                        label='Achternaam'
-                        value={lastName}
-                        onChange={e => {
-                            setLastName(e.target.value)
-                            setFeedback('')
-                        }}
-                        InputProps={{ disableUnderline: true }}
-                    />
-                    <TextField 
-                        className='textfield'
-                        autoComplete='phoneNumber'
-                        variant="filled"
-                        name='phoneNumber'
-                        fullWidth
-                        label='Telefoonnummer'
-                        value={phoneNumber}
-                        onChange={e => {
-                            setPhoneNumber(e.target.value)
-                            setFeedback('')
-                        }}
-                        InputProps={{ disableUnderline: true }}
-                    />
-                </div>
-                
-                <TextareaAutosize 
-                    placeholder="Uw bericht of vraag hier..."
-                    label='Message'
-                    value={message}
-                    onChange={e => {
-                        setMessage(e.target.value)
-                        setFeedback('')
-                    }}
-                    required
-                    rowsMin={4}
-                />
-                <Button className="button" variant="contained" type='submit'>
-                        Bericht verzenden
-                </Button>
-            </form>
-            <div className='loading'>
-                { loading && <CircularProgress size="2em" />}
-            </div>
-        </Paper>
+            </Paper>
+            { feedback !== '' && <Message message={feedback} setMessage={setFeedback} type={'error'} />}
+            { confirmation !== '' && <Message message={confirmation} setMessage={setConfirmation} type={'success'} />}
+        </>
     )
 }

@@ -3,6 +3,7 @@ import axios from 'axios'
 import Layout from '../components/layout'
 import About from '../components/About'
 
+// Pagina met informatie over en van de fotograaf
 export default ({abouts, footerData}) => {
     return (
         <>

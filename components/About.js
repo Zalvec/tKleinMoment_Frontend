@@ -2,8 +2,9 @@ import { Card, CardContent, Typography, CardMedia } from '@material-ui/core'
 
 import useWindowSize from '../customHooks/useWindowSize'
 
+// Inhoud van de about pagina
 export default ({abouts}) => {
-    // Window size
+    // Window size opvragen via custom hook
     const size = useWindowSize();
 
     return (

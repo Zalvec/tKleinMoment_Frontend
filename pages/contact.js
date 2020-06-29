@@ -1,6 +1,7 @@
 import Layout from '../components/layout'
 import ContactForm from '../components/ContactForm'
 
+// Pagina waar gebruikers contact kunnen opnemen met de fotograaf
 export default ({footerData}) => {
     return (
         <>

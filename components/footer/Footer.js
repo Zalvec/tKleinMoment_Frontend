@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../fontAwesome/fontAwesome'
 
+// Footer
 export default ({footerData}) => {
     return (
         <footer>
@@ -30,6 +31,7 @@ export default ({footerData}) => {
                                         {phoneNumber}
                                     </a>
                                 </li>
+                                {/* Links tonen naargelang ze aanwezig zijn*/}
                                 { !facebookLink && !instagramLink ? '' : 
                                     <li>
                                         { facebookLink && 

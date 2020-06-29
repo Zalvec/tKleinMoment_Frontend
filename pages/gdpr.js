@@ -1,6 +1,7 @@
 import Layout from '../components/layout'
 import GDPR from '../components/GDPR'
 
+// Pagina met informatie ivm GDPR en de toepassing hiervan
 export default ({footerData}) => {
     return (
         <>

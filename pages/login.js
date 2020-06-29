@@ -5,6 +5,7 @@ import Login from '../components/log_register/LoginForm'
 import Register from '../components/log_register/RegisterForm'
 import { loggedUser } from '../helpers/helpers'
 
+// Pagina waar gebruikers zich kunnen inloggen of registreren
 export default ({footerData}) => {
   return (
     <>
